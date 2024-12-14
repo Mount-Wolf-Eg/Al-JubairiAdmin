@@ -27,7 +27,8 @@ const router = createRouter({
     {
       path: "/hero-slider",
       name: "HeroSlider",
-      component: () => import("@/components/local/hero-slider/Slider.vue"),
+      component: () =>
+        import("@/components/local/home-page/hero-slider/Slider.vue"),
       meta: {
         title: "Main Slider",
         requiresAuth: true,
@@ -36,7 +37,8 @@ const router = createRouter({
     {
       path: "/item-data/:id",
       name: "itemInfo",
-      component: () => import("@/components/local/hero-slider/SliderInfo.vue"),
+      component: () =>
+        import("@/components/local/home-page/hero-slider/SliderInfo.vue"),
       meta: {
         title: "Slider Data",
         requiresAuth: true,
@@ -46,7 +48,7 @@ const router = createRouter({
       path: "/excellence",
       name: "Excellence",
       component: () =>
-        import("@/components/local/excellence-items/Excellence.vue"),
+        import("@/components/local/home-page/excellence-items/Excellence.vue"),
       meta: {
         title: "Excellence",
         requiresAuth: true,
@@ -56,7 +58,9 @@ const router = createRouter({
       path: "/excellence-data/:id",
       name: "ExcellenceInfo",
       component: () =>
-        import("@/components/local/excellence-items/ExcellenceInfo.vue"),
+        import(
+          "@/components/local/home-page/excellence-items/ExcellenceInfo.vue"
+        ),
       meta: {
         title: "Excellence Data",
         requiresAuth: true,
@@ -65,7 +69,8 @@ const router = createRouter({
     {
       path: "/about-us",
       name: "AboutUs",
-      component: () => import("@/components/local/about-us/AboutUs.vue"),
+      component: () =>
+        import("@/components/local/home-page/about-us/AboutUs.vue"),
       meta: {
         title: "About us",
         requiresAuth: true,
@@ -74,7 +79,8 @@ const router = createRouter({
     {
       path: "/about-data/:id",
       name: "AboutInfo",
-      component: () => import("@/components/local/about-us/AboutUsInfo.vue"),
+      component: () =>
+        import("@/components/local/home-page/about-us/AboutUsInfo.vue"),
       meta: {
         title: "About Data",
         requiresAuth: true,
@@ -83,7 +89,8 @@ const router = createRouter({
     {
       path: "/services",
       name: "Services",
-      component: () => import("@/components/local/our-services/Services.vue"),
+      component: () =>
+        import("@/components/local/home-page/our-services/Services.vue"),
       meta: {
         title: "Services",
         requiresAuth: true,
@@ -93,7 +100,7 @@ const router = createRouter({
       path: "/service-data/:id",
       name: "ServiceInfo",
       component: () =>
-        import("@/components/local/our-services/ServicesInfo.vue"),
+        import("@/components/local/home-page/our-services/ServicesInfo.vue"),
       meta: {
         title: "Service Data",
         requiresAuth: true,
@@ -104,7 +111,7 @@ const router = createRouter({
       path: "/achievement",
       name: "Achievement",
       component: () =>
-        import("@/components/local/our-Achievements/Achievement.vue"),
+        import("@/components/local/home-page/our-Achievements/Achievement.vue"),
       meta: {
         title: "Achievements",
         requiresAuth: true,
@@ -114,7 +121,9 @@ const router = createRouter({
       path: "/achievement-data/:id",
       name: "AchieveInfo",
       component: () =>
-        import("@/components/local/our-Achievements/AchievementInfo.vue"),
+        import(
+          "@/components/local/home-page/our-Achievements/AchievementInfo.vue"
+        ),
       meta: {
         title: "Acheivement Data",
         requiresAuth: true,
@@ -125,7 +134,9 @@ const router = createRouter({
       path: "/ertificates",
       name: "Certificates",
       component: () =>
-        import("@/components/local/our-certificates/Certificates.vue"),
+        import(
+          "@/components/local/home-page/our-certificates/Certificates.vue"
+        ),
       meta: {
         title: "Certificates",
         requiresAuth: true,
@@ -135,7 +146,9 @@ const router = createRouter({
       path: "/certificate-data/:id",
       name: "CertificateInfo",
       component: () =>
-        import("@/components/local/our-certificates/CertificateInfo.vue"),
+        import(
+          "@/components/local/home-page/our-certificates/CertificateInfo.vue"
+        ),
       meta: {
         title: "Certificate Data",
         requiresAuth: true,
@@ -144,7 +157,8 @@ const router = createRouter({
     {
       path: "/last-news",
       name: "LastNews",
-      component: () => import("@/components/local/last-news/LastNews.vue"),
+      component: () =>
+        import("@/components/local/home-page/last-news/LastNews.vue"),
       meta: {
         title: "LastNews",
         requiresAuth: true,
@@ -153,7 +167,8 @@ const router = createRouter({
     {
       path: "/last-news-data/:id",
       name: "LastNewsInfo",
-      component: () => import("@/components/local/last-news/NewsInfo.vue"),
+      component: () =>
+        import("@/components/local/home-page/last-news/NewsInfo.vue"),
       meta: {
         title: "Asked Questions",
         requiresAuth: true,
@@ -164,7 +179,7 @@ const router = createRouter({
       path: "/asked-questions",
       name: "AskedQuestions",
       component: () =>
-        import("@/components/local/ask-questions/AskQuestion.vue"),
+        import("@/components/local/home-page/ask-questions/AskQuestion.vue"),
       meta: {
         title: "LastNews",
         requiresAuth: true,
@@ -174,7 +189,7 @@ const router = createRouter({
       path: "/asked-questions-data/:id",
       name: "AskedQuestionsInfo",
       component: () =>
-        import("@/components/local/ask-questions/QuestionInfo.vue"),
+        import("@/components/local/home-page/ask-questions/QuestionInfo.vue"),
       meta: {
         title: "AskedQuestions Data",
         requiresAuth: true,
@@ -184,7 +199,8 @@ const router = createRouter({
     {
       path: "/clients",
       name: "Clients",
-      component: () => import("@/components/local/our-clients/Clients.vue"),
+      component: () =>
+        import("@/components/local/home-page/our-clients/Clients.vue"),
       meta: {
         title: "Clients",
         requiresAuth: true,
@@ -193,9 +209,32 @@ const router = createRouter({
     {
       path: "/clients/:id",
       name: "ClientsInfo",
-      component: () => import("@/components/local/our-clients/ClientInfo.vue"),
+      component: () =>
+        import("@/components/local/home-page/our-clients/ClientInfo.vue"),
       meta: {
         title: "Client Data",
+        requiresAuth: true,
+      },
+    },
+    // our-services page
+
+    {
+      path: "/service-page",
+      name: "OurServicePage",
+      component: () =>
+        import("@/components/local/service-page/our-services/Services.vue"),
+      meta: {
+        title: "Services Page",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/service-page-data/:id",
+      name: "ServicePageInfo",
+      component: () =>
+        import("@/components/local/service-page/our-services/ServicesInfo.vue"),
+      meta: {
+        title: "Service Page Data",
         requiresAuth: true,
       },
     },
@@ -203,7 +242,7 @@ const router = createRouter({
     // {
     //   path: "/clients",
     //   name: "clients",
-    //   component: () => import("@/components/local/clients/Clients.vue"),
+    //   component: () => import("@/components/local/home-page/clients/Clients.vue"),
     //   meta: {
     //     title: "clients",
     //     requiresAuth: true,
@@ -212,7 +251,7 @@ const router = createRouter({
     // {
     //   path: "/partner/:id",
     //   name: "partnerData",
-    //   component: () => import("@/components/local/clients/ClientInfo.vue"),
+    //   component: () => import("@/components/local/home-page/clients/ClientInfo.vue"),
     //   meta: {
     //     title: "client",
     //     requiresAuth: true,
@@ -223,7 +262,7 @@ const router = createRouter({
     //   path: "/header-slider",
     //   name: "headerSlider",
     //   component: () =>
-    //     import("@/components/local/headerSlider/HeaderSlider.vue"),
+    //     import("@/components/local/home-page/headerSlider/HeaderSlider.vue"),
     //   meta: {
     //     title: "Header Slider",
     //     requiresAuth: true,
@@ -233,7 +272,7 @@ const router = createRouter({
     //   path: "/header-slider/:id",
     //   name: "SliderInfo",
     //   component: () =>
-    //     import("@/components/local/headerSlider/HeaderSliderInfo.vue"),
+    //     import("@/components/local/home-page/headerSlider/HeaderSliderInfo.vue"),
     //   meta: {
     //     title: "Header SLider Info",
     //     requiresAuth: true,
@@ -243,7 +282,7 @@ const router = createRouter({
     // {
     //   path: "/about-slider",
     //   name: "aboutSlider",
-    //   component: () => import("@/components/local/AboutSlider/AboutSlider.vue"),
+    //   component: () => import("@/components/local/home-page/AboutSlider/AboutSlider.vue"),
     //   meta: {
     //     title: "About Slider",
     //     requiresAuth: true,
@@ -253,7 +292,7 @@ const router = createRouter({
     //   path: "/about-slider/:id",
     //   name: "aboutInfo",
     //   component: () =>
-    //     import("@/components/local/AboutSlider/AboutSliderInfo.vue"),
+    //     import("@/components/local/home-page/AboutSlider/AboutSliderInfo.vue"),
     //   meta: {
     //     title: "About Us Slider Details",
     //     requiresAuth: true,
@@ -263,7 +302,7 @@ const router = createRouter({
     // {
     //   path: "/Service",
     //   name: "services",
-    //   component: () => import("@/components/local/services/Services.vue"),
+    //   component: () => import("@/components/local/home-page/services/Services.vue"),
     //   meta: {
     //     title: "Services",
     //     requiresAuth: true,
@@ -272,7 +311,7 @@ const router = createRouter({
     // {
     //   path: "/service/:id",
     //   name: "serviceInfo",
-    //   component: () => import("@/components/local/services/ServicesInfo.vue"),
+    //   component: () => import("@/components/local/home-page/services/ServicesInfo.vue"),
     //   meta: {
     //     title: "Service Details",
     //     requiresAuth: true,
@@ -282,7 +321,7 @@ const router = createRouter({
     // {
     //   path: "/project",
     //   name: "projects",
-    //   component: () => import("@/components/local/project/Project.vue"),
+    //   component: () => import("@/components/local/home-page/project/Project.vue"),
     //   meta: {
     //     title: "projects",
     //     requiresAuth: true,
@@ -291,7 +330,7 @@ const router = createRouter({
     // {
     //   path: "/project/:id",
     //   name: "projectInfo",
-    //   component: () => import("@/components/local/project/ProjectInfo.vue"),
+    //   component: () => import("@/components/local/home-page/project/ProjectInfo.vue"),
     //   meta: {
     //     title: "Project Details",
     //     requiresAuth: true,
@@ -301,7 +340,7 @@ const router = createRouter({
     // {
     //   path: "/products",
     //   name: "productPage",
-    //   component: () => import("@/components/local/products/Product.vue"),
+    //   component: () => import("@/components/local/home-page/products/Product.vue"),
     //   meta: {
     //     title: "Products",
     //     requiresAuth: true,
@@ -310,7 +349,7 @@ const router = createRouter({
     // {
     //   path: "/product/:id",
     //   name: "productInfo",
-    //   component: () => import("@/components/local/products/ProductInfo.vue"),
+    //   component: () => import("@/components/local/home-page/products/ProductInfo.vue"),
     //   meta: {
     //     title: "products Details",
     //     requiresAuth: true,
@@ -319,7 +358,7 @@ const router = createRouter({
     // {
     //   path: "/quotes/settings",
     //   name: "quotesSettings",
-    //   component: () => import("@/components/local/quotes/QuotesSettings.vue"),
+    //   component: () => import("@/components/local/home-page/quotes/QuotesSettings.vue"),
     //   meta: {
     //     title: "Quotes Settings",
     //     requiresAuth: true,
@@ -329,7 +368,7 @@ const router = createRouter({
     //   path: "/contact/settings",
     //   name: "contactSettings",
     //   component: () =>
-    //     import("@/components/local/contact_page/ContactUsSettings.vue"),
+    //     import("@/components/local/home-page/contact_page/ContactUsSettings.vue"),
     //   meta: {
     //     title: "Contact Settings",
     //     requiresAuth: true,
@@ -338,7 +377,7 @@ const router = createRouter({
     // {
     //   path: "/quotes",
     //   name: "quotes",
-    //   component: () => import("@/components/local/quotes/Quotes.vue"),
+    //   component: () => import("@/components/local/home-page/quotes/Quotes.vue"),
     //   meta: {
     //     title: "Quotes",
     //     requiresAuth: true,
@@ -348,7 +387,7 @@ const router = createRouter({
     // {
     //   path: "/contactMessage/:id",
     //   name: "Quote Info",
-    //   component: () => import("@/components/local/quotes/QuotesInfo.vue"),
+    //   component: () => import("@/components/local/home-page/quotes/QuotesInfo.vue"),
     //   meta: {
     //     title: "Quotes Info",
     //     requiresAuth: true,
@@ -357,7 +396,7 @@ const router = createRouter({
     // {
     //   path: "/contact-us",
     //   name: "ContactPage",
-    //   component: () => import("@/components/local/contact_page/ContactUs.vue"),
+    //   component: () => import("@/components/local/home-page/contact_page/ContactUs.vue"),
     //   meta: {
     //     title: "Contact",
     //     requiresAuth: true,
@@ -367,7 +406,7 @@ const router = createRouter({
     // {
     //   path: "/workProcess",
     //   name: "workProcess",
-    //   component: () => import("@/components/local/settings/WorkProcess.vue"),
+    //   component: () => import("@/components/local/home-page/settings/WorkProcess.vue"),
     //   meta: {
     //     title: "Work Process",
     //     requiresAuth: true,
@@ -376,7 +415,7 @@ const router = createRouter({
     // {
     //   path: "/Header-settings",
     //   name: "headerSettings",
-    //   component: () => import("@/components/local/settings/headerSettings.vue"),
+    //   component: () => import("@/components/local/home-page/settings/headerSettings.vue"),
     //   meta: {
     //     title: "Header Setting",
     //     requiresAuth: true,
@@ -385,7 +424,7 @@ const router = createRouter({
     // {
     //   path: "/footer-settings",
     //   name: "FooterSettings",
-    //   component: () => import("@/components/local/settings/FooterSettings.vue"),
+    //   component: () => import("@/components/local/home-page/settings/FooterSettings.vue"),
     //   meta: {
     //     title: "Footer Setting",
     //     requiresAuth: true,
