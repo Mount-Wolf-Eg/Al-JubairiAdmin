@@ -41,6 +41,8 @@ export const settingStore = defineStore("settingStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });

@@ -16,7 +16,7 @@
           <td>
             <div class="form-check form-switch">
               <input
-                :checked="!item.deleted_at"
+                :checked="item.is_active"
                 @change="toggleStatus(item.id, $event)"
                 class="form-check-input"
                 type="checkbox"
@@ -27,15 +27,18 @@
           </td>
           <td
             @click="
-              router.push({ name: 'projectInfo', params: { id: item.id } })
+              router.push({
+                name: 'itemInfo',
+                params: { id: item.id },
+              })
             "
           >
             <img
               class="mx-2"
               style="background-color: #ccc; padding: 0.5rem; height: 5rem"
               v-if="item.image"
-              :src="item.image"
-              :alt="item.description"
+              :src="item.image.media"
+              :alt="item.image.alt"
             />
           </td>
 
@@ -53,7 +56,7 @@
           <td
             :style="`${
               item.deleted_at == null
-                ? 'color: var(--col-success) !important'
+                ? 'color: var(--col-sucs) !important'
                 : 'color: var(--col-error) !important'
             }`"
           >
@@ -136,40 +139,40 @@ import { useRouter } from "vue-router";
 import { ref, computed, onMounted, defineEmits, watch } from "vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
-const { allItems } = storeToRefs(useItemsStore());
+const { allItems, singleItem } = storeToRefs(useItemsStore());
 const router = useRouter();
-const emit = defineEmits(["AddSlider"]);
+const emit = defineEmits(["editItem"]);
 
 onMounted(async () => {
-  await useItemsStore().getItems();
-  console.log(allItems.value);
+  await useItemsStore().getItems("slider", "home");
 });
 
 const toggleStatus = async (id, e) => {
-  // if (e.target.checked) {
-  //   const res = await usePackageStore().restorePackage({ id: id });
-  //   if (!res) {
-  //     e.target.checked = !e.target.checked;
-  //   }
-  // } else {
-  //   const res = await usePackageStore().destroyPackage({ id: id });
-  //   if (!res) {
-  //     e.target.checked = !e.target.checked;
-  //   }
-  // }
-  // await usePackageStore().getAllPackages();
+  if (e.target.checked) {
+    const res = await useItemsStore().toggle(id);
+    if (!res) {
+      e.target.checked = !e.target.checked;
+    }
+  } else {
+    const res = await useItemsStore().toggle(id);
+    if (!res) {
+      e.target.checked = !e.target.checked;
+    }
+  }
+  await useItemsStore().getItems("slider", "home");
 };
 
 const remove = async (id) => {
-  // const res = await usePackageStore().deletePackage({ id: id });
-  // await usePackageStore().getAllPackages();
+  await useItemsStore().deleteItem(id);
+  await useItemsStore().getItems("slider", "home");
 };
 
-const edit = async (pack) => {
-  // let res = await usePackageStore().getPackage({ id: pack });
-  // if (res) {
-  //   emit("AddSlider", packag.value);
-  // }
+const edit = async (id) => {
+  let res = await useItemsStore().getSingleItem(id);
+
+  if (res) {
+    emit("editItem", singleItem.value);
+  }
 };
 </script>
 

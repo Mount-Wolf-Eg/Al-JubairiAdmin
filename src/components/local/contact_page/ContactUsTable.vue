@@ -49,7 +49,7 @@
           <td
             :style="`${
               msg.status == 'replied'
-                ? 'color: var(--col-success) !important'
+                ? 'color: var(--col-sucs) !important'
                 : 'color: var(--col-error) !important'
             }`"
           >

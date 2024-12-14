@@ -41,7 +41,7 @@
           <td
             :style="`${
               partner.deleted_at == null
-                ? 'color: var(--col-success) !important'
+                ? 'color: var(--col-sucs) !important'
                 : 'color: var(--col-error) !important'
             }`"
           >

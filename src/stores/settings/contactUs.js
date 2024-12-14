@@ -41,6 +41,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -68,6 +70,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -96,6 +100,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -124,6 +130,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -153,6 +161,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -173,6 +183,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -199,6 +211,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -231,6 +245,8 @@ export const contactUsStore = defineStore("contactUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;

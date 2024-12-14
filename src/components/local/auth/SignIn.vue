@@ -15,6 +15,7 @@
             max-width: 11rem;
             object-fit: contain;
             object-position: center;
+            background-color: #ccc !important;
           "
         />
 

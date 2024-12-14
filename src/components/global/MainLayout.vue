@@ -3,14 +3,17 @@
     <div class="main-layout" v-if="route.name !== 'login'">
       <NavBar></NavBar>
       <div class="layout-body row" style="flex: 1">
-        <SideBar></SideBar>
-        <main class="content col">
+        <SideBar class="col-2"></SideBar>
+        <main class="content col" style="overflow-x: auto">
           <div class="content-title">
             {{ route.meta.title || "Admin Dashboard" }}
           </div>
           <div
             class="p-5 m-4 content-body"
-            style="border-radius: var(--brd-radius)"
+            style="
+              border-radius: var(--brd-radius);
+              overflow-x: auto !important;
+            "
           >
             <slot></slot>
           </div>

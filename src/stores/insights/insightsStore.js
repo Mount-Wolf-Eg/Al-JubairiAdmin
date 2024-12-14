@@ -42,6 +42,8 @@ export const useInsights = defineStore("insightStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -67,6 +69,8 @@ export const useInsights = defineStore("insightStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -91,6 +95,8 @@ export const useInsights = defineStore("insightStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -115,6 +121,8 @@ export const useInsights = defineStore("insightStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });

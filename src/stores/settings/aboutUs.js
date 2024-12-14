@@ -48,6 +48,8 @@ export const aboutUsStore = defineStore("aboutUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -73,6 +75,8 @@ export const aboutUsStore = defineStore("aboutUs", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;

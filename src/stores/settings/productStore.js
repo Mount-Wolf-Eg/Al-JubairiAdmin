@@ -42,6 +42,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -66,6 +68,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -90,6 +94,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -114,6 +120,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -141,6 +149,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -169,6 +179,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -197,6 +209,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -226,6 +240,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -255,6 +271,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -284,6 +302,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -312,6 +332,8 @@ export const useProductStore = defineStore("productStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;

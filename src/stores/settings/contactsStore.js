@@ -39,6 +39,8 @@ export const contactSettings = defineStore("contactSettings", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -66,6 +68,8 @@ export const contactSettings = defineStore("contactSettings", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -97,6 +101,8 @@ export const contactSettings = defineStore("contactSettings", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;

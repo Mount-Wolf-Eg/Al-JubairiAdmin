@@ -115,6 +115,8 @@ export const useAuthStore = defineStore("authStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
 
@@ -277,6 +279,8 @@ export const useAuthStore = defineStore("authStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });

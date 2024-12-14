@@ -40,6 +40,8 @@ export const useJobsStore = defineStore("jobStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
         });
@@ -67,6 +69,8 @@ export const useJobsStore = defineStore("jobStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -96,6 +100,8 @@ export const useJobsStore = defineStore("jobStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -125,6 +131,8 @@ export const useJobsStore = defineStore("jobStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -154,6 +162,8 @@ export const useJobsStore = defineStore("jobStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -182,6 +192,8 @@ export const useJobsStore = defineStore("jobStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;
@@ -211,6 +223,8 @@ export const useJobsStore = defineStore("jobStore", {
             if (errorArray) {
               errorMessage = err.response.data.message;
             }
+          } else {
+            errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
           result = false;

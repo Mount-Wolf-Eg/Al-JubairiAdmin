@@ -44,6 +44,8 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
+
 const props = defineProps({
   header: {
     type: Array,

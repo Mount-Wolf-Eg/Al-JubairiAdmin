@@ -7,7 +7,7 @@
           :id="selectore"
           class="add-btn"
           data-bs-toggle="modal"
-          data-bs-target="#addPack"
+          data-bs-target="#addSlide"
         >
           <svg
             style="
@@ -29,7 +29,7 @@
       </template>
     </HelperButtons>
 
-    <!-- <AddSlider @resetItem="item = {}" :itemData="item"></AddSlider> -->
+    <AddSlider @resetItem="item = {}" :itemData="item"></AddSlider>
     <SliderTable @editItem="edit($event)"></SliderTable>
   </div>
 </template>
@@ -41,7 +41,7 @@ import AddSlider from "./AddSlider.vue";
 import SliderTable from "./SliderTable.vue";
 
 const item = ref({});
-const selectore = ref("addProject");
+const selectore = ref("addSlider");
 
 const edit = (e) => {
   item.value = e;

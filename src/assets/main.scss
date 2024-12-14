@@ -46,9 +46,9 @@
   --col-text: #464a61;
   --col-bg: #f0f0f0;
   --col-gray: #2c2c2c;
-  // --col-success: #43b75d;
+  --col-sucs: #43b75d;
   --col-success: #929292;
-  // --col-error: #ee443f;
+  --col-err: #ee443f;
   --col-error: #000000;
   --col-tabel: #fff;
 }
@@ -62,6 +62,7 @@
   --col-bg: #292929;
   --col-gray: #dad8d8;
   --col-success: #43b75d;
+  --col-err: #ee443f;
   --col-error: #ee443f;
   --col-tabel: #292929;
 }
@@ -150,7 +151,7 @@ body {
         height: 2.4rem;
         border-radius: 50%;
         color: var(--col-white);
-        background-color: var(--col-success);
+        background-color: var(--col-sucs);
         font-size: 1.2rem !important;
         top: 0.5rem;
         right: -2rem;
@@ -310,11 +311,11 @@ body {
 
 // validation styles
 .err-border {
-  border: 1px solid var(--col-error) !important;
+  border: 1px solid var(--col-err) !important;
 }
 .err-msg {
   margin-top: var(--m-top-1);
-  color: var(--col-error);
+  color: var(--col-err);
   padding: 0;
   font-size: 12px;
 }
@@ -481,6 +482,9 @@ body {
       border: none;
       color: var(--col-text) !important;
       cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
@@ -558,4 +562,12 @@ body {
   position: absolute;
   bottom: 30%;
   right: 2%;
+}
+
+.inpt-label {
+  background-color: transparent !important;
+  color: var(--col-text) !important;
+  font-size: var(--fs-16) !important;
+  font-weight: var(--fw-bold) !important;
+  line-height: var(--line-h-20) !important;
 }

@@ -42,7 +42,7 @@
           <td
             :style="`${
               pack.sticky
-                ? 'color: var(--col-success) !important'
+                ? 'color: var(--col-sucs) !important'
                 : 'color: var(--col-error) !important'
             }`"
           >
