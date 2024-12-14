@@ -277,7 +277,7 @@ import { storeToRefs } from "pinia";
 const emit = defineEmits(["resetItem"]);
 const isLoading = ref(false);
 const selector = ref("addse");
-const sec_id = ref(4);
+const sec_id = ref(1);
 const sec_name = ref("services");
 
 const props = defineProps({
