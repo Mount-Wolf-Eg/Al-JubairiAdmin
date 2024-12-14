@@ -19,12 +19,12 @@ axiosInstance.interceptors.response.use(
         return Promise.reject("error");
       }
 
-      if (error.response && error.response.status === 401) {
-        useAuthStore().logOut();
-      }
-      if (error.response && error.response.status === 422) {
-        useAuthStore().removeData();
-      }
+      // if (error.response && error.response.status === 401) {
+      //   useAuthStore().logOut();
+      // }
+      // if (error.response && error.response.status === 422) {
+      //   useAuthStore().removeData();
+      // }
     }
     return Promise.reject(error);
   }

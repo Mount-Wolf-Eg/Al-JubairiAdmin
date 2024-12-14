@@ -321,7 +321,7 @@ watch(
     formData.value.desc.den = props.itemData.en?.desc;
     formData.value.alt.aar = props.itemData.image.ar?.alt;
     formData.value.alt.aen = props.itemData.image.en?.alt;
-    formData.value.img = props.itemData.image?.media_name;
+    formData.value.img = props.itemData.image?.media;
   }
 );
 
@@ -421,28 +421,50 @@ const updatePack = async () => {
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {
-    const res = await useItemsStore()
-      .sendAttachment(formData.value.img)
-      .then(async (res) => {
-        await useItemsStore()
-          .editItem(props.itemData.id, {
-            _method: "PUT",
-            "en[name]": formData.value.name.en,
-            "ar[name]": formData.value.name.ar,
-            "en[title]": formData.value.title.ten,
-            "ar[title]": formData.value.title.tar,
-            "en[desc]": formData.value.desc.den,
-            "ar[desc]": formData.value.desc.dar,
-            "image[media]": res.data.data,
-            "image[ar][alt]": formData.value.alt.aar,
-            "image[en][alt]": formData.value.alt.aen,
-            section_id: 1,
-          })
-          .then(async () => {
-            await useItemsStore().getItems("slider", "home");
-            closeModal();
-          });
-      });
+    console.log(typeof formData.value.img);
+    if (typeof formData.value.img == "object") {
+      const res = await useItemsStore()
+        .sendAttachment(formData.value.img)
+        .then(async (res) => {
+          await useItemsStore()
+            .editItem(props.itemData.id, {
+              _method: "PUT",
+              "en[name]": formData.value.name.en,
+              "ar[name]": formData.value.name.ar,
+              "en[title]": formData.value.title.ten,
+              "ar[title]": formData.value.title.tar,
+              "en[desc]": formData.value.desc.den,
+              "ar[desc]": formData.value.desc.dar,
+              "image[media]": res.data.data,
+              "image[ar][alt]": formData.value.alt.aar,
+              "image[en][alt]": formData.value.alt.aen,
+              section_id: 1,
+            })
+            .then(async () => {
+              await useItemsStore().getItems("slider", "home");
+              closeModal();
+            });
+        });
+    } else {
+      const res = await useItemsStore()
+        .editItem(props.itemData.id, {
+          _method: "PUT",
+          "en[name]": formData.value.name.en,
+          "ar[name]": formData.value.name.ar,
+          "en[title]": formData.value.title.ten,
+          "ar[title]": formData.value.title.tar,
+          "en[desc]": formData.value.desc.den,
+          "ar[desc]": formData.value.desc.dar,
+          "image[media]": props.itemData.image.media_name,
+          "image[ar][alt]": formData.value.alt.aar,
+          "image[en][alt]": formData.value.alt.aen,
+          section_id: 1,
+        })
+        .then(async () => {
+          await useItemsStore().getItems("slider", "home");
+          closeModal();
+        });
+    }
   }
   isLoading.value = false;
 };
