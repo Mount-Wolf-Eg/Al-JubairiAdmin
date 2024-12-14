@@ -3,7 +3,7 @@
     <div class="user-data m-5">
       <div class="row d-flex flex-row">
         <span class="col-12 center-col my-3">
-          <label class="user-name" for="slideEn">title en:</label>
+          <label class="user-name" for="slideEn">Name en:</label>
           <input
             type="text"
             style="
@@ -17,12 +17,12 @@
             "
             disabled
             id="slideEn"
-            :value="singleSlide.title?.en"
+            :value="singleItem?.en?.name"
           />
         </span>
 
         <span class="col-12 center-col my-3">
-          <label class="user-name" for="slideEn">title ar:</label>
+          <label class="user-name" for="slideEn">Name ar:</label>
           <input
             type="text"
             style="
@@ -36,7 +36,43 @@
             "
             disabled
             id="slideEn"
-            :value="singleSlide.title?.ar"
+            :value="singleItem?.ar?.name"
+          />
+        </span>
+        <span class="col-12 center-col my-3">
+          <label class="user-name" for="slideEn">Title en:</label>
+          <input
+            type="text"
+            style="
+              border: 1px solid var(--col-text);
+              border-radius: var(--brd-radius);
+
+              padding: 1rem;
+              margin: 1rem;
+              font-weight: bold;
+              color: var(--col-text);
+            "
+            disabled
+            id="slideEn"
+            :value="singleItem?.en?.title"
+          />
+        </span>
+        <span class="col-12 center-col my-3">
+          <label class="user-name" for="slideEn">Title ar:</label>
+          <input
+            type="text"
+            style="
+              border: 1px solid var(--col-text);
+              border-radius: var(--brd-radius);
+
+              padding: 1rem;
+              margin: 1rem;
+              font-weight: bold;
+              color: var(--col-text);
+            "
+            disabled
+            id="slideEn"
+            :value="singleItem?.ar?.title"
           />
         </span>
         <span class="col-12 center-col my-3">
@@ -54,7 +90,7 @@
             "
             disabled
             id="slideEn"
-            :value="singleSlide.description?.en"
+            :value="singleItem?.en?.desc"
           />
         </span>
 
@@ -73,24 +109,7 @@
             "
             disabled
             id="slideEn"
-            :value="singleSlide.description?.ar"
-          />
-        </span>
-        <span class="col-12 center-col my-3">
-          <label class="user-name" for="slideEn">Slider Type:</label>
-          <input
-            type="text"
-            style="
-              border: 1px solid var(--col-text);
-              border-radius: var(--brd-radius);
-              padding: 1rem;
-              margin: 1rem;
-              font-weight: bold;
-              color: var(--col-text);
-            "
-            disabled
-            id="slideEn"
-            :value="`${singleSlide.slider_type.split('_').join(' ')}`"
+            :value="singleItem?.ar?.desc"
           />
         </span>
 
@@ -125,8 +144,8 @@
             "
           >
             <img
-              :src="singleSlide.image"
-              alt="partner"
+              :src="singleItem.image?.media"
+              :alt="singleItem.image?.alt"
               style="width: 10rem; background-color: #ccc"
             />
           </div>
@@ -137,26 +156,31 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted } from "vue";
+import { ref, onBeforeMount, onMounted, watch, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { sliderStore } from "@/stores/settings/slidersStore";
 import { storeToRefs } from "pinia";
 import moment from "moment";
+import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
 
-const { singleSlide } = storeToRefs(sliderStore());
+const { singleItem } = storeToRefs(useItemsStore());
 
 const route = useRoute();
 const router = useRouter();
 const timeDate = ref();
 
 onBeforeMount(async () => {
-  if (!route.params.id) router.push({ name: "services" });
-  let res = await sliderStore().getSlide({ id: route.params.id });
+  if (!route.params.id) router.push({ name: "Achievement" });
+  let res = await useItemsStore().getSingleItem(route.params.id);
   if (res)
-    timeDate.value = moment(new Date(singleSlide.value.created_at)).format(
+    timeDate.value = moment(new Date(singleItem.value.created_at)).format(
       "DD-MM-YYYY"
     );
-  if (!res) router.push({ name: "services" });
+
+  if (!res) router.push({ name: "Achievement" });
+});
+
+onUnmounted(() => {
+  singleItem.value = [];
 });
 </script>
 

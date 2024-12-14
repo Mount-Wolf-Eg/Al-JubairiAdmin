@@ -589,7 +589,7 @@ const sliderItems = ref([
       },
       {
         name: "Achievement",
-        rout: "achievement",
+        rout: "Achievement",
         iconSm: `    <svg
               style="width: 2rem; height: 2rem"
               viewBox="0 0 20 20"

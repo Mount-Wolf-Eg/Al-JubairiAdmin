@@ -42,6 +42,163 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+    {
+      path: "/excellence",
+      name: "Excellence",
+      component: () =>
+        import("@/components/local/excellence-items/Excellence.vue"),
+      meta: {
+        title: "Excellence",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/excellence-data/:id",
+      name: "ExcellenceInfo",
+      component: () =>
+        import("@/components/local/excellence-items/ExcellenceInfo.vue"),
+      meta: {
+        title: "Excellence Data",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/about-us",
+      name: "AboutUs",
+      component: () => import("@/components/local/about-us/AboutUs.vue"),
+      meta: {
+        title: "About us",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/about-data/:id",
+      name: "AboutInfo",
+      component: () => import("@/components/local/about-us/AboutUsInfo.vue"),
+      meta: {
+        title: "About Data",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/services",
+      name: "Services",
+      component: () => import("@/components/local/our-services/Services.vue"),
+      meta: {
+        title: "Services",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/service-data/:id",
+      name: "ServiceInfo",
+      component: () =>
+        import("@/components/local/our-services/ServicesInfo.vue"),
+      meta: {
+        title: "Service Data",
+        requiresAuth: true,
+      },
+    },
+
+    {
+      path: "/achievement",
+      name: "Achievement",
+      component: () =>
+        import("@/components/local/our-Achievements/Achievement.vue"),
+      meta: {
+        title: "Achievements",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/achievement-data/:id",
+      name: "AchieveInfo",
+      component: () =>
+        import("@/components/local/our-Achievements/AchievementInfo.vue"),
+      meta: {
+        title: "Acheivement Data",
+        requiresAuth: true,
+      },
+    },
+
+    {
+      path: "/ertificates",
+      name: "Certificates",
+      component: () =>
+        import("@/components/local/our-certificates/Certificates.vue"),
+      meta: {
+        title: "Certificates",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/certificate-data/:id",
+      name: "CertificateInfo",
+      component: () =>
+        import("@/components/local/our-certificates/CertificateInfo.vue"),
+      meta: {
+        title: "Certificate Data",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/last-news",
+      name: "LastNews",
+      component: () => import("@/components/local/last-news/LastNews.vue"),
+      meta: {
+        title: "LastNews",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/last-news-data/:id",
+      name: "LastNewsInfo",
+      component: () => import("@/components/local/last-news/NewsInfo.vue"),
+      meta: {
+        title: "Asked Questions",
+        requiresAuth: true,
+      },
+    },
+
+    {
+      path: "/asked-questions",
+      name: "AskedQuestions",
+      component: () =>
+        import("@/components/local/ask-questions/AskQuestion.vue"),
+      meta: {
+        title: "LastNews",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/asked-questions-data/:id",
+      name: "AskedQuestionsInfo",
+      component: () =>
+        import("@/components/local/ask-questions/QuestionInfo.vue"),
+      meta: {
+        title: "AskedQuestions Data",
+        requiresAuth: true,
+      },
+    },
+
+    {
+      path: "/clients",
+      name: "Clients",
+      component: () => import("@/components/local/our-clients/Clients.vue"),
+      meta: {
+        title: "Clients",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/clients/:id",
+      name: "ClientsInfo",
+      component: () => import("@/components/local/our-clients/ClientInfo.vue"),
+      meta: {
+        title: "Client Data",
+        requiresAuth: true,
+      },
+    },
 
     // {
     //   path: "/clients",

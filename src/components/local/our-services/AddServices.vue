@@ -147,7 +147,7 @@
           <!-- image  -->
           <span class="row w-100">
             <span class="col">
-              <label for="slide" class="inpt-label w-100">Slider Image</label>
+              <label for="slide" class="inpt-label w-100"> Image</label>
               <UploadeFile
                 :for="'one'"
                 class="mb-3"
@@ -274,9 +274,11 @@ required.$message = "Field is required";
 import { ref, watch, defineProps } from "vue";
 import { storeToRefs } from "pinia";
 
-const selector = ref("addSlide");
 const emit = defineEmits(["resetItem"]);
 const isLoading = ref(false);
+const selector = ref("addser");
+const sec_id = ref(4);
+const sec_name = ref("services");
 
 const props = defineProps({
   itemData: {
@@ -320,9 +322,9 @@ watch(
     formData.value.name.en = props.itemData.en?.name;
     formData.value.title.ten = props.itemData.en?.title;
     formData.value.desc.den = props.itemData.en?.desc;
-    formData.value.alt.aar = props.itemData.image.ar?.alt;
-    formData.value.alt.aen = props.itemData.image.en?.alt;
-    formData.value.img = props.itemData.image?.media;
+    formData.value.alt.aar = props.itemData?.image?.ar?.alt;
+    formData.value.alt.aen = props.itemData?.image?.en?.alt;
+    formData.value.img = props.itemData?.image?.media;
   }
 );
 
@@ -336,15 +338,13 @@ const validationRules = ref({
     ten: { required, minLength: minLength(1), maxLength: maxLength(500) },
   },
   desc: {
-    dar: { required, minLength: minLength(1), maxLength: maxLength(500) },
-    den: { required, minLength: minLength(1), maxLength: maxLength(500) },
+    dar: { required, minLength: minLength(1), maxLength: maxLength(1500) },
+    den: { required, minLength: minLength(1), maxLength: maxLength(1500) },
   },
-  img: {
-    required,
-  },
+  img: {},
   alt: {
-    aar: { required, minLength: minLength(1), maxLength: maxLength(500) },
-    aen: { required, minLength: minLength(1), maxLength: maxLength(500) },
+    aar: { minLength: minLength(1), maxLength: maxLength(500) },
+    aen: { minLength: minLength(1), maxLength: maxLength(500) },
   },
 });
 
@@ -393,30 +393,51 @@ const addPack = async () => {
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {
-    const res = await useItemsStore()
-      .sendAttachment(formData.value.img)
-      .then(async (res) => {
-        await useItemsStore()
-          .addItem({
-            "en[name]": formData.value.name.en,
-            "ar[name]": formData.value.name.ar,
-            "en[title]": formData.value.title.ten,
-            "ar[title]": formData.value.title.tar,
-            "en[desc]": formData.value.desc.den,
-            "ar[desc]": formData.value.desc.dar,
-            "image[media]": res.data.data,
-            "image[ar][alt]": formData.value.alt.aar,
-            "image[en][alt]": formData.value.alt.aen,
-            section_id: 1,
-          })
-          .then(async () => {
-            await useItemsStore().getItems("slider", "home");
-            closeModal();
-          })
-          .finally(() => {
-            isLoading.value = false;
-          });
-      });
+    if (!formData.value.img) {
+      await useItemsStore();
+
+      await useItemsStore()
+        .addItem({
+          "en[name]": formData.value.name.en,
+          "ar[name]": formData.value.name.ar,
+          "en[title]": formData.value.title.ten,
+          "ar[title]": formData.value.title.tar,
+          "en[desc]": formData.value.desc.den,
+          "ar[desc]": formData.value.desc.dar,
+          "image[media]": formData.value.img,
+          "image[ar][alt]": formData.value.alt.aar,
+          "image[en][alt]": formData.value.alt.aen,
+          section_id: sec_id.value,
+        })
+        .then(async () => {
+          await useItemsStore().getItems(sec_name.value, "home");
+          closeModal();
+        })
+        .finally(() => (isLoading.value = false));
+    } else {
+      await useItemsStore()
+        .sendAttachment(formData.value.img)
+        .then(async (res) => {
+          await useItemsStore()
+            .addItem({
+              "en[name]": formData.value.name.en,
+              "ar[name]": formData.value.name.ar,
+              "en[title]": formData.value.title.ten,
+              "ar[title]": formData.value.title.tar,
+              "en[desc]": formData.value.desc.den,
+              "ar[desc]": formData.value.desc.dar,
+              "image[media]": res.data.data,
+              "image[ar][alt]": formData.value.alt.aar,
+              "image[en][alt]": formData.value.alt.aen,
+              section_id: sec_id.value,
+            })
+            .then(async () => {
+              await useItemsStore().getItems(sec_name.value, "home");
+              closeModal();
+            });
+        })
+        .finally(() => (isLoading.value = false));
+    }
   }
   isLoading.value = false;
 };
@@ -425,7 +446,6 @@ const updatePack = async () => {
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {
-    console.log(typeof formData.value.img);
     if (typeof formData.value.img == "object") {
       const res = await useItemsStore()
         .sendAttachment(formData.value.img)
@@ -442,15 +462,15 @@ const updatePack = async () => {
               "image[media]": res.data.data,
               "image[ar][alt]": formData.value.alt.aar,
               "image[en][alt]": formData.value.alt.aen,
-              section_id: 1,
+              section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems("slider", "home");
+              await useItemsStore().getItems(sec_name.value, "home");
               closeModal();
-            })
-            .finally(() => {
-              isLoading.value = false;
             });
+        })
+        .finally(() => {
+          isLoading.value = false;
         });
     } else {
       const res = await useItemsStore()
@@ -462,13 +482,12 @@ const updatePack = async () => {
           "ar[title]": formData.value.title.tar,
           "en[desc]": formData.value.desc.den,
           "ar[desc]": formData.value.desc.dar,
-          "image[media]": props.itemData.image.media_name,
           "image[ar][alt]": formData.value.alt.aar,
           "image[en][alt]": formData.value.alt.aen,
-          section_id: 1,
+          section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems("slider", "home");
+          await useItemsStore().getItems(sec_name.value, "home");
           closeModal();
         })
         .finally(() => {

@@ -3,21 +3,21 @@
     <ReusTable
       :header="[
         '',
-        'Service Position',
-        'Service name',
-        'image',
+        'Image',
+        'Title',
+        'Description',
         'Created',
         'Status',
         'Action',
       ]"
     >
       <template #table>
-        <tr v-for="partner in allServices" :key="partner.id">
+        <tr v-for="item in allItems" :key="item.id">
           <td>
             <div class="form-check form-switch">
               <input
-                :checked="!partner.deleted_at"
-                @change="toggleStatus(partner.id, $event)"
+                :checked="item.is_active"
+                @change="toggleStatus(item.id, $event)"
                 class="form-check-input"
                 type="checkbox"
                 role="switch"
@@ -25,38 +25,42 @@
               />
             </div>
           </td>
-
-          <td>
-            {{ partner.slider_type.split("_").join(" ").toUpperCase() }}
-          </td>
-          <td>
-            {{ partner.title }}
-          </td>
           <td
             @click="
-              router.push({ name: 'serviceInfo', params: { id: partner.id } })
+              router.push({
+                name: 'AskedQuestionsInfo',
+                params: { id: item.id },
+              })
             "
           >
             <img
               class="mx-2"
               style="background-color: #ccc; padding: 0.5rem; height: 5rem"
-              v-if="partner.image"
-              :src="partner.image"
-              :alt="partner.description"
+              v-if="item.image"
+              :src="item.image.media"
+              :alt="item.image.alt"
             />
           </td>
 
           <td>
-            {{ moment(new Date(partner.created_at)).format("DD-MM-YYYY") }}
+            {{ item.title }}
           </td>
+          <td>
+            {{ item.desc }}
+          </td>
+
+          <td>
+            {{ moment(new Date(item.created_at)).format("DD-MM-YYYY") }}
+          </td>
+
           <td
             :style="`${
-              partner.deleted_at == null
+              item.deleted_at == null
                 ? 'color: var(--col-sucs) !important'
                 : 'color: var(--col-error) !important'
             }`"
           >
-            {{ partner.deleted_at == null ? "Active" : "Suspended" }}
+            {{ item.deleted_at == null ? "Active" : "Suspended" }}
           </td>
 
           <td style="width: 15%">
@@ -66,8 +70,8 @@
                 class="btn border-0"
                 @click="
                   router.push({
-                    name: 'serviceInfo',
-                    params: { id: partner.id },
+                    name: 'AskedQuestionsInfo',
+                    params: { id: item.id },
                   })
                 "
               >
@@ -86,11 +90,7 @@
                   />
                 </svg>
               </button>
-              <button
-                type="button"
-                class="btn border-0"
-                @click="editPartner(partner.id)"
-              >
+              <button type="button" class="btn border-0" @click="edit(item.id)">
                 <svg
                   class="edit-btn"
                   style="width: 2rem; height: 2rem"
@@ -109,7 +109,7 @@
               <button
                 type="button"
                 class="btn border-0"
-                @click="removePartner(partner.id)"
+                @click="remove(item.id)"
               >
                 <svg
                   class="delete-btn"
@@ -134,74 +134,45 @@
 
 <script setup>
 import moment from "moment";
-import ReusTable from "@/reusables/components/ReusTable.vue";
-import { ref, computed, onMounted, defineEmits, watch } from "vue";
-import { sliderStore } from "@/stores/settings/slidersStore";
-import { useSearchStore } from "@/stores/search/searchStore";
-import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
-
+import { useRouter } from "vue-router";
+import { ref, computed, onMounted, defineEmits, watch } from "vue";
+import ReusTable from "@/reusables/components/ReusTable.vue";
+import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
+const { allItems, singleItem } = storeToRefs(useItemsStore());
 const router = useRouter();
-
-const { serviceLeft, serviceRight, serviceBottom, singleSlide } = storeToRefs(
-  sliderStore()
-);
-const { filteredData } = storeToRefs(useSearchStore());
-
-const allServices = computed(() => [
-  ...(serviceLeft?.value || []),
-  ...(serviceRight?.value || []),
-  ...(serviceBottom?.value || []),
-]);
-
-watch(
-  () => filteredData.value,
-  async (newVal) => {
-    if (
-      newVal.length > 0 &&
-      (newVal[0].slider_type === "services_bottom" ||
-        newVal[0].slider_type === "services_right" ||
-        newVal[0].slider_type === "services_left")
-    ) {
-      serviceLeft.value = newVal;
-      serviceRight.value = [];
-      serviceBottom.value = [];
-    } else {
-      await sliderStore().getAllSlidersTypes();
-    }
-  }
-);
-
-const emit = defineEmits(["editService"]);
+const emit = defineEmits(["editItem"]);
+const sec_name = ref("freq_questions");
 
 onMounted(async () => {
-  await sliderStore().getAllSlidersTypes();
+  await useItemsStore().getItems(sec_name.value, "home");
 });
 
-const toggleStatus = async (id, e, typ) => {
+const toggleStatus = async (id, e) => {
   if (e.target.checked) {
-    const res = await sliderStore().restoreSlider({ id: id });
+    const res = await useItemsStore().toggle(id);
     if (!res) {
       e.target.checked = !e.target.checked;
     }
   } else {
-    const res = await sliderStore().destroySlider({ id: id });
+    const res = await useItemsStore().toggle(id);
     if (!res) {
       e.target.checked = !e.target.checked;
     }
   }
-  await sliderStore().getAllSlidersTypes();
+  await useItemsStore().getItems(sec_name.value, "home");
 };
 
-const removePartner = async (id) => {
-  const res = await sliderStore().deleteSlider({ id: id });
-  await sliderStore().getAllSlidersTypes();
+const remove = async (id) => {
+  await useItemsStore().deleteItem(id);
+  await useItemsStore().getItems(sec_name.value, "home");
 };
 
-const editPartner = async (partnerId) => {
-  let res = await sliderStore().getSlide({ id: partnerId });
+const edit = async (id) => {
+  let res = await useItemsStore().getSingleItem(id);
+
   if (res) {
-    emit("editService", singleSlide.value);
+    emit("editItem", singleItem.value);
   }
 };
 </script>

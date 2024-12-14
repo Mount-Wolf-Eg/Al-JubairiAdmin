@@ -1,16 +1,13 @@
 <template>
   <div class="users-page">
-    <HelperButtons
-      :route="'slider'"
-      :slType="['services_bottom', 'services_right', 'services_left']"
-    >
+    <HelperButtons :route="''">
       <template #add-btn>
         <button
           type="button"
-          id="service"
+          :id="selectore"
           class="add-btn"
           data-bs-toggle="modal"
-          data-bs-target="#serSlider"
+          data-bs-target="#addQue"
         >
           <svg
             style="
@@ -31,22 +28,25 @@
         </button>
       </template>
     </HelperButtons>
-    <AddService @resetService="item = {}" :partner="item"></AddService>
-    <ServicesTable @editService="editSlider($event)"></ServicesTable>
+
+    <AddQuestion @resetItem="item = {}" :itemData="item"></AddQuestion>
+    <QuestionTable @editItem="edit($event)"></QuestionTable>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import HelperButtons from "@/reusables/content_buttons/HelperButtons.vue";
-import AddService from "./AddService.vue";
-import ServicesTable from "./ServicesTable.vue";
+
+import AddQuestion from "./AddQuestion.vue";
+import QuestionTable from "./QuestionTable.vue";
 
 const item = ref({});
+const selectore = ref("addQuestion");
 
-const editSlider = (e) => {
+const edit = (e) => {
   item.value = e;
-  document.querySelector("#service").click();
+  document.querySelector(`#${selectore.value}`).click();
 };
 </script>
 

@@ -19,6 +19,9 @@ axiosInstance.interceptors.response.use(
         return Promise.reject("error");
       }
 
+      if (error.response && error.response.status === 413) {
+        return Promise.reject("error");
+      }
       // if (error.response && error.response.status === 401) {
       //   useAuthStore().logOut();
       // }
