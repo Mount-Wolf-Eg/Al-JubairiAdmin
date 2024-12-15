@@ -239,6 +239,102 @@ const router = createRouter({
       },
     },
 
+    // about page
+    {
+      path: "/about-excellence",
+      name: "ExcellenceAbout",
+      component: () =>
+        import(
+          "@/components/local//about-page/excellence-items/Excellence.vue"
+        ),
+      meta: {
+        title: "Excellence About",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/excellence-about-data/:id",
+      name: "ExcellenceAboutInfo",
+      component: () =>
+        import(
+          "@/components/local/about-page/excellence-items/ExcellenceInfo.vue"
+        ),
+      meta: {
+        title: "Excellence About Data",
+        requiresAuth: true,
+      },
+    },
+
+    {
+      path: "/about-certificates",
+      name: "CertificatesAbout",
+      component: () =>
+        import(
+          "@/components/local/about-page/our-certificates/Certificates.vue"
+        ),
+      meta: {
+        title: "About Certificates",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/certificate-about-data/:id",
+      name: "CertificateAboutInfo",
+      component: () =>
+        import(
+          "@/components/local/about-page/our-certificates/CertificateInfo.vue"
+        ),
+      meta: {
+        title: "About Certificate Data",
+        requiresAuth: true,
+      },
+    },
+
+    {
+      path: "/achievement-about",
+      name: "AchievementsAbout",
+      component: () =>
+        import(
+          "@/components/local/about-page/our-achievement/Achievements.vue"
+        ),
+      meta: {
+        title: "Achievements About",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/achievement-about-data/:id",
+      name: "AchieveAboutInfo",
+      component: () =>
+        import(
+          "@/components/local/about-page/our-achievement/AchievementInfo.vue"
+        ),
+      meta: {
+        title: "Acheivement About Data",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/about-page",
+      name: "AboutUsAbout",
+      component: () =>
+        import("@/components/local/about-page/about-company/About.vue"),
+      meta: {
+        title: "About",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/about-data/:id",
+      name: "AboutInfoPage",
+      component: () =>
+        import("@/components/local/about-page/about-company/AboutInfo.vue"),
+      meta: {
+        title: "About Data",
+        requiresAuth: true,
+      },
+    },
+
     // {
     //   path: "/clients",
     //   name: "clients",
