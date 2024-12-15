@@ -101,6 +101,8 @@ import { useInsights } from "@/stores/insights/insightsStore";
 import { mainStore } from "@/stores/mainStore";
 import { storeToRefs } from "pinia";
 
+const textEditorData = ref("");
+
 const { allCountries, montylyData, countryInsights, visitedPages } =
   storeToRefs(useInsights());
 

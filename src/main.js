@@ -1,6 +1,7 @@
 import "@/assets/main.scss";
 import "@/assets/media-queries.scss";
 import "@vueform/multiselect/themes/default.css";
+import "quill/dist/quill.snow.css"; // Import the Quill snow theme CSS
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
