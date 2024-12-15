@@ -28,7 +28,7 @@
           <td
             @click="
               router.push({
-                name: 'ServiceInfo',
+                name: 'ServicePageInfo',
                 params: { id: item.id },
               })
             "
@@ -70,7 +70,7 @@
                 class="btn border-0"
                 @click="
                   router.push({
-                    name: 'ServiceInfo',
+                    name: 'ServicePageInfo',
                     params: { id: item.id },
                   })
                 "
@@ -145,7 +145,7 @@ const emit = defineEmits(["editItem"]);
 const sec_name = ref("services");
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, "about");
+  await useItemsStore().getItems(sec_name.value, "services");
 });
 
 const toggleStatus = async (id, e) => {
@@ -160,12 +160,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, "about");
+  await useItemsStore().getItems(sec_name.value, "services");
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, "about");
+  await useItemsStore().getItems(sec_name.value, "services");
 };
 
 const edit = async (id) => {

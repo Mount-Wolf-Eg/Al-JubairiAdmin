@@ -276,8 +276,8 @@ import { storeToRefs } from "pinia";
 
 const emit = defineEmits(["resetItem"]);
 const isLoading = ref(false);
-const selector = ref("addse");
-const sec_id = ref(1);
+const selector = ref("addSerPage");
+const sec_id = ref(11);
 const sec_name = ref("services");
 
 const props = defineProps({
@@ -410,7 +410,7 @@ const addPack = async () => {
           section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, "about");
+          await useItemsStore().getItems(sec_name.value, "services");
           closeModal();
         })
         .finally(() => (isLoading.value = false));
@@ -432,7 +432,7 @@ const addPack = async () => {
               section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, "about");
+              await useItemsStore().getItems(sec_name.value, "services");
               closeModal();
             });
         })
@@ -465,7 +465,7 @@ const updatePack = async () => {
               section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, "about");
+              await useItemsStore().getItems(sec_name.value, "services");
               closeModal();
             });
         })
@@ -487,7 +487,7 @@ const updatePack = async () => {
           section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, "about");
+          await useItemsStore().getItems(sec_name.value, "services");
           closeModal();
         })
         .finally(() => {

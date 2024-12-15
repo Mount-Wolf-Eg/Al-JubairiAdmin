@@ -7,7 +7,7 @@
           :id="selectore"
           class="add-btn"
           data-bs-toggle="modal"
-          data-bs-target="#addse"
+          data-bs-target="#addSerPage"
         >
           <svg
             style="

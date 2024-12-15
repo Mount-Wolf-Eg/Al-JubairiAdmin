@@ -169,14 +169,14 @@ const router = useRouter();
 const timeDate = ref();
 
 onBeforeMount(async () => {
-  if (!route.params.id) router.push({ name: "AboutUs" });
+  if (!route.params.id) router.push({ name: "Services" });
   let res = await useItemsStore().getSingleItem(route.params.id);
   if (res)
     timeDate.value = moment(new Date(singleItem.value.created_at)).format(
       "DD-MM-YYYY"
     );
 
-  if (!res) router.push({ name: "AboutUs" });
+  if (!res) router.push({ name: "Services" });
 });
 
 onUnmounted(() => {

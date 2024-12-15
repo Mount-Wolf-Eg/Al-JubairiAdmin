@@ -905,7 +905,7 @@ const sliderItems = ref([
     ],
   },
   {
-    title: "Our Services",
+    title: "Services Page",
     children: [],
     items: [
       {
