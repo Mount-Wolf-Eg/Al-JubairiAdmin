@@ -165,7 +165,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Insights",
-        rout: "home",
+        rout: "Home",
         iconSm: `<svg
               style="
                 width: 1.8rem;
