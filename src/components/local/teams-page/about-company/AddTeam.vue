@@ -252,10 +252,10 @@ import { storeToRefs } from "pinia";
 
 const emit = defineEmits(["resetItem"]);
 const isLoading = ref(false);
-const selector = ref("addAboutSec");
-const sec_id = ref(15);
-const sec_name = ref("more_about");
-const page_name = ref("about");
+const selector = ref("addTeam");
+const sec_id = ref(16);
+const sec_name = ref("team_work");
+const page_name = ref("team_work");
 
 const props = defineProps({
   itemData: {
@@ -362,6 +362,7 @@ const resetFormData = () => {
       aen: "",
     },
   };
+
   document.querySelectorAll(".t-editor").forEach((el) => {
     el.innerHTML = "";
   });

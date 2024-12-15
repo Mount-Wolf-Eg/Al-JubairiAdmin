@@ -335,6 +335,28 @@ const router = createRouter({
       },
     },
 
+    // team page
+    {
+      path: "/team-page",
+      name: "Teams",
+      component: () =>
+        import("@/components/local/teams-page/about-company/Team.vue"),
+      meta: {
+        title: "Team",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/team-data/:id",
+      name: "TeamInfo",
+      component: () =>
+        import("@/components/local/teams-page/about-company/TeamInfo.vue"),
+      meta: {
+        title: "Team Data",
+        requiresAuth: true,
+      },
+    },
+
     // {
     //   path: "/clients",
     //   name: "clients",
