@@ -253,7 +253,7 @@ import { storeToRefs } from "pinia";
 const emit = defineEmits(["resetItem"]);
 const isLoading = ref(false);
 const selector = ref("addTeam");
-const sec_id = ref(16);
+const sec_id = ref(4);
 const sec_name = ref("team_work");
 const page_name = ref("team_work");
 
