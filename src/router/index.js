@@ -356,6 +356,51 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+    // achieve page
+    {
+      path: "/achievement-page",
+      name: "AchievementSec",
+      component: () =>
+        import(
+          "@/components/local/achievement-page/AchieveSec/Achievement.vue"
+        ),
+      meta: {
+        title: "Achievements",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/achievement-data/:id",
+      name: "AchievementSecInfo",
+      component: () =>
+        import(
+          "@/components/local/achievement-page/AchieveSec/AchieveInfo.vue"
+        ),
+      meta: {
+        title: "Achievement Data",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/sectors-page",
+      name: "Sectors",
+      component: () =>
+        import("@/components/local/achievement-page/sectorySec/Sectors.vue"),
+      meta: {
+        title: "Sectors",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/sector-data/:id",
+      name: "SectorsInfo",
+      component: () =>
+        import("@/components/local/achievement-page/sectorySec/SectorInfo.vue"),
+      meta: {
+        title: "Sector Data",
+        requiresAuth: true,
+      },
+    },
 
     // {
     //   path: "/clients",

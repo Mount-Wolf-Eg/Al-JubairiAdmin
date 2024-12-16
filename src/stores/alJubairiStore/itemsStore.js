@@ -21,6 +21,8 @@ export const useItemsStore = defineStore("itemsStore", {
   actions: {
     // get all items
     async getItems(secName, pageName) {
+      let loading = true;
+
       await axiosInstance
         .get(
           `${mainStore().mainApi}/items?paginate=true&filters[section.type]=${
@@ -49,6 +51,10 @@ export const useItemsStore = defineStore("itemsStore", {
             errorMessage = err.message;
           }
           mainStore().showAlert(errorMessage, 2);
+        })
+        .finally(() => {
+          loading = false;
+          return loading;
         });
     },
     // add item
