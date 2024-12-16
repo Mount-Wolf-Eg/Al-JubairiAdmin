@@ -401,6 +401,26 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+    {
+      path: "/blogs-page",
+      name: "Blogs",
+      component: () =>
+        import("@/components/local/blog-page/blog-section/Blog.vue"),
+      meta: {
+        title: "Blogs",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/blog-data/:id",
+      name: "BlogsInfo",
+      component: () =>
+        import("@/components/local/blog-page/blog-section/BlogInfo.vue"),
+      meta: {
+        title: "Blog Data",
+        requiresAuth: true,
+      },
+    },
 
     // {
     //   path: "/clients",
