@@ -7,6 +7,7 @@
         'Title',
         'Description',
         'Created',
+        'child',
         'Status',
         'Action',
       ]"
@@ -52,7 +53,11 @@
           <td>
             {{ moment(new Date(item.created_at)).format("DD-MM-YYYY") }}
           </td>
-
+          <td>
+            {{
+              item?.parent?.id ? `child for ${item?.parent?.id} ` : `${item.id}`
+            }}
+          </td>
           <td
             :style="`${
               item.deleted_at == null
