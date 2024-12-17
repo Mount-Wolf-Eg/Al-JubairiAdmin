@@ -239,6 +239,29 @@ const router = createRouter({
       },
     },
 
+    {
+      path: "/sub-service-page",
+      name: "SubServicePage",
+      component: () =>
+        import("@/components/local/service-page/our-sub-services/Services.vue"),
+      meta: {
+        title: "Sub Services",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/sub-service-data/:id",
+      name: "SubServiceInfo",
+      component: () =>
+        import(
+          "@/components/local/service-page/our-sub-services/ServicesInfo.vue"
+        ),
+      meta: {
+        title: "Sub Service Data",
+        requiresAuth: true,
+      },
+    },
+
     // about page
     {
       path: "/about-excellence",
@@ -369,6 +392,7 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+
     {
       path: "/achievement-data/:id",
       name: "AchievementSecInfo",
@@ -378,6 +402,30 @@ const router = createRouter({
         ),
       meta: {
         title: "Achievement Data",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/sub-achievement",
+      name: "AchievementSub",
+      component: () =>
+        import(
+          "@/components/local/achievement-page/AchieveSub/Achievement.vue"
+        ),
+      meta: {
+        title: "Sub Achievements",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/achievement-sub/:id",
+      name: "AchievementSubInfo",
+      component: () =>
+        import(
+          "@/components/local/achievement-page/AchieveSub/AchieveInfo.vue"
+        ),
+      meta: {
+        title: "Achievement Sub",
         requiresAuth: true,
       },
     },

@@ -7,13 +7,15 @@
         'Title',
         'Description',
         'Created',
-        'child',
         'Status',
         'Action',
       ]"
     >
       <template #table>
-        <tr v-for="item in allItems" :key="item.id">
+        <tr
+          v-for="item in allItems.filter((e) => e.parent == null)"
+          :key="item.id"
+        >
           <td>
             <div class="form-check form-switch">
               <input
@@ -53,11 +55,6 @@
           <td>
             {{ moment(new Date(item.created_at)).format("DD-MM-YYYY") }}
           </td>
-          <td>
-            {{
-              item?.parent?.id ? `child for ${item?.parent?.id} ` : `${item.id}`
-            }}
-          </td>
           <td
             :style="`${
               item.deleted_at == null
@@ -70,6 +67,37 @@
 
           <td style="width: 15%">
             <div class="center-row justify-content-between align-items-center">
+              <button
+                type="button"
+                class="btn border-0"
+                @click="
+                  router.push({
+                    name: 'AchievementSub',
+                    query: { id: item.id },
+                  })
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  id="List-Sub-Items-Fill--Streamline-Outlined-Fill-Expansion-Set.svg"
+                  style="width: 2.4rem; height: 2.4rem"
+                  height="24"
+                  width="24"
+                >
+                  <g id="list-sub-items-fill">
+                    <path
+                      id="Union"
+                      fill="#000000"
+                      fill-rule="evenodd"
+                      d="M2.592 7.296C3.891 7.296 4.944 6.243 4.944 4.944S3.891 2.592 2.592 2.592S0.24 3.645 0.24 4.944S1.293 7.296 2.592 7.296ZM6.12 14.352C7.419 14.352 8.472 13.299 8.472 12S7.419 9.648 6.12 9.648S3.768 10.701 3.768 12S4.821 14.352 6.12 14.352ZM8.472 19.056C8.472 20.355 7.419 21.408 6.12 21.408S3.768 20.355 3.768 19.056S4.821 16.704 6.12 16.704S8.472 17.757 8.472 19.056ZM8.472 6.12H21.408V3.768H8.472V6.12ZM23.76 13.176H12V10.824H23.76V13.176ZM12 20.232H23.76V17.88H12V20.232Z"
+                      clip-rule="evenodd"
+                      stroke-width="1"
+                    ></path>
+                  </g>
+                </svg>
+              </button>
               <button
                 type="button"
                 class="btn border-0"
