@@ -247,7 +247,7 @@ const removeFile = () => {
       style="position: relative; width: fit-content; margin: 1rem 0"
     >
       <div
-        v-for="(img, index) in userImgs"
+        v-for="(img, index) in userImgs?.slice(0, 1)"
         :key="index"
         style="position: relative; display: inline-block; margin: 0.5rem"
       >

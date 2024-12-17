@@ -4,7 +4,7 @@
   >
     <img
       @click="router.push({ name: 'home' })"
-      :src="allSettings?.logo"
+      :src="settings?.logo"
       alt="brand logg"
       style="
         height: 6.2rem;
@@ -133,9 +133,9 @@ import { useAuthStore } from "@/stores/auth/auth";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-const { authUser } = storeToRefs(useAuthStore());
-import { settingStore } from "@/stores/settings/settingStore";
-const { allSettings } = storeToRefs(settingStore());
+import { useSettingStore } from "@/stores/alJubairiStore/settings";
+const { settings } = storeToRefs(useSettingStore());
+
 const router = useRouter();
 const toggleTheme = () => {
   const htmlElement = document.querySelector("html");
@@ -144,7 +144,7 @@ const toggleTheme = () => {
 };
 
 onMounted(async () => {
-  await settingStore().getAllSettings();
+  await useSettingStore().getSettings();
 });
 </script>
 
