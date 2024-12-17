@@ -55,7 +55,10 @@
         </svg>
       </div>
       <div class="w-100" v-for="(box, i) in sliderItems" :key="box">
-        <div class="side-dv text-center text-md-start w-100 my-4">
+        <div
+          class="side-dv text-center text-md-start w-100 p-3"
+          style="background-color: #ccc; border-radius: 0.8rem"
+        >
           {{ box.title }}
         </div>
 
@@ -160,7 +163,7 @@ const resEl = ref([]);
 */
 const sliderItems = ref([
   {
-    title: "",
+    title: "Analytic",
     childrens: [],
     items: [
       {
@@ -587,43 +590,7 @@ const sliderItems = ref([
               />
             </svg>`,
       },
-      {
-        name: "Achievement",
-        rout: "Achievement",
-        iconSm: `    <svg
-              style="width: 2rem; height: 2rem"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 8.33333H5M17.5 5H2.5M17.5 11.6667H2.5M15 15H5"
-                stroke="#1E1E1E"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>`,
-        iconLg: `    <svg
-              style="
-                width: 3.6rem;
-                height: 3.6rem;
-                min-width: 9px;
-                min-height: 9px;
-              "
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 8.33333H5M17.5 5H2.5M17.5 11.6667H2.5M15 15H5"
-                stroke="#1E1E1E"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>`,
-      },
+
       {
         name: "Certificates",
         rout: "Certificates",
@@ -1052,75 +1019,75 @@ const sliderItems = ref([
               />
             </svg>`,
       },
-      {
-        name: "Achievements",
-        rout: "AchievementsAbout",
-        iconSm: `<svg
-              style="width: 2rem; height: 2rem"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-                stroke="#464A61"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-                stroke="black"
-                stroke-opacity="0.2"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-                stroke="black"
-                stroke-opacity="0.2"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>`,
-        iconLg: ` <svg
-              style="
-                width: 3.6rem;
-                height: 3.6rem;
-                min-width: 9px;
-                min-height: 9px;
-              "
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-                stroke="#464A61"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-                stroke="black"
-                stroke-opacity="0.2"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-                stroke="black"
-                stroke-opacity="0.2"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>`,
-      },
+      // {
+      //   name: "Achievements",
+      //   rout: "AchievementsAbout",
+      //   iconSm: `<svg
+      //         style="width: 2rem; height: 2rem"
+      //         viewBox="0 0 20 20"
+      //         fill="none"
+      //         xmlns="http://www.w3.org/2000/svg"
+      //       >
+      //         <path
+      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
+      //           stroke="#464A61"
+      //           stroke-width="1.5"
+      //           stroke-linecap="round"
+      //           stroke-linejoin="round"
+      //         />
+      //         <path
+      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
+      //           stroke="black"
+      //           stroke-opacity="0.2"
+      //           stroke-width="1.5"
+      //           stroke-linecap="round"
+      //           stroke-linejoin="round"
+      //         />
+      //         <path
+      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
+      //           stroke="black"
+      //           stroke-opacity="0.2"
+      //           stroke-width="1.5"
+      //           stroke-linecap="round"
+      //           stroke-linejoin="round"
+      //         />
+      //       </svg>`,
+      //   iconLg: ` <svg
+      //         style="
+      //           width: 3.6rem;
+      //           height: 3.6rem;
+      //           min-width: 9px;
+      //           min-height: 9px;
+      //         "
+      //         viewBox="0 0 20 20"
+      //         fill="none"
+      //         xmlns="http://www.w3.org/2000/svg"
+      //       >
+      //         <path
+      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
+      //           stroke="#464A61"
+      //           stroke-width="1.5"
+      //           stroke-linecap="round"
+      //           stroke-linejoin="round"
+      //         />
+      //         <path
+      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
+      //           stroke="black"
+      //           stroke-opacity="0.2"
+      //           stroke-width="1.5"
+      //           stroke-linecap="round"
+      //           stroke-linejoin="round"
+      //         />
+      //         <path
+      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
+      //           stroke="black"
+      //           stroke-opacity="0.2"
+      //           stroke-width="1.5"
+      //           stroke-linecap="round"
+      //           stroke-linejoin="round"
+      //         />
+      //       </svg>`,
+      // },
       {
         name: "Excellence",
         rout: "ExcellenceAbout",
@@ -1336,6 +1303,7 @@ const sliderItems = ref([
       },
     ],
   },
+
   {
     title: "Achievement Page",
     children: [],
@@ -1403,6 +1371,43 @@ const sliderItems = ref([
                 d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
                 stroke="black"
                 stroke-opacity="0.2"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>`,
+      },
+      {
+        name: "Achievement Statistics",
+        rout: "Achievement",
+        iconSm: `    <svg
+              style="width: 2rem; height: 2rem"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 8.33333H5M17.5 5H2.5M17.5 11.6667H2.5M15 15H5"
+                stroke="#1E1E1E"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>`,
+        iconLg: `    <svg
+              style="
+                width: 3.6rem;
+                height: 3.6rem;
+                min-width: 9px;
+                min-height: 9px;
+              "
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 8.33333H5M17.5 5H2.5M17.5 11.6667H2.5M15 15H5"
+                stroke="#1E1E1E"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"

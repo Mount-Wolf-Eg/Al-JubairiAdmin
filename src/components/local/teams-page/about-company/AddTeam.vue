@@ -315,8 +315,8 @@ const validationRules = ref({
     ten: { required, minLength: minLength(1), maxLength: maxLength(500) },
   },
   desc: {
-    dar: { required, minLength: minLength(1), maxLength: maxLength(1500) },
-    den: { required, minLength: minLength(1), maxLength: maxLength(1500) },
+    dar: { required, minLength: minLength(1) },
+    den: { required, minLength: minLength(1) },
   },
   img: {},
   alt: {
