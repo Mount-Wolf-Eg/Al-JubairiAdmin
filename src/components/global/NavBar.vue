@@ -131,11 +131,11 @@
 <script setup>
 import { useAuthStore } from "@/stores/auth/auth";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useSettingStore } from "@/stores/alJubairiStore/settings";
 const { settings } = storeToRefs(useSettingStore());
-
+const route = useRoute();
 const router = useRouter();
 const toggleTheme = () => {
   const htmlElement = document.querySelector("html");
@@ -143,9 +143,14 @@ const toggleTheme = () => {
   htmlElement.classList.toggle("dark-theme");
 };
 
-onMounted(async () => {
-  await useSettingStore().getSettings();
-});
+watch(
+  () => route.name,
+  async () => {
+    if (route.name == "Home") {
+      await useSettingStore().getSettings();
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped></style>

@@ -93,7 +93,7 @@
         ></div>
       </div>
 
-      <!-- <div
+      <div
         @click="useAuthStore().logOut()"
         class="nav-link px-0 align-middle w-100"
         style="cursor: pointer"
@@ -138,7 +138,7 @@
             />
           </svg>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>

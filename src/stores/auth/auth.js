@@ -256,11 +256,15 @@ export const useAuthStore = defineStore("authStore", {
         token = null;
       }
       await axiosInstance
-        .get(`${mainStore().mainApi}/logout`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .post(
+          `${mainStore().mainApi}/logout`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((res) => {
           result = res;
           this.setCookie({}, 0);
