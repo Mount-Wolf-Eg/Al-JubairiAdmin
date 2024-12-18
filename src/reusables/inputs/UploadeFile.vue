@@ -220,7 +220,7 @@ const removeFile = () => {
         type="file"
         name="upload file"
         :id="`img-field-${props.for}`"
-        accept=".png, .jpeg, .jpg, .svg"
+        accept=".png, .jpeg, .jpg, .svg, .gif"
         @change="uploadFile"
         :disabled="disable"
         multiple
