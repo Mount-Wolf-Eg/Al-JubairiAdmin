@@ -27,7 +27,9 @@ export const useItemsStore = defineStore("itemsStore", {
         .get(
           `${mainStore().mainApi}/items?paginate=true&filters[section.type]=${
             secName ? secName : ""
-          }&filters[section.pages.type]=${pageName ? pageName : ""}`,
+          }&filters[section.pages.type]=${
+            pageName ? pageName : ""
+          }&paginate=false`,
           {
             headers: {
               Authorization: `Bearer ${
