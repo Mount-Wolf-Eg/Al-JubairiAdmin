@@ -265,8 +265,8 @@ const handleSetting = async () => {
 
     await useItemsStore().editItem("138", {
       _method: "PUT",
-      "en[desc]": formData.value.desc.ar,
-      "ar[desc]": formData.value.desc.en,
+      "en[desc]": formData.value.desc.en,
+      "ar[desc]": formData.value.desc.ar,
       "image[media]": formData.value.img,
       "image[ar][alt]": formData.value.alt.aar,
       "image[en][alt]": formData.value.alt.aen,
