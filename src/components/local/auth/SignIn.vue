@@ -110,9 +110,9 @@
             v-model="rememberMe"
           />
         </div>
-        <button type="button" @click="state = 'forget'" class="forget-btn">
+        <!-- <button type="button" @click="state = 'forget'" class="forget-btn">
           Forget Password
-        </button>
+        </button> -->
 
         <button v-if="!btnLoadin" class="sign-btn" type="submit">Login</button>
         <button v-else class="sign-btn" type="submit">

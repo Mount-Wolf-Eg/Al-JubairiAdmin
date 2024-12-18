@@ -367,8 +367,6 @@ const addPack = async () => {
   const result = await validationObj.value.$validate();
   if (result) {
     if (!formData.value.img) {
-      await useItemsStore();
-
       await useItemsStore()
         .addItem({
           "en[name]": formData.value.name.en,

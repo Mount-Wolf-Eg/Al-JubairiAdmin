@@ -295,7 +295,7 @@ const { settings } = storeToRefs(useSettingStore());
 
 const sendAttachment = async (logo, forLogo) => {
   await useItemsStore()
-    .sendAttachment(logo)
+    .sendAttachment(logo, "", "settings")
     .then(async (res) => {
       formData.value[forLogo] = res.data.data;
     });

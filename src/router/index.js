@@ -478,6 +478,26 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+    {
+      path: "/terms-conditions",
+      name: "Terms",
+      component: () =>
+        import("@/components/local/Footer-items/TermsCondition.vue"),
+      meta: {
+        title: "Terms & Conditions",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/privacy-policy",
+      name: "Privacy",
+      component: () =>
+        import("@/components/local/Footer-items/PrivacyPolicy.vue"),
+      meta: {
+        title: "Privacy & Policy",
+        requiresAuth: true,
+      },
+    },
 
     // {
     //   path: "/clients",
