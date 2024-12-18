@@ -145,7 +145,7 @@
           </span>
 
           <!-- image  -->
-          <span class="row w-100">
+          <!-- <span class="row w-100">
             <span class="col">
               <label for="slide" class="inpt-label w-100"> Image</label>
               <UploadeFile
@@ -210,7 +210,7 @@
                 </span></span
               >
             </span>
-          </span>
+          </span> -->
           <!-- <span class="row w-100">
             <label
               for="attachments"
@@ -394,8 +394,6 @@ const addPack = async () => {
   const result = await validationObj.value.$validate();
   if (result) {
     if (!formData.value.img) {
-      await useItemsStore();
-
       await useItemsStore()
         .addItem({
           "en[name]": formData.value.name.en,
@@ -404,9 +402,9 @@ const addPack = async () => {
           "ar[title]": formData.value.title.tar,
           "en[desc]": formData.value.desc.den,
           "ar[desc]": formData.value.desc.dar,
-          "image[media]": formData.value.img,
-          "image[ar][alt]": formData.value.alt.aar,
-          "image[en][alt]": formData.value.alt.aen,
+          // "image[media]": formData.value.img,
+          // "image[ar][alt]": formData.value.alt.aar,
+          // "image[en][alt]": formData.value.alt.aen,
           section_id: sec_id.value,
         })
         .then(async () => {
@@ -426,9 +424,9 @@ const addPack = async () => {
               "ar[title]": formData.value.title.tar,
               "en[desc]": formData.value.desc.den,
               "ar[desc]": formData.value.desc.dar,
-              "image[media]": res.data.data,
-              "image[ar][alt]": formData.value.alt.aar,
-              "image[en][alt]": formData.value.alt.aen,
+              // "image[media]": res.data.data,
+              // "image[ar][alt]": formData.value.alt.aar,
+              // "image[en][alt]": formData.value.alt.aen,
               section_id: sec_id.value,
             })
             .then(async () => {
@@ -459,9 +457,9 @@ const updatePack = async () => {
               "ar[title]": formData.value.title.tar,
               "en[desc]": formData.value.desc.den,
               "ar[desc]": formData.value.desc.dar,
-              "image[media]": res.data.data,
-              "image[ar][alt]": formData.value.alt.aar,
-              "image[en][alt]": formData.value.alt.aen,
+              // "image[media]": res.data.data,
+              // "image[ar][alt]": formData.value.alt.aar,
+              // "image[en][alt]": formData.value.alt.aen,
               section_id: sec_id.value,
             })
             .then(async () => {
@@ -482,8 +480,8 @@ const updatePack = async () => {
           "ar[title]": formData.value.title.tar,
           "en[desc]": formData.value.desc.den,
           "ar[desc]": formData.value.desc.dar,
-          "image[ar][alt]": formData.value.alt.aar,
-          "image[en][alt]": formData.value.alt.aen,
+          // "image[ar][alt]": formData.value.alt.aar,
+          // "image[en][alt]": formData.value.alt.aen,
           section_id: sec_id.value,
         })
         .then(async () => {
