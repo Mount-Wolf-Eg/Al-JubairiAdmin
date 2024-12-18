@@ -5,7 +5,7 @@
     <img
       @click="router.push({ name: 'home' })"
       :src="settings?.logo"
-      alt="brand logg"
+      alt="brand logo"
       style="
         height: 6.2rem;
         width: auto;
