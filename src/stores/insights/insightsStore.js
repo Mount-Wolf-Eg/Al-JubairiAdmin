@@ -48,6 +48,7 @@ export const useInsights = defineStore("insightStore", {
           mainStore().showAlert(errorMessage, 2);
         });
     },
+
     // all months
     async getAllMontyly(data) {
       await axiosInstance

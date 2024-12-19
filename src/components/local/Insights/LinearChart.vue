@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div id="chart" v-if="props.allData.MonthsList">
+    <div id="chart" v-if="props.allData.months">
       <apexchart
         type="area"
         height="450"
@@ -87,15 +87,17 @@ const options = ref({
 watch(
   () => props.allData,
   (newData) => {
-    if (newData && newData.MonthsList && newData.VisitsList) {
+    if (newData && newData.months && newData.counts) {
+      console.log("chart", newData);
+
       series.value = [
         {
           name: "visit",
-          data: newData.VisitsList,
+          data: newData.counts,
         },
       ];
 
-      options.value.xaxis.categories = newData.MonthsList;
+      options.value.xaxis.categories = newData.months;
     }
   },
   { immediate: true }

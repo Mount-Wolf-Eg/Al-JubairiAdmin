@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div id="chart" v-if="props.countryData.VisitorsByCountry">
+    <div id="chart" v-if="props.countryData?.length">
       <apexchart
         type="bar"
         height="350"
@@ -71,29 +71,39 @@ const chartOptions = ref({
     },
   },
 });
+
 watch(
   () => props.countryData,
   (newData) => {
-    if (newData.VisitorsByCountry) {
-      if (Object.keys(newData.VisitorsByCountry).length > 10) {
+    if (newData) {
+      const transformedData = newData.map((item) => ({
+        endpoint: item.endpoint,
+        visits: item.visits,
+      }));
+
+      if (transformedData.length > 10) {
+        const top10 = transformedData.slice(0, 10);
+
         series.value = [
           {
-            name: "visit",
-            data: Object.values(newData.VisitorsByCountry.slice(0, 10)),
+            name: "Visits",
+            data: top10.map((item) => item.visits),
           },
         ];
-        chartOptions.value.xaxis.categories = Object.keys(
-          newData.VisitorsByCountry
-        ).slice(0, 10);
+
+        chartOptions.value.xaxis.categories = top10.map((item) =>
+          item.endpoint.slice(-20)
+        );
       } else {
         series.value = [
           {
-            name: "visit",
-            data: Object.values(newData.VisitorsByCountry),
+            name: "Visits",
+            data: transformedData.map((item) => item.visits),
           },
         ];
-        chartOptions.value.xaxis.categories = Object.keys(
-          newData.VisitorsByCountry
+
+        chartOptions.value.xaxis.categories = transformedData.map((item) =>
+          item.endpoint.slice(-20)
         );
       }
     }

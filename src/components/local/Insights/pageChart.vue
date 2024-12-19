@@ -74,54 +74,35 @@ const chartOptions = ref({
     },
   },
 });
+
 watch(
   () => props.PagesData,
   (newData) => {
     if (newData) {
-      if (Object.values(newData).length > 10) {
+      if (newData.length > 10) {
         series.value = [
           {
             name: "visit",
-            data: Object.values(newData).slice(0, 10),
+            data: newData.slice(0, 10).map((item) => item.visits),
           },
         ];
 
-        chartOptions.value.xaxis.categories = Object.keys(newData)
+        chartOptions.value.xaxis.categories = newData
           .slice(0, 10)
-          .map((url) => {
-            const newEl = url.split("/").pop();
-
-            if (newEl) {
-              if (newEl.length > 3) {
-                return newEl;
-              } else {
-                return "project " + newEl;
-              }
-            }
-            return "home";
+          .map((item) => {
+            return item.region;
           });
       } else {
         series.value = [
           {
             name: "visit",
-            data: Object.values(newData),
+            data: newData.map((item) => item.visits),
           },
         ];
 
-        chartOptions.value.xaxis.categories = Object.keys(newData).map(
-          (url) => {
-            const newEl = url.split("/").pop();
-
-            if (newEl) {
-              if (newEl.length > 3) {
-                return newEl;
-              } else {
-                return "project " + newEl;
-              }
-            }
-            return "home";
-          }
-        );
+        chartOptions.value.xaxis.categories = newData.map((item) => {
+          return item.region;
+        });
       }
     }
   }

@@ -1,6 +1,8 @@
 <template>
   <main class="row col-12">
-    <div class="row d-flex align-items-end justify-content-start mt-1 mb-5">
+    <div
+      class="row d-flex align-items-end justify-content-start mt-1 mb-5 d-none"
+    >
       <span class="col-3 d-flex flex-column">
         <label
           for="searchFrom"
@@ -74,20 +76,22 @@
       </span>
     </div>
     <div class="row">
-      <pageChart
-        class="col-12 col-md-6"
-        :chartTitle="'Most Watched'"
-        :PagesData="visitedPages"
-      ></pageChart>
-
       <Barchart
         class="col-12 col-md-6"
         :chartTitle="'Most Region Visited'"
-        :countryData="countryInsights"
+        :countryData="allstatistics?.most_visited_api"
       ></Barchart>
+      <pageChart
+        class="col-12 col-md-6"
+        :chartTitle="'Most Watched'"
+        :PagesData="allstatistics?.most_visited_region"
+      ></pageChart>
     </div>
 
-    <LinearChart :allData="montylyData" class="col-12"></LinearChart>
+    <LinearChart
+      :allData="allstatistics?.visitor_count_by_month"
+      class="col-12"
+    ></LinearChart>
   </main>
 </template>
 
@@ -97,14 +101,13 @@ import Barchart from "@/components/local/Insights/Barchart.vue";
 import pageChart from "@/components/local/Insights/pageChart.vue";
 import LinearChart from "@/components/local/Insights/LinearChart.vue";
 import MultiSelect from "@/reusables/inputs/MultiSelect.vue";
-import { useInsights } from "@/stores/insights/insightsStore";
+import { usestatisticsStore } from "@/stores/alJubairiStore/statistics";
 import { mainStore } from "@/stores/mainStore";
 import { storeToRefs } from "pinia";
 
 const textEditorData = ref("");
 
-const { allCountries, montylyData, countryInsights, visitedPages } =
-  storeToRefs(useInsights());
+const { allCountries, allstatistics } = storeToRefs(usestatisticsStore());
 
 const searchData = ref("");
 const searchCountry = ref("");
@@ -134,20 +137,18 @@ const categoryData = ref({
 });
 onBeforeUnmount(() => {
   allCountries.value = [];
-  montylyData.value = [];
-  countryInsights.value = [];
-  visitedPages.value = [];
+  allstatistics.value = [];
 });
 
-// onMounted(async () => {
-//   await Promise.all([
-//     useInsights().getAllCountries(),
-//     useInsights().getAllMontyly(),
-//     useInsights().getCountryInsights(),
-//     useInsights().mostVisitedPage(),
-//   ]);
-//   categoryData.value.options = allCountries.value;
-// });
+onMounted(async () => {
+  await Promise.all([
+    usestatisticsStore().getAllCountries(),
+    usestatisticsStore().getAllStatisticals(),
+  ]);
+  console.log(allstatistics.value);
+
+  categoryData.value.options = allCountries.value;
+});
 
 const setCateg = async (val) => {
   searchCountry.value = val;
@@ -172,38 +173,38 @@ const validateDates = () => {
   return true;
 };
 
-const filterData = async () => {
-  if (validateDates()) {
-    await Promise.all([
-      useInsights().getAllMontyly({
-        country_code: searchCountry.value ? searchCountry.value : "",
-        from: dateFrom.value,
-        to: dateTo.value,
-      }),
-      useInsights().getCountryInsights({
-        country_code: searchCountry.value,
-        from: dateFrom.value,
-        to: dateTo.value,
-      }),
-      useInsights().mostVisitedPage({
-        country_code: searchCountry.value,
-        from: dateFrom.value,
-        to: dateTo.value,
-      }),
-    ]);
-  }
-};
+// most_visited_api (number ,path)
+// most_visited_region (country , visits)
+// visitor_count_by_month (month ,counts)
+
+// const filterData = async () => {
+//   if (validateDates()) {
+//     await Promise.all([
+//       useInsights().getAllMontyly({
+//         country_code: searchCountry.value ? searchCountry.value : "",
+//         from: dateFrom.value,
+//         to: dateTo.value,
+//       }),
+//       useInsights().getCountryInsights({
+//         country_code: searchCountry.value,
+//         from: dateFrom.value,
+//         to: dateTo.value,
+//       }),
+//       useInsights().mostVisitedPage({
+//         country_code: searchCountry.value,
+//         from: dateFrom.value,
+//         to: dateTo.value,
+//       }),
+//     ]);
+//   }
+// };
 
 const resetFilter = async () => {
   categoryData.value.clear();
   dateFrom.value = "";
   dateTo.value = "";
   searchCountry.value = "";
-  await Promise.all([
-    useInsights().getAllMontyly(),
-    useInsights().getCountryInsights(),
-    useInsights().mostVisitedPage(),
-  ]);
+  await Promise.all([usestatisticsStore().getAllStatisticals()]);
 };
 </script>
 
