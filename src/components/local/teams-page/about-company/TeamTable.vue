@@ -4,7 +4,7 @@
       :header="[
         '',
         'Image',
-        'Title',
+        'Name',
         'Description',
         'Created',
         'Status',
@@ -46,7 +46,7 @@
             {{ item.title }}
           </td>
           <td>
-            <div class="html-content" v-html="item.desc"></div>
+            <div class="html-content" v-html="item.desc?.slice(0, 500)"></div>
           </td>
 
           <td>

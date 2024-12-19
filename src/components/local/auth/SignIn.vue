@@ -188,7 +188,7 @@ const submitLogin = async () => {
   if (result) {
     let req = await useAuthStore().doLogin(formData.value);
     if (req) {
-      router.push({ name: "Home" });
+      router.push({ name: "HeroSlider" });
     }
   }
   btnLoadin.value = false;

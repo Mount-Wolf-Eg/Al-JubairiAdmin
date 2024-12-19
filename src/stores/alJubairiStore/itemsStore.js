@@ -25,11 +25,9 @@ export const useItemsStore = defineStore("itemsStore", {
 
       await axiosInstance
         .get(
-          `${mainStore().mainApi}/items?paginate=true&filters[section.type]=${
+          `${mainStore().mainApi}/items?paginate=false&filters[section.type]=${
             secName ? secName : ""
-          }&filters[section.pages.type]=${
-            pageName ? pageName : ""
-          }&paginate=false`,
+          }&filters[section.pages.type]=${pageName ? pageName : ""} `,
           {
             headers: {
               Authorization: `Bearer ${
