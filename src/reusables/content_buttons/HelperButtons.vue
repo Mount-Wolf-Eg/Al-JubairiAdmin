@@ -2,7 +2,7 @@
   <div
     class="row helper-btns d-flex flex-row align-items-center justify-content-between"
   >
-    <div
+    <!-- <div
       class="col-12 col-sm-6 mb-3 d-flex flex-row align-items-center justify-content-end gap-3"
     >
       <input
@@ -24,8 +24,8 @@
       <button type="button" class="reset-btn" @click="resetFilter()">
         Reset
       </button>
-    </div>
-    <div class="col-12 col-sm-6 text-end">
+    </div> -->
+    <div class="col-12 col-sm-6 text-end" style="margin-inline-start: auto">
       <slot name="add-btn"> </slot>
     </div>
   </div>

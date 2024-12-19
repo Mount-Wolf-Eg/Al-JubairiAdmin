@@ -106,10 +106,22 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <TextEditor
-                class="t-editor"
-                v-model="formData.desc.den"
-              ></TextEditor>
+              <label for="" class="inpt-label">Description (En)</label>
+
+              <span>
+                <span v-if="!pageLoads">
+                  <TextEditor
+                    class="t-editor"
+                    v-model="formData.desc.den"
+                  ></TextEditor>
+                </span>
+                <span v-else>
+                  <TextEditor
+                    class="t-editor"
+                    v-model="formData.desc.den"
+                  ></TextEditor>
+                </span>
+              </span>
               <!-- <TextArea
                 v-model="formData.desc.den"
                 :holder="'description'"
@@ -129,11 +141,20 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <TextEditor
-                class="t-editor"
-                v-model="formData.desc.dar"
-              ></TextEditor>
+              <label for="" class="inpt-label">Description (Ar)</label>
 
+              <span v-if="!pageLoads">
+                <TextEditor
+                  class="t-editor"
+                  v-model="formData.desc.dar"
+                ></TextEditor>
+              </span>
+              <span v-else>
+                <TextEditor
+                  class="t-editor"
+                  v-model="formData.desc.dar"
+                ></TextEditor>
+              </span>
               <!-- <TextArea
                 style="direction: rtl"
                 v-model="formData.desc.dar"
@@ -252,6 +273,7 @@ import { storeToRefs } from "pinia";
 
 const emit = defineEmits(["resetItem"]);
 const isLoading = ref(false);
+const pageLoads = ref(true);
 const selector = ref("addBlog");
 const sec_id = ref(20);
 const sec_name = ref("Blogs");
@@ -302,6 +324,7 @@ watch(
     formData.value.alt.aar = props.itemData?.image?.ar?.alt;
     formData.value.alt.aen = props.itemData?.image?.en?.alt;
     formData.value.img = props.itemData?.image?.media;
+    pageLoads.value = false;
   }
 );
 

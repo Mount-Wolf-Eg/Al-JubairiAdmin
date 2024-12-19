@@ -106,10 +106,18 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <TextEditor
-                class="t-editor"
-                v-model="formData.desc.den"
-              ></TextEditor>
+              <span v-if="!pageLoads">
+                <TextEditor
+                  class="t-editor"
+                  v-model="formData.desc.den"
+                ></TextEditor>
+              </span>
+              <span v-else>
+                <TextEditor
+                  class="t-editor"
+                  v-model="formData.desc.den"
+                ></TextEditor>
+              </span>
               <!-- <TextArea
                 v-model="formData.desc.den"
                 :holder="'description'"
@@ -129,10 +137,18 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <TextEditor
-                class="t-editor"
-                v-model="formData.desc.dar"
-              ></TextEditor>
+              <span v-if="!pageLoads">
+                <TextEditor
+                  class="t-editor"
+                  v-model="formData.desc.dar"
+                ></TextEditor>
+              </span>
+              <span v-else>
+                <TextEditor
+                  class="t-editor"
+                  v-model="formData.desc.dar"
+                ></TextEditor>
+              </span>
 
               <!-- <TextArea
                 style="direction: rtl"
@@ -256,6 +272,7 @@ const selector = ref("addTeam");
 const sec_id = ref(4);
 const sec_name = ref("team_work");
 const page_name = ref("team_work");
+const pageLoads = ref(true);
 
 const props = defineProps({
   itemData: {
@@ -302,6 +319,7 @@ watch(
     formData.value.alt.aar = props.itemData?.image?.ar?.alt;
     formData.value.alt.aen = props.itemData?.image?.en?.alt;
     formData.value.img = props.itemData?.image?.media;
+    pageLoads.value = false;
   }
 );
 
