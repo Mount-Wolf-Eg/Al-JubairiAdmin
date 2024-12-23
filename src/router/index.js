@@ -498,6 +498,26 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+    // testing
+    {
+      path: "/pages-store",
+      name: "Pages",
+      component: () => import("@/components/local/pages-store/pages/Page.vue"),
+      meta: {
+        title: "Pages",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/sections-store",
+      name: "Sections",
+      component: () =>
+        import("@/components/local/pages-store/sections/sections.vue"),
+      meta: {
+        title: "Sections",
+        requiresAuth: true,
+      },
+    },
 
     {
       path: "/:pathMatch(.*)*",
