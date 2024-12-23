@@ -10,6 +10,9 @@ import VueFeather from "vue-feather";
 // toastification
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+// import the package
+import VueAwesomePaginate from "vue-awesome-paginate";
+import "vue-awesome-paginate/dist/style.css";
 
 // chart
 import VueApexCharts from "vue3-apexcharts";
@@ -25,6 +28,8 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(Toast);
+
+app.use(VueAwesomePaginate);
 // feather
 app.component(VueFeather.name, VueFeather);
 // charts

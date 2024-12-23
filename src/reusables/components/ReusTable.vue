@@ -24,20 +24,11 @@
       style="border: none; border-radius: 0.8rem; overflow: hidden"
     >
       <table class="table table-hover table-st-1 m-0 p-0">
-        <!-- <tfoot>
-          <tr>
-            <td
-              class="text-center p-0"
-              style="
-                background-color: transparent !important;
-                width: fit-content;
-              "
-              colspan="9"
-            >
-              {{ foot }}
-            </td>
+        <tfoot>
+          <tr class="text-center">
+            <slot name="foot"></slot>
           </tr>
-        </tfoot> -->
+        </tfoot>
       </table>
     </div>
   </div>
@@ -52,10 +43,6 @@ const props = defineProps({
     required: false,
   },
   body: {
-    type: Array,
-    required: false,
-  },
-  foot: {
     type: Array,
     required: false,
   },

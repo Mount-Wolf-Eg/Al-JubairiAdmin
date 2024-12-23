@@ -16,18 +16,21 @@ export const useItemsStore = defineStore("itemsStore", {
       )["Admin"],
     allItems: [],
     singleItem: [],
+    pagination: [],
   }),
 
   actions: {
     // get all items
-    async getItems(secName, pageName) {
+    async getItems(secName, pageName, num, isParent) {
       let loading = true;
 
       await axiosInstance
         .get(
-          `${mainStore().mainApi}/items?paginate=false&filters[section.type]=${
+          `${mainStore().mainApi}/items?paginate=true&filters[section.type]=${
             secName ? secName : ""
-          }&filters[section.pages.type]=${pageName ? pageName : ""} `,
+          }&filters[section.pages.type]=${pageName ? pageName : ""}&page=${
+            num ? num : 1
+          }&parent=${isParent ? "true" : "null"}`,
           {
             headers: {
               Authorization: `Bearer ${
@@ -38,6 +41,7 @@ export const useItemsStore = defineStore("itemsStore", {
         )
         .then((res) => {
           this.allItems = res.data.data || [];
+          this.pagination = res.data.meta;
         })
         .catch((err) => {
           console.log(err);

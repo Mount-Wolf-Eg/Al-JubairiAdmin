@@ -145,9 +145,11 @@ const { allItems, singleItem } = storeToRefs(useItemsStore());
 const router = useRouter();
 const emit = defineEmits(["editItem"]);
 
+// test
 onMounted(async () => {
   await useItemsStore().getItems("slider", "home");
   pageLoading.value = false;
+  console.log(allItems.value);
 });
 
 const toggleStatus = async (id, e) => {
