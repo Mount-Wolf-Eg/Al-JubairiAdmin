@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main v-if="!pageLoading">
     <ReusTable
       :header="[
         '',
@@ -129,7 +129,8 @@
         </tr>
       </template>
     </ReusTable>
-  </div>
+  </main>
+  <main v-else>Loading ...</main>
 </template>
 
 <script setup>
@@ -139,12 +140,14 @@ import { useRouter } from "vue-router";
 import { ref, computed, onMounted, defineEmits, watch } from "vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
+const pageLoading = ref(true);
 const { allItems, singleItem } = storeToRefs(useItemsStore());
 const router = useRouter();
 const emit = defineEmits(["editItem"]);
 
 onMounted(async () => {
   await useItemsStore().getItems("slider", "home");
+  pageLoading.value = false;
 });
 
 const toggleStatus = async (id, e) => {
