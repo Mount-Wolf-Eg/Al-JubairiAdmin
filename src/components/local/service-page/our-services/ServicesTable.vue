@@ -205,7 +205,7 @@ const onClickHandler = async (page) => {
       page: page,
     },
   });
-  await useItemsStore().getItems(sec_name.value, page_name.value, page);
+  await useItemsStore().getItems(sec_name.value, page_name.value, page, true);
 };
 
 // pagination data ends
@@ -214,7 +214,8 @@ onMounted(async () => {
   await useItemsStore().getItems(
     sec_name.value,
     page_name.value,
-    route.query.page ? route.query.page : 1
+    route.query.page ? route.query.page : 1,
+    true
   );
   currentPage.value = pagination.value.current_page;
   isLoading.value = false;
@@ -232,12 +233,22 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(
+    sec_name.value,
+    page_name.value,
+    route.query.page ? route.query.page : 1,
+    true
+  );
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(
+    sec_name.value,
+    page_name.value,
+    route.query.page ? route.query.page : 1,
+    true
+  );
 };
 
 const edit = async (id) => {
