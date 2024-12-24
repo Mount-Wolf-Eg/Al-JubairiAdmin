@@ -128,6 +128,17 @@
           </td>
         </tr>
       </template>
+      <template #foot>
+        <vue-awesome-paginate
+          :total-items="pagination.total"
+          v-model="currentPage"
+          :items-per-page="pagination.per_page"
+          :max-pages-shown="5"
+          :show-ending-buttons="true"
+          :show-breakpoint-buttons="false"
+          @click="onClickHandler"
+        />
+      </template>
     </ReusTable>
   </div>
 </template>
@@ -135,7 +146,7 @@
 <script setup>
 import moment from "moment";
 import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import {
   ref,
   computed,
@@ -146,11 +157,25 @@ import {
 } from "vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
-const { allItems, singleItem } = storeToRefs(useItemsStore());
+const { allItems, singleItem, pagination } = storeToRefs(useItemsStore());
 const router = useRouter();
+const route = useRoute();
+
 const emit = defineEmits(["editItem"]);
 const sec_name = ref("Blogs");
 const page_name = ref("Blogs");
+
+// pagination data starts
+const currentPage = ref(1);
+const onClickHandler = async (page) => {
+  router.push({
+    path: route.path,
+    query: {
+      page: page,
+    },
+  });
+  await useItemsStore().getItems(sec_name.value, page_name.value, page);
+};
 
 onMounted(async () => {
   await useItemsStore().getItems(sec_name.value, page_name.value);
