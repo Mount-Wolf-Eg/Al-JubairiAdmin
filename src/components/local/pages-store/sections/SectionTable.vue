@@ -138,13 +138,14 @@
 <script setup>
 import moment from "moment";
 import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { ref, computed, onMounted, defineEmits, watch } from "vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
 import { usePageStore } from "@/stores/alJubairiStore/pageStore";
 const pageLoading = ref(true);
 const { allSections, section } = storeToRefs(usePageStore());
 const router = useRouter();
+const route = useRoute();
 const emit = defineEmits(["editItem"]);
 
 onMounted(async () => {

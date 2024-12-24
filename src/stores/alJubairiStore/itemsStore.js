@@ -30,7 +30,7 @@ export const useItemsStore = defineStore("itemsStore", {
             secName ? secName : ""
           }&filters[section.pages.type]=${pageName ? pageName : ""}&page=${
             num ? num : 1
-          }&parent=${isParent ? "true" : "null"}`,
+          }&isParent=${isParent ? isParent : ""}`,
           {
             headers: {
               Authorization: `Bearer ${

@@ -5,6 +5,10 @@ import "quill/dist/quill.snow.css"; // Import the Quill snow theme CSS
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+
+// leaflet
+import "leaflet/dist/leaflet.css";
+
 // icon
 import VueFeather from "vue-feather";
 // toastification

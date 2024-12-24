@@ -1,7 +1,11 @@
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 
+// testing
 const mainDomain = "https://aljubairi.diaamagdi.com/api/dashboard/admin";
+// production
+// const mainDomain = "https://api.aljubairi.com/api/dashboard/admin";
+//
 const secondDomain = "https://aljubairi.diaamagdi.com/api";
 
 export const mainStore = defineStore("mainStore", {
