@@ -106,12 +106,21 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <TextArea
-                v-model="formData.desc.den"
-                :holder="'description'"
-                :label="'Description'"
-                :appear="checkErrName(['den']) ? 'err-border' : ''"
-              ></TextArea>
+              <span>
+                <span v-if="!pageLoads">
+                  <TextEditor
+                    class="t-editor"
+                    v-model="formData.desc.den"
+                  ></TextEditor>
+                </span>
+                <span v-else>
+                  <TextEditor
+                    class="t-editor"
+                    v-model="formData.desc.den"
+                  ></TextEditor>
+                </span>
+              </span>
+
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -125,13 +134,21 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <TextArea
-                style="direction: rtl"
-                v-model="formData.desc.dar"
-                :holder="'الوصف'"
-                :label="'الوصف'"
-                :appear="checkErrName(['dar']) ? 'err-border' : ''"
-              ></TextArea>
+              <span>
+                <span v-if="!pageLoads">
+                  <TextEditor
+                    class="t-editor"
+                    v-model="formData.desc.den"
+                  ></TextEditor>
+                </span>
+                <span v-else>
+                  <TextEditor
+                    class="t-editor"
+                    v-model="formData.desc.dar"
+                  ></TextEditor>
+                </span>
+              </span>
+
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -264,6 +281,7 @@
 <script setup>
 import InptField from "@/reusables/inputs/InptField.vue";
 import TextArea from "@/reusables/inputs/TextArea.vue";
+import TextEditor from "@/reusables/ckEditor/TextEditor.vue";
 import UploadeFile from "@/reusables/inputs/UploadeFile.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
 // validation
@@ -279,6 +297,7 @@ const isLoading = ref(false);
 const selector = ref("addQue");
 const sec_id = ref(8);
 const sec_name = ref("freq_questions");
+const pageLoads = ref(true);
 
 const props = defineProps({
   itemData: {
@@ -325,6 +344,7 @@ watch(
     formData.value.alt.aar = props.itemData?.image?.ar?.alt;
     formData.value.alt.aen = props.itemData?.image?.en?.alt;
     formData.value.img = props.itemData?.image?.media;
+    pageLoads.value = false;
   }
 );
 
