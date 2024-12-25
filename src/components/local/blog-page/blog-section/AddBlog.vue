@@ -386,15 +386,13 @@ const resetFormData = () => {
     },
   };
 
-  document.querySelectorAll(".t-editor").forEach((el) => {
-    el.innerHTML = "";
-  });
-
   validationObj.value.$reset();
   document.getElementById(selector.value).reset();
+  window.location.reload();
 };
 
 const addPack = async () => {
+  console.log(formData.value.desc.den);
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {

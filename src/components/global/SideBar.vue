@@ -71,9 +71,19 @@
             :key="j"
             class="nav-link align-middle px-0"
             @click="router.push({ name: el.rout })"
+            style="border-radius: 0.9rem"
+            :style="{
+              borderRadius: '0.9rem',
+              backgroundColor:
+                route?.name === el.rout ? '#828485' : 'transparent',
+            }"
           >
             <span
               class="icon d-inline nav-item-btn d-flex align-item-center justify-content-center justify-content-sm-start gap-2"
+              :style="{
+                borderRadius: '0.9rem',
+                color: route?.name === el.rout ? '#fff' : '',
+              }"
             >
               <div v-html="el.iconSm"></div>
               {{ el.name }}
@@ -148,9 +158,10 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/auth/auth";
 const router = useRouter();
+const route = useRoute();
 const fullEL = ref([]);
 const resEl = ref([]);
 /*       
