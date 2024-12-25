@@ -28,6 +28,11 @@ const props = defineProps({
     required: false,
     defalut: () => "",
   },
+  select: {
+    type: Object,
+    required: false,
+    defalut: () => {},
+  },
 });
 
 const formData = ref("");
