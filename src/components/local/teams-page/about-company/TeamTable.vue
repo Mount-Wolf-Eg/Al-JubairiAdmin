@@ -41,9 +41,8 @@
               :alt="item.image.alt"
             />
           </td>
-
           <td>
-            {{ item.title }}
+            {{ item.name }}
           </td>
           <td>
             <div class="html-content" v-html="item.desc?.slice(0, 500)"></div>
