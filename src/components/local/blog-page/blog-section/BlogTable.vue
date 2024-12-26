@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main v-if="!pageLoad">
     <ReusTable
       :header="[
         '',
@@ -140,7 +140,8 @@
         />
       </template>
     </ReusTable>
-  </div>
+  </main>
+  <main v-else>Loading ...</main>
 </template>
 
 <script setup>
@@ -160,7 +161,7 @@ import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
 const { allItems, singleItem, pagination } = storeToRefs(useItemsStore());
 const router = useRouter();
 const route = useRoute();
-
+const pageLoad = ref(true);
 const emit = defineEmits(["editItem"]);
 const sec_name = ref("Blogs");
 const page_name = ref("Blogs");
@@ -168,17 +169,19 @@ const page_name = ref("Blogs");
 // pagination data starts
 const currentPage = ref(1);
 const onClickHandler = async (page) => {
+  console.log("\ki");
   router.push({
     path: route.path,
     query: {
       page: page,
     },
   });
-  await useItemsStore().getItems(sec_name.value, page_name.value, page);
+  await useItemsStore().getItems(sec_name.value, page_name.value, page, true);
 };
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
+  pageLoad.value = false;
 });
 
 onBeforeUnmount(() => {
@@ -197,12 +200,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
 };
 
 const edit = async (id) => {
