@@ -130,9 +130,9 @@
       </template>
       <template #foot>
         <vue-awesome-paginate
-          :total-items="pagination.total"
+          :total-items="pagination?.total"
           v-model="currentPage"
-          :items-per-page="pagination.per_page"
+          :items-per-page="pagination?.per_page"
           :max-pages-shown="5"
           :show-ending-buttons="true"
           :show-breakpoint-buttons="false"
@@ -176,11 +176,17 @@ const onClickHandler = async (page) => {
       page: page,
     },
   });
-  await useItemsStore().getItems(sec_name.value, page_name.value, page, true);
+  await useItemsStore().getItems(
+    sec_name.value,
+    page_name.value,
+    page,
+    true,
+    1
+  );
 };
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", true, 1);
   pageLoad.value = false;
 });
 
@@ -200,12 +206,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", true, 1);
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", true, 1);
 };
 
 const edit = async (id) => {

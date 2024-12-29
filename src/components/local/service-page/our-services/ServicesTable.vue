@@ -162,17 +162,17 @@
           </td>
         </tr>
       </template>
-      <template #foot>
+      <!-- <template #foot>
         <vue-awesome-paginate
-          :total-items="pagination.total"
+          :total-items="pagination?.total"
           v-model="currentPage"
-          :items-per-page="pagination.per_page"
+          :items-per-page="pagination?.per_page"
           :max-pages-shown="5"
           :show-ending-buttons="true"
           :show-breakpoint-buttons="false"
           @click="onClickHandler"
         />
-      </template>
+      </template> -->
     </ReusTable>
   </div>
   <div class="text-center" v-else>
@@ -217,7 +217,7 @@ onMounted(async () => {
     route.query.page ? route.query.page : 1,
     true
   );
-  currentPage.value = pagination.value.current_page;
+  currentPage.value = pagination?.value?.current_page;
   isLoading.value = false;
 });
 
