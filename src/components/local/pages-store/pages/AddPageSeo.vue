@@ -462,3 +462,21 @@ const handleAction = () => {
 </script>
 
 <style lang="scss" scoped></style>
+<!-- {
+  "ar": {
+    "title": "العنوان بالعربية",
+    "canonical_tags": "https://example.com/ar",
+    "image": "https://example.com/ar-image.jpg",
+    "type": "website",
+    "description": "وصف الموقع بالعربية",
+    "keywords": "موقع, عربي, بحث"
+  },
+  "en": {
+    "title": "Title in English",
+    "canonical_tags": "https://example.com/en",
+    "image": "https://example.com/en-image.jpg",
+    "type": "website",
+    "description": "Description in English",
+    "keywords": "website, english, search"
+  }
+} -->
