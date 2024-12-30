@@ -25,15 +25,14 @@
           ></button>
         </div>
         <div class="modal-body d-flex flex-wrap justify-content-between">
-          <!-- name en -->
           <span class="row w-50">
             <span class="col">
-              <InptField
-                v-model="formData.name.en"
-                :holder="'name'"
-                :label="'Name'"
+              <TextArea
+                v-model="formData.title.en"
+                :holder="'title'"
+                :label="'Title'"
                 :appear="checkErrName(['en']) ? 'err-border' : ''"
-              ></InptField>
+              ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -47,13 +46,13 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <InptField
+              <TextArea
                 style="direction: rtl"
-                v-model="formData.name.ar"
-                :holder="'الاسم'"
-                :label="'الاسم'"
+                v-model="formData.title.ar"
+                :holder="'العنوان'"
+                :label="'العنوان'"
                 :appear="checkErrName(['ar']) ? 'err-border' : ''"
-              ></InptField>
+              ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -67,12 +66,90 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <InptField
-                v-model="formData.title.ten"
-                :holder="'title'"
-                :label="'Title'"
+              <TextArea
+                v-model="formData.canonical.cen"
+                :holder="'canonical'"
+                :label="'Canonical'"
+                :appear="checkErrName(['cen']) ? 'err-border' : ''"
+              ></TextArea>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'cen'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
+              <TextArea
+                style="direction: rtl"
+                v-model="formData.canonical.car"
+                :holder="'العلامات الأساسية'"
+                :label="'العلامات الأساسية'"
+                :appear="checkErrName(['car']) ? 'err-border' : ''"
+              ></TextArea>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'car'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
+              <TextArea
+                v-model="formData.alt.aen"
+                :holder="'description'"
+                :label="'Img Description'"
+                :appear="checkErrName(['aen']) ? 'err-border' : ''"
+              ></TextArea>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'aen'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
+              <TextArea
+                style="direction: rtl"
+                v-model="formData.alt.aar"
+                :holder="'الوصف'"
+                :label="'الوصف الصوره'"
+                :appear="checkErrName(['aar']) ? 'err-border' : ''"
+              ></TextArea>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'aar'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
+              <TextArea
+                v-model="formData.type.ten"
+                :holder="'type'"
+                :label="'Type'"
                 :appear="checkErrName(['ten']) ? 'err-border' : ''"
-              ></InptField>
+              ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -86,13 +163,13 @@
           </span>
           <span class="row w-50">
             <span class="col">
-              <InptField
+              <TextArea
                 style="direction: rtl"
-                v-model="formData.title.tar"
-                :holder="'العنوان'"
-                :label="'العنوان'"
+                v-model="formData.type.tar"
+                :holder="'النوع'"
+                :label="'النوع'"
                 :appear="checkErrName(['tar']) ? 'err-border' : ''"
-              ></InptField>
+              ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -143,6 +220,45 @@
               >
             </span>
           </span>
+          <span class="row w-50">
+            <span class="col">
+              <TextArea
+                v-model="formData.keyWords.ken"
+                :holder="'keywords'"
+                :label="'keywords'"
+                :appear="checkErrName(['ken']) ? 'err-border' : ''"
+              ></TextArea>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'ken'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
+              <TextArea
+                style="direction: rtl"
+                v-model="formData.keyWords.kar"
+                :holder="'الكلمات الرئيسية'"
+                :label="'الكلمات الرئيسية'"
+                :appear="checkErrName(['kar']) ? 'err-border' : ''"
+              ></TextArea>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'kar'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
         </div>
 
         <div class="modal-footer mx-auto gap-4" style="border: none">
@@ -162,20 +278,16 @@
 <script setup>
 import InptField from "@/reusables/inputs/InptField.vue";
 import TextArea from "@/reusables/inputs/TextArea.vue";
-import UploadeFile from "@/reusables/inputs/UploadeFile.vue";
-import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
 // validation
 import useVuelidator from "@vuelidate/core";
 import { required, minLength, maxLength } from "@vuelidate/validators";
 required.$message = "Field is required";
 
 import { ref, watch, defineProps } from "vue";
-import { storeToRefs } from "pinia";
-import { usePackageStore } from "@/stores/settings/packageStore";
-import { usePageStore } from "@/stores/alJubairiStore/pageStore";
+import { useSeoStore } from "@/stores/alJubairiStore/seoStore";
 
-const selector = ref("addSeo");
-const emit = defineEmits(["resetItem"]);
+const selector = ref("addSe");
+const emit = defineEmits(["resetSeo"]);
 const isLoading = ref(false);
 
 const props = defineProps({
@@ -186,52 +298,50 @@ const props = defineProps({
   },
 });
 
-const formData = ref({
-  name: {
-    ar: "",
-    en: "",
-  },
-  title: {
-    tar: "",
-    ten: "",
-  },
-  desc: {
-    dar: "",
-    den: "",
-  },
-});
-
 watch(
   () => props.itemData,
   () => {
     if (!props.itemData.id) {
       return;
     }
-    console.log(props.itemData);
 
-    formData.value.name.ar = props.itemData.ar?.name;
-    formData.value.title.tar = props.itemData.ar?.title;
-    formData.value.desc.dar = props.itemData.ar?.desc;
-    formData.value.name.en = props.itemData.en?.name;
-    formData.value.title.ten = props.itemData.en?.title;
-    formData.value.desc.den = props.itemData.en?.desc;
+    // formData.value.name.ar = props.itemData.ar?.name;
+    // formData.value.title.tar = props.itemData.ar?.title;
+    // formData.value.desc.dar = props.itemData.ar?.desc;
+    // formData.value.name.en = props.itemData.en?.name;
+    // formData.value.title.ten = props.itemData.en?.title;
+    // formData.value.desc.den = props.itemData.en?.desc;
   }
 );
 
-const validationRules = ref({
-  name: {
-    en: { required, minLength: minLength(1) },
-    ar: { required, minLength: minLength(1) },
-  },
+const formData = ref({
   title: {
-    tar: { required, minLength: minLength(1) },
-    ten: { required, minLength: minLength(1) },
+    ar: props?.itemData?.ar?.title || "",
+    en: props?.itemData?.en?.title || "",
+  },
+  canonical: {
+    car: props?.itemData?.ar?.canonical_tags || "",
+    cen: props?.itemData?.en?.canonical_tags || "",
+  },
+  alt: {
+    aar: props?.itemData?.ar?.image || "",
+    aen: props?.itemData?.en?.image || "",
+  },
+  type: {
+    tar: props?.itemData?.ar?.type || "",
+    ten: props?.itemData?.en?.type || "",
   },
   desc: {
-    dar: { required, minLength: minLength(1) },
-    den: { required, minLength: minLength(1) },
+    dar: props?.itemData?.ar?.description || "",
+    den: props?.itemData?.en?.description || "",
+  },
+  keyWords: {
+    kar: props?.itemData?.ar?.keywords || "",
+    ken: props?.itemData?.en?.keywords || "",
   },
 });
+
+const validationRules = ref({});
 
 const checkErrName = (key) => {
   return validationObj.value.$errors.find((err) => err.$property == key);
@@ -241,7 +351,7 @@ const validationObj = useVuelidator(validationRules, formData);
 
 const closeModal = () => {
   resetFormData();
-  emit("resetItem");
+  emit("resetSeo");
 
   document.querySelector("#close-modal").click();
 };
@@ -249,17 +359,30 @@ const closeModal = () => {
 const resetFormData = () => {
   // reset form
   formData.value = {
-    name: {
+    for: props?.itemData?.type || "",
+    title: {
       ar: "",
       en: "",
     },
-    title: {
+    canonical: {
+      car: "",
+      cen: "",
+    },
+    alt: {
+      aar: "",
+      aen: "",
+    },
+    type: {
       tar: "",
       ten: "",
     },
     desc: {
       dar: "",
       den: "",
+    },
+    keyWords: {
+      kar: "",
+      ken: "",
     },
   };
   validationObj.value.$reset();
@@ -302,19 +425,24 @@ const updatePack = async () => {
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {
-    const res = await usePageStore()
-      .editPage(props.itemData.id, {
+    const res = await useSeoStore()
+      .editMeta(props.itemData.id, {
         _method: "PUT",
-        "en[name]": formData.value.name.en,
-        "ar[name]": formData.value.name.ar,
-        "en[title]": formData.value.title.ten,
-        "ar[title]": formData.value.title.tar,
-        "en[desc]": formData.value.desc.den,
-        "ar[desc]": formData.value.desc.dar,
-        type: props.itemData.type,
+        for: props.itemData.type,
+        "ar[title]": formData.value.title.ar,
+        "en[title]": formData.value.title.en,
+        "ar[canonical_tags]": formData.value.canonical.car,
+        "en[canonical_tags]": formData.value.canonical.cen,
+        "ar[image]": formData.value.alt.aar,
+        "en[image]": formData.value.alt.aen,
+        "ar[type]": formData.value.type.tar,
+        "en[type]": formData.value.type.ten,
+        "ar[description]": formData.value.desc.dar,
+        "en[description]": formData.value.desc.den,
+        "ar[keywords]": formData.value.keyWords.kar,
+        "en[keywords]": formData.value.keyWords.ken,
       })
       .then(async () => {
-        await usePageStore().getPages();
         closeModal();
       })
       .finally(() => {

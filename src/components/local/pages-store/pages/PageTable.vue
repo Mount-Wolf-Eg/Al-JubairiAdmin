@@ -95,7 +95,7 @@
               <button
                 type="button"
                 class="btn border-0"
-                @click="editSeo(item.id)"
+                @click="editSeo(item.id, item.type)"
               >
                 <svg
                   class="edit-btn"
@@ -203,11 +203,13 @@ import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { ref, computed, onMounted, defineEmits, watch } from "vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
+import { useSeoStore } from "@/stores/alJubairiStore/seoStore";
 import { usePageStore } from "@/stores/alJubairiStore/pageStore";
 const pageLoading = ref(true);
 const { alllPages, page } = storeToRefs(usePageStore());
+const { meta } = storeToRefs(useSeoStore());
 const router = useRouter();
-const emit = defineEmits(["editItem", "editSeo"]);
+const emit = defineEmits(["editItem", "editSeo", "type"]);
 
 onMounted(async () => {
   await usePageStore().getPages();
@@ -241,11 +243,14 @@ const edit = async (id) => {
     emit("editItem", page.value);
   }
 };
-const editSeo = async (id) => {
+const editSeo = async (id, type) => {
+  // let res = await useSeoStore().getSingleMeta(id);
   let res = await usePageStore().getSinglePage(id);
 
   if (res) {
+    emit("type", type);
     emit("editSeo", page.value);
+    // emit("editSeo", meta.value);
   }
 };
 </script>

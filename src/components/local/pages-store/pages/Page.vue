@@ -4,6 +4,14 @@
       <template #add-btn>
         <button
           type="button"
+          id="addSeo"
+          class="add-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#addSe"
+          style="visibility: hidden"
+        ></button>
+        <button
+          type="button"
           :id="selectore"
           class="add-btn"
           data-bs-toggle="modal"
@@ -31,7 +39,11 @@
     </HelperButtons>
 
     <AddPage @resetItem="item = {}" :itemData="item"></AddPage>
-    <AddPageSeo @resetSeo="seo = {}" :itemData="seo"></AddPageSeo>
+    <AddPageSeo
+      @resetSeo="seo = {}"
+      @type="seo.type = $event"
+      :itemData="seo"
+    ></AddPageSeo>
     <PageTable @editItem="edit($event)" @editSeo="editSeo($event)"></PageTable>
   </div>
 </template>
@@ -54,7 +66,7 @@ const edit = (e) => {
 };
 const editSeo = (e) => {
   seo.value = e;
-  document.querySelector("#addSeo").click();
+  document.querySelector(`#addSeo`).click();
 };
 </script>
 
