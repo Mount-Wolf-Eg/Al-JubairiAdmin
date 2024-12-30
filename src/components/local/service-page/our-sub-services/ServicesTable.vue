@@ -156,7 +156,7 @@ const sec_name = ref("services");
 const isLoading = ref(true);
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, "services");
+  await useItemsStore().getItems(sec_name.value, "services", "", false);
   isLoading.value = false;
 });
 
@@ -172,12 +172,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, "services");
+  await useItemsStore().getItems(sec_name.value, "services", "", false);
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, "services");
+  await useItemsStore().getItems(sec_name.value, "services", "", false);
 };
 
 const edit = async (id) => {

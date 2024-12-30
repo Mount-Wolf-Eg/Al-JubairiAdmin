@@ -211,12 +211,7 @@ const onClickHandler = async (page) => {
 // pagination data ends
 
 onMounted(async () => {
-  await useItemsStore().getItems(
-    sec_name.value,
-    page_name.value,
-    route.query.page ? route.query.page : 1,
-    true
-  );
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
   currentPage.value = pagination?.value?.current_page;
   isLoading.value = false;
 });

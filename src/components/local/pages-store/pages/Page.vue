@@ -31,7 +31,8 @@
     </HelperButtons>
 
     <AddPage @resetItem="item = {}" :itemData="item"></AddPage>
-    <PageTable @editItem="edit($event)"></PageTable>
+    <AddPageSeo @resetSeo="seo = {}" :itemData="seo"></AddPageSeo>
+    <PageTable @editItem="edit($event)" @editSeo="editSeo($event)"></PageTable>
   </div>
 </template>
 
@@ -41,13 +42,19 @@ import HelperButtons from "@/reusables/content_buttons/HelperButtons.vue";
 
 import PageTable from "./PageTable.vue";
 import AddPage from "./AddPage.vue";
+import AddPageSeo from "./AddPageSeo.vue";
 
 const item = ref({});
+const seo = ref({});
 const selectore = ref("addpag");
 
 const edit = (e) => {
   item.value = e;
   document.querySelector(`#${selectore.value}`).click();
+};
+const editSeo = (e) => {
+  seo.value = e;
+  document.querySelector("#addSeo").click();
 };
 </script>
 
