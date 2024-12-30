@@ -384,7 +384,12 @@ const addPack = async () => {
           parent_id: route.query.id,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, page_name.value);
+          await useItemsStore().getItems(
+            sec_name.value,
+            page_name.value,
+            "",
+            false
+          );
           closeModal();
         })
         .finally(() => (isLoading.value = false));
@@ -407,7 +412,12 @@ const addPack = async () => {
               parent_id: route.query.id,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, page_name.value);
+              await useItemsStore().getItems(
+                sec_name.value,
+                page_name.value,
+                "",
+                false
+              );
               closeModal();
             });
         })
@@ -441,7 +451,12 @@ const updatePack = async () => {
               parent_id: route.query.id,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, page_name.value);
+              await useItemsStore().getItems(
+                sec_name.value,
+                page_name.value,
+                "",
+                false
+              );
               closeModal();
             });
         })
@@ -464,7 +479,12 @@ const updatePack = async () => {
           parent_id: route.query.id,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, page_name.value);
+          await useItemsStore().getItems(
+            sec_name.value,
+            page_name.value,
+            "",
+            false
+          );
           closeModal();
         })
         .finally(() => {

@@ -168,7 +168,7 @@ const page_name = ref("achievement");
 const isLoading = ref(true);
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", false);
   isLoading.value = false;
 });
 onBeforeUnmount(() => {
@@ -187,12 +187,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", false);
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems(sec_name.value, page_name.value, "", false);
 };
 
 const edit = async (id) => {
