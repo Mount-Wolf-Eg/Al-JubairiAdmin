@@ -56,7 +56,7 @@ export const useSeoStore = defineStore("seoStore", {
     async editMeta(id, data) {
       let result;
       await axiosInstance
-        .post(`${mainStore().mainApi}metadata/${id}`, data, {
+        .post(`${mainStore().mainApi}/metadata/${id}`, data, {
           headers: {
             Authorization: `Bearer ${
               this.checkToken ? JSON.parse(this.checkToken)["token"] : ""
@@ -157,7 +157,7 @@ export const useSeoStore = defineStore("seoStore", {
     async addMeta(data) {
       let result;
       await axiosInstance
-        .post(`${mainStore().mainApi}metadata`, data, {
+        .post(`${mainStore().mainApi}/metadata`, data, {
           headers: {
             Authorization: `Bearer ${
               this.checkToken ? JSON.parse(this.checkToken)["token"] : ""

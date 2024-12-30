@@ -33,6 +33,11 @@ const props = defineProps({
     required: false,
     defalut: () => {},
   },
+  appear: {
+    type: String,
+    required: false,
+    default: "",
+  },
 });
 
 const formData = ref("");
