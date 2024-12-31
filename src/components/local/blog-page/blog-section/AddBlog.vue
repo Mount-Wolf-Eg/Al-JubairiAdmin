@@ -392,7 +392,6 @@ const resetFormData = () => {
 };
 
 const addPack = async () => {
-  console.log(formData.value.desc.den);
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {

@@ -28,17 +28,17 @@
           <span class="row w-50">
             <span class="col">
               <TextArea
-                v-model="formData.title.en"
+                v-model="formData.en.title"
                 :holder="'title'"
                 :label="'Title'"
-                :appear="checkErrName(['en']) ? 'err-border' : ''"
+                :appear="checkErrName(['title']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'en'" class="err-msg">
+                ><span v-if="err.$property == 'title'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -48,17 +48,17 @@
             <span class="col">
               <TextArea
                 style="direction: rtl"
-                v-model="formData.title.ar"
+                v-model="formData.ar.title"
                 :holder="'العنوان'"
                 :label="'العنوان'"
-                :appear="checkErrName(['ar']) ? 'err-border' : ''"
+                :appear="checkErrName(['title']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'ar'" class="err-msg">
+                ><span v-if="err.$property == 'title'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -67,17 +67,17 @@
           <span class="row w-50">
             <span class="col">
               <TextArea
-                v-model="formData.canonical.cen"
+                v-model="formData.en.canonical"
                 :holder="'canonical'"
                 :label="'Canonical'"
-                :appear="checkErrName(['cen']) ? 'err-border' : ''"
+                :appear="checkErrName(['canonical']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'cen'" class="err-msg">
+                ><span v-if="err.$property == 'canonical'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -87,17 +87,17 @@
             <span class="col">
               <TextArea
                 style="direction: rtl"
-                v-model="formData.canonical.car"
+                v-model="formData.ar.canonical"
                 :holder="'العلامات الأساسية'"
                 :label="'العلامات الأساسية'"
-                :appear="checkErrName(['car']) ? 'err-border' : ''"
+                :appear="checkErrName(['canonical']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'car'" class="err-msg">
+                ><span v-if="err.$property == 'canonical'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -106,17 +106,17 @@
           <span class="row w-50">
             <span class="col">
               <TextArea
-                v-model="formData.alt.aen"
+                v-model="formData.en.alt"
                 :holder="'description'"
                 :label="'Img Description'"
-                :appear="checkErrName(['aen']) ? 'err-border' : ''"
+                :appear="checkErrName(['alt']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'aen'" class="err-msg">
+                ><span v-if="err.$property == 'alt'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -126,17 +126,17 @@
             <span class="col">
               <TextArea
                 style="direction: rtl"
-                v-model="formData.alt.aar"
+                v-model="formData.ar.alt"
                 :holder="'الوصف'"
                 :label="'الوصف الصوره'"
-                :appear="checkErrName(['aar']) ? 'err-border' : ''"
+                :appear="checkErrName(['alt']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'aar'" class="err-msg">
+                ><span v-if="err.$property == 'alt'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -145,17 +145,17 @@
           <span class="row w-50">
             <span class="col">
               <TextArea
-                v-model="formData.type.ten"
+                v-model="formData.en.type"
                 :holder="'type'"
                 :label="'Type'"
-                :appear="checkErrName(['ten']) ? 'err-border' : ''"
+                :appear="checkErrName(['type']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'ten'" class="err-msg">
+                ><span v-if="err.$property == 'type'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -165,17 +165,17 @@
             <span class="col">
               <TextArea
                 style="direction: rtl"
-                v-model="formData.type.tar"
+                v-model="formData.ar.type"
                 :holder="'النوع'"
                 :label="'النوع'"
-                :appear="checkErrName(['tar']) ? 'err-border' : ''"
+                :appear="checkErrName(['type']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'tar'" class="err-msg">
+                ><span v-if="err.$property == 'type'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -184,17 +184,17 @@
           <span class="row w-50">
             <span class="col">
               <TextArea
-                v-model="formData.desc.den"
+                v-model="formData.en.desc"
                 :holder="'description'"
                 :label="'Description'"
-                :appear="checkErrName(['den']) ? 'err-border' : ''"
+                :appear="checkErrName(['desc']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'den'" class="err-msg">
+                ><span v-if="err.$property == 'desc'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -204,17 +204,17 @@
             <span class="col">
               <TextArea
                 style="direction: rtl"
-                v-model="formData.desc.dar"
+                v-model="formData.ar.desc"
                 :holder="'الوصف'"
                 :label="'الوصف'"
-                :appear="checkErrName(['dar']) ? 'err-border' : ''"
+                :appear="checkErrName(['desc']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'dar'" class="err-msg">
+                ><span v-if="err.$property == 'desc'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -223,17 +223,17 @@
           <span class="row w-50">
             <span class="col">
               <TextArea
-                v-model="formData.keyWords.ken"
+                v-model="formData.en.keyWords"
                 :holder="'keywords'"
                 :label="'keywords'"
-                :appear="checkErrName(['ken']) ? 'err-border' : ''"
+                :appear="checkErrName(['keyWords']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'ken'" class="err-msg">
+                ><span v-if="err.$property == 'keyWords'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -243,17 +243,17 @@
             <span class="col">
               <TextArea
                 style="direction: rtl"
-                v-model="formData.keyWords.kar"
+                v-model="formData.ar.keyWords"
                 :holder="'الكلمات الرئيسية'"
                 :label="'الكلمات الرئيسية'"
-                :appear="checkErrName(['kar']) ? 'err-border' : ''"
+                :appear="checkErrName(['keyWords']) ? 'err-border' : ''"
               ></TextArea>
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
                 v-for="(err, i) in validationObj.$errors"
                 :key="i"
-                ><span v-if="err.$property == 'kar'" class="err-msg">
+                ><span v-if="err.$property == 'keyWords'" class="err-msg">
                   {{ err.$message }}
                 </span></span
               >
@@ -276,7 +276,6 @@
 </template>
 
 <script setup>
-import InptField from "@/reusables/inputs/InptField.vue";
 import TextArea from "@/reusables/inputs/TextArea.vue";
 // validation
 import useVuelidator from "@vuelidate/core";
@@ -301,44 +300,51 @@ const props = defineProps({
 watch(
   () => props.itemData,
   () => {
-    if (!props.itemData.id) {
+    if (!props.itemData?.metadata?.id) {
+      formData.value.metadataableId = props?.itemData.id;
+
       return;
     }
+    formData.value.ar.title = props?.itemData?.metadata?.ar?.title;
+    formData.value.en.title = props?.itemData?.metadata?.en?.title;
 
-    // formData.value.name.ar = props.itemData.ar?.name;
-    // formData.value.title.tar = props.itemData.ar?.title;
-    // formData.value.desc.dar = props.itemData.ar?.desc;
-    // formData.value.name.en = props.itemData.en?.name;
-    // formData.value.title.ten = props.itemData.en?.title;
-    // formData.value.desc.den = props.itemData.en?.desc;
+    formData.value.ar.canonical = props?.itemData?.metadata?.ar?.canonical_tags;
+    formData.value.en.canonical = props?.itemData?.metadata?.en?.canonical_tags;
+
+    formData.value.ar.alt = props?.itemData?.metadata?.ar?.image;
+    formData.value.en.alt = props?.itemData?.metadata?.en?.image;
+
+    formData.value.ar.type = props?.itemData?.metadata?.ar?.type;
+    formData.value.en.type = props?.itemData?.metadata?.en?.type;
+
+    formData.value.ar.desc = props?.itemData?.metadata?.ar?.description;
+    formData.value.en.desc = props?.itemData?.metadata?.en?.description;
+
+    formData.value.ar.keyWords = props?.itemData?.metadata?.ar?.keywords;
+    formData.value.en.keyWords = props?.itemData?.metadata?.en?.keywords;
   }
 );
 
 const formData = ref({
-  title: {
-    ar: props?.itemData?.ar?.title || "",
-    en: props?.itemData?.en?.title || "",
+  ar: {
+    title: "",
+    canonical: "",
+    alt: "",
+    type: "",
+    desc: "",
+    keyWords: "",
   },
-  canonical: {
-    car: props?.itemData?.ar?.canonical_tags || "",
-    cen: props?.itemData?.en?.canonical_tags || "",
+  en: {
+    title: "",
+    canonical: "",
+    alt: "",
+    type: "",
+    desc: "",
+    keyWords: "",
   },
-  alt: {
-    aar: props?.itemData?.ar?.image || "",
-    aen: props?.itemData?.en?.image || "",
-  },
-  type: {
-    tar: props?.itemData?.ar?.type || "",
-    ten: props?.itemData?.en?.type || "",
-  },
-  desc: {
-    dar: props?.itemData?.ar?.description || "",
-    den: props?.itemData?.en?.description || "",
-  },
-  keyWords: {
-    kar: props?.itemData?.ar?.keywords || "",
-    ken: props?.itemData?.en?.keywords || "",
-  },
+
+  metadataableTyp: "page",
+  metadataableId: "",
 });
 
 const validationRules = ref({});
@@ -359,88 +365,80 @@ const closeModal = () => {
 const resetFormData = () => {
   // reset form
   formData.value = {
-    for: props?.itemData?.type || "",
-    title: {
-      ar: "",
-      en: "",
+    ar: {
+      title: "",
+      canonical: "",
+      alt: "",
+      type: "",
+      desc: "",
+      keyWords: "",
     },
-    canonical: {
-      car: "",
-      cen: "",
+    en: {
+      title: "",
+      canonical: "",
+      alt: "",
+      type: "",
+      desc: "",
+      keyWords: "",
     },
-    alt: {
-      aar: "",
-      aen: "",
-    },
-    type: {
-      tar: "",
-      ten: "",
-    },
-    desc: {
-      dar: "",
-      den: "",
-    },
-    keyWords: {
-      kar: "",
-      ken: "",
-    },
+
+    metadataableTyp: "page",
+    metadataableId: "",
   };
   validationObj.value.$reset();
   document.getElementById(selector.value).reset();
 };
 
-// const addPack = async () => {
-//   isLoading.value = true;
-//   const result = await validationObj.value.$validate();
-//   if (result) {
-//     const res = await useItemsStore()
-//       .sendAttachment(formData.value.img)
-//       .then(async (res) => {
-//         await useItemsStore()
-//           .addItem({
-//             "en[name]": formData.value.name.en,
-//             "ar[name]": formData.value.name.ar,
-//             "en[title]": formData.value.title.ten,
-//             "ar[title]": formData.value.title.tar,
-//             "en[desc]": formData.value.desc.den,
-//             "ar[desc]": formData.value.desc.dar,
-//             "image[media]": res.data.data,
-//             "image[ar][alt]": formData.value.alt.aar,
-//             "image[en][alt]": formData.value.alt.aen,
-//             section_id: 1,
-//           })
-//           .then(async () => {
-//             await useItemsStore().getItems("slider", "home");
-//             closeModal();
-//           })
-//           .finally(() => {
-//             isLoading.value = false;
-//           });
-//       });
-//   }
-//   isLoading.value = false;
-// };
-
-const updatePack = async () => {
+const addMeta = async () => {
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {
     const res = await useSeoStore()
-      .editMeta(props.itemData.id, {
+      .addMeta({
+        "ar[title]": formData.value.ar.title,
+        "en[title]": formData.value.en.title,
+        "ar[canonical_tags]": formData.value.ar.canonical,
+        "en[canonical_tags]": formData.value.en.canonical,
+        "ar[image]": formData.value.ar.alt,
+        "en[image]": formData.value.en.alt,
+        "ar[type]": formData.value.ar.type,
+        "en[type]": formData.value.en.type,
+        "ar[description]": formData.value.ar.desc,
+        "en[description]": formData.value.en.desc,
+        "ar[keywords]": formData.value.ar.keyWords,
+        "en[keywords]": formData.value.en.keyWords,
+        metadataable_type: formData.value.metadataableTyp,
+        metadataable_id: formData.value.metadataableId,
+      })
+      .then(async () => {
+        closeModal();
+      })
+      .finally(() => {
+        isLoading.value = false;
+      });
+  }
+  isLoading.value = false;
+};
+
+const updateMeta = async () => {
+  isLoading.value = true;
+  const result = await validationObj.value.$validate();
+  if (result) {
+    const res = await useSeoStore()
+      .editMeta(props.itemData?.metadata?.id, {
         _method: "PUT",
-        for: props.itemData.type,
-        "ar[title]": formData.value.title.ar,
-        "en[title]": formData.value.title.en,
-        "ar[canonical_tags]": formData.value.canonical.car,
-        "en[canonical_tags]": formData.value.canonical.cen,
-        "ar[image]": formData.value.alt.aar,
-        "en[image]": formData.value.alt.aen,
-        "ar[type]": formData.value.type.tar,
-        "en[type]": formData.value.type.ten,
-        "ar[description]": formData.value.desc.dar,
-        "en[description]": formData.value.desc.den,
-        "ar[keywords]": formData.value.keyWords.kar,
-        "en[keywords]": formData.value.keyWords.ken,
+        "ar[title]": formData.value.ar.title,
+        "en[title]": formData.value.en.title,
+        "ar[canonical_tags]": formData.value.ar.canonical,
+        "en[canonical_tags]": formData.value.en.canonical,
+        "ar[image]": formData.value.ar.alt,
+        "en[image]": formData.value.en.alt,
+        "ar[type]": formData.value.ar.type,
+        "en[type]": formData.value.en.type,
+        "ar[description]": formData.value.ar.desc,
+        "en[description]": formData.value.en.desc,
+        "ar[keywords]": formData.value.ar.keyWords,
+        "en[keywords]": formData.value.en.keyWords,
       })
       .then(async () => {
         closeModal();
@@ -453,10 +451,10 @@ const updatePack = async () => {
 };
 
 const handleAction = () => {
-  if (props.itemData.id) {
-    updatePack();
+  if (props.itemData?.metadata?.id) {
+    updateMeta();
   } else {
-    addPack();
+    addMeta();
   }
 };
 </script>

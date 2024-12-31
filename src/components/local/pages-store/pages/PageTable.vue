@@ -244,13 +244,10 @@ const edit = async (id) => {
   }
 };
 const editSeo = async (id, type) => {
-  // let res = await useSeoStore().getSingleMeta(id);
   let res = await usePageStore().getSinglePage(id);
 
   if (res) {
-    emit("type", type);
     emit("editSeo", page.value);
-    // emit("editSeo", meta.value);
   }
 };
 </script>
@@ -266,3 +263,10 @@ button[type="button"] {
   border-radius: 3px !important;
 }
 </style>
+
+<!-- 
+1- click on seo icon 
+2- get page data 
+3-a- if have metadata >updata<
+4-b- if not add
+-->
