@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <main v-if="!pageLoading">
+    <FilterInputs
+      v-model="filter"
+      @search="filteredData(filter)"
+    ></FilterInputs>
     <ReusTable
       :header="[
         '',
@@ -128,13 +132,18 @@
         </tr>
       </template>
     </ReusTable>
-  </div>
+  </main>
+  <main class="text-center" v-else>
+    <div class="spinner-grow me-3" role="status"></div>
+    ...loading
+  </main>
 </template>
 
 <script setup>
 import moment from "moment";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import FilterInputs from "@/reusables/content_buttons/FilterInputs.vue";
 import { ref, computed, onMounted, defineEmits, watch } from "vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
@@ -143,9 +152,15 @@ const router = useRouter();
 const emit = defineEmits(["editItem"]);
 const sec_name = ref("team_work");
 const page_name = ref("team_work");
+const pageLoading = ref(true);
 
+const filter = ref("");
+const filteredData = async (search) => {
+  await useItemsStore().getItems(search, sec_name.value, page_name.value);
+};
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
+  pageLoading.value = false;
 });
 
 const toggleStatus = async (id, e) => {
@@ -160,12 +175,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
 };
 
 const edit = async (id) => {

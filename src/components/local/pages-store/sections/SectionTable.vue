@@ -132,7 +132,10 @@
       </template>
     </ReusTable>
   </main>
-  <main v-else>loading ...</main>
+  <main class="text-center" v-else>
+    <div class="spinner-grow me-3" role="status"></div>
+    ...loading
+  </main>
 </template>
 
 <script setup>

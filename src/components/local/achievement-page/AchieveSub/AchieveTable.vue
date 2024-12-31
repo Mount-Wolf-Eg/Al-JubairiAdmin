@@ -140,10 +140,10 @@
       </template>
     </ReusTable>
   </div>
-  <div class="text-center" v-else>
+  <main class="text-center" v-else>
     <div class="spinner-grow me-3" role="status"></div>
     ...loading
-  </div>
+  </main>
 </template>
 
 <script setup>
@@ -168,7 +168,13 @@ const page_name = ref("achievement");
 const isLoading = ref(true);
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", false);
+  await useItemsStore().getItems(
+    "",
+    sec_name.value,
+    page_name.value,
+    "",
+    false
+  );
   isLoading.value = false;
 });
 onBeforeUnmount(() => {
@@ -187,12 +193,24 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", false);
+  await useItemsStore().getItems(
+    "",
+    sec_name.value,
+    page_name.value,
+    "",
+    false
+  );
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", false);
+  await useItemsStore().getItems(
+    "",
+    sec_name.value,
+    page_name.value,
+    "",
+    false
+  );
 };
 
 const edit = async (id) => {

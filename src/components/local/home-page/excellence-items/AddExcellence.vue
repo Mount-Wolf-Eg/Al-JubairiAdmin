@@ -412,7 +412,7 @@ const addPack = async () => {
             section_id: sec_id.value,
           })
           .then(async () => {
-            await useItemsStore().getItems(sec_name.value, "home");
+            await useItemsStore().getItems("", sec_name.value, "home");
             closeModal();
           });
       })
@@ -445,7 +445,7 @@ const updatePack = async () => {
               section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, "home");
+              await useItemsStore().getItems("", sec_name.value, "home");
               closeModal();
             });
         })
@@ -468,7 +468,7 @@ const updatePack = async () => {
           section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, "home");
+          await useItemsStore().getItems("", sec_name.value, "home");
           closeModal();
         })
         .finally(() => {

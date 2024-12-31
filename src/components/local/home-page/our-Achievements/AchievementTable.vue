@@ -145,7 +145,7 @@ const emit = defineEmits(["editItem"]);
 const sec_name = ref("achievement_statistics");
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, "home");
+  await useItemsStore().getItems("", sec_name.value, "home");
 });
 
 const toggleStatus = async (id, e) => {
@@ -160,12 +160,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, "home");
+  await useItemsStore().getItems("", sec_name.value, "home");
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, "home");
+  await useItemsStore().getItems("", sec_name.value, "home");
 };
 
 const edit = async (id) => {

@@ -408,7 +408,7 @@ const addPack = async () => {
           section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, "services");
+          await useItemsStore().getItems("", sec_name.value, "services");
           closeModal();
         })
         .finally(() => (isLoading.value = false));
@@ -430,7 +430,7 @@ const addPack = async () => {
               section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, "services");
+              await useItemsStore().getItems("", sec_name.value, "services");
               closeModal();
             });
         })
@@ -463,7 +463,7 @@ const updatePack = async () => {
               section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, "services");
+              await useItemsStore().getItems("", sec_name.value, "services");
               closeModal();
             });
         })
@@ -485,7 +485,7 @@ const updatePack = async () => {
           section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, "services");
+          await useItemsStore().getItems("", sec_name.value, "services");
           closeModal();
         })
         .finally(() => {

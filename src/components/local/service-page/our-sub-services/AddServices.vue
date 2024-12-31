@@ -378,7 +378,13 @@ const addPack = async () => {
           parent_id: route.query.id,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, "services", "", false);
+          await useItemsStore().getItems(
+            "",
+            sec_name.value,
+            "services",
+            "",
+            false
+          );
           closeModal();
         })
         .finally(() => (isLoading.value = false));
@@ -468,7 +474,13 @@ const updatePack = async () => {
           parent_id: route.query.id,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, "services", "", false);
+          await useItemsStore().getItems(
+            "",
+            sec_name.value,
+            "services",
+            "",
+            false
+          );
           closeModal();
         })
         .finally(() => {

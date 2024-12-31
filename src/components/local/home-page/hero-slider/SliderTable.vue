@@ -1,5 +1,9 @@
 <template>
   <main v-if="!pageLoading">
+    <FilterInputs
+      v-model="filter"
+      @search="filteredData(filter)"
+    ></FilterInputs>
     <ReusTable
       :header="[
         '',
@@ -130,11 +134,15 @@
       </template>
     </ReusTable>
   </main>
-  <main v-else>Loading ...</main>
+  <main class="text-center" v-else>
+    <div class="spinner-grow me-3" role="status"></div>
+    ...loading
+  </main>
 </template>
 
 <script setup>
 import moment from "moment";
+import FilterInputs from "@/reusables/content_buttons/FilterInputs.vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { ref, computed, onMounted, defineEmits, watch } from "vue";
@@ -142,14 +150,21 @@ import ReusTable from "@/reusables/components/ReusTable.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
 const pageLoading = ref(true);
 const { allItems, singleItem } = storeToRefs(useItemsStore());
+
+const sec_name = ref("slider");
+const page_name = ref("home");
+const filter = ref("");
+
+const filteredData = async (search) => {
+  await useItemsStore().getItems(search, sec_name.value, page_name.value);
+};
 const router = useRouter();
 const emit = defineEmits(["editItem"]);
-
 // test
+
 onMounted(async () => {
-  await useItemsStore().getItems("slider", "home");
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
   pageLoading.value = false;
-  console.log(allItems.value);
 });
 
 const toggleStatus = async (id, e) => {
@@ -164,12 +179,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems("slider", "home");
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems("slider", "home");
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
 };
 
 const edit = async (id) => {

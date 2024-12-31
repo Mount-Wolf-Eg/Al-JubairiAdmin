@@ -146,7 +146,7 @@ const sec_name = ref("more_about");
 const page_name = ref("about");
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
 });
 
 const toggleStatus = async (id, e) => {
@@ -161,12 +161,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value);
+  await useItemsStore().getItems("", sec_name.value, page_name.value);
 };
 
 const edit = async (id) => {

@@ -375,7 +375,7 @@ const addPack = async () => {
           section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, page_name.value);
+          await useItemsStore().getItems("", sec_name.value, page_name.value);
           closeModal();
         })
         .finally(() => (isLoading.value = false));
@@ -397,7 +397,11 @@ const addPack = async () => {
               section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, page_name.value);
+              await useItemsStore().getItems(
+                "",
+                sec_name.value,
+                page_name.value
+              );
               closeModal();
             });
         })
@@ -430,7 +434,11 @@ const updatePack = async () => {
               section_id: sec_id.value,
             })
             .then(async () => {
-              await useItemsStore().getItems(sec_name.value, page_name.value);
+              await useItemsStore().getItems(
+                "",
+                sec_name.value,
+                page_name.value
+              );
               closeModal();
             });
         })
@@ -452,7 +460,7 @@ const updatePack = async () => {
           section_id: sec_id.value,
         })
         .then(async () => {
-          await useItemsStore().getItems(sec_name.value, page_name.value);
+          await useItemsStore().getItems("", sec_name.value, page_name.value);
           closeModal();
         })
         .finally(() => {

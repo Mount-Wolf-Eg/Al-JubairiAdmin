@@ -1,5 +1,9 @@
 <template>
   <div v-if="!isLoading">
+    <FilterInputs
+      v-model="filter"
+      @search="filteredData(filter)"
+    ></FilterInputs>
     <ReusTable
       :header="[
         '',
@@ -175,10 +179,10 @@
       </template> -->
     </ReusTable>
   </div>
-  <div class="text-center" v-else>
+  <main class="text-center" v-else>
     <div class="spinner-grow me-3" role="status"></div>
     ...loading
-  </div>
+  </main>
 </template>
 
 <script setup>
@@ -186,6 +190,7 @@ import moment from "moment";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 import { ref, computed, onMounted, defineEmits, watch } from "vue";
+import FilterInputs from "@/reusables/content_buttons/FilterInputs.vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
 const { allItems, singleItem, pagination } = storeToRefs(useItemsStore());
@@ -205,13 +210,29 @@ const onClickHandler = async (page) => {
       page: page,
     },
   });
-  await useItemsStore().getItems(sec_name.value, page_name.value, page, true);
+  await useItemsStore().getItems(
+    "",
+    sec_name.value,
+    page_name.value,
+    page,
+    true
+  );
 };
+const filter = ref("");
 
+const filteredData = async (search) => {
+  await useItemsStore().getItems(
+    search,
+    sec_name.value,
+    page_name.value,
+    "",
+    true
+  );
+};
 // pagination data ends
 
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", true);
+  await useItemsStore().getItems("", sec_name.value, page_name.value, "", true);
   currentPage.value = pagination?.value?.current_page;
   isLoading.value = false;
 });

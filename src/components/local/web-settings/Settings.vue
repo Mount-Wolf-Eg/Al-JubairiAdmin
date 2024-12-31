@@ -273,10 +273,10 @@
       </div>
     </form>
   </div>
-  <div class="text-center" v-else>
+  <main class="text-center" v-else>
     <div class="spinner-grow me-3" role="status"></div>
     ...loading
-  </div>
+  </main>
 </template>
 
 <script setup>

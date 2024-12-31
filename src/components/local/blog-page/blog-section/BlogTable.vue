@@ -1,5 +1,9 @@
 <template>
   <main v-if="!pageLoad">
+    <FilterInputs
+      v-model="filter"
+      @search="filteredData(filter)"
+    ></FilterInputs>
     <ReusTable
       :header="[
         '',
@@ -128,7 +132,7 @@
           </td>
         </tr>
       </template>
-      <template #foot>
+      <!-- <template #foot>
         <pagination
           :paginate="pagination"
           @change="console.log($event)"
@@ -142,10 +146,13 @@
           :show-breakpoint-buttons="false"
           @click="onClickHandler"
         />
-      </template>
+      </template> -->
     </ReusTable>
   </main>
-  <main v-else>Loading ...</main>
+  <main class="text-center" v-else>
+    <div class="spinner-grow me-3" role="status"></div>
+    ...loading
+  </main>
 </template>
 
 <script setup>
@@ -163,6 +170,7 @@ import {
 } from "vue";
 import ReusTable from "@/reusables/components/ReusTable.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
+import FilterInputs from "@/reusables/content_buttons/FilterInputs.vue";
 const { allItems, singleItem, pagination } = storeToRefs(useItemsStore());
 const router = useRouter();
 const route = useRoute();
@@ -189,8 +197,20 @@ const onClickHandler = async (page) => {
   );
 };
 
+const filter = ref("");
+
+const filteredData = async (search) => {
+  await useItemsStore().getItems(
+    search,
+    sec_name.value,
+    page_name.value,
+    "",
+    true
+  );
+};
+
 onMounted(async () => {
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", true, 1);
+  await useItemsStore().getItems("", sec_name.value, page_name.value, "", true);
   pageLoad.value = false;
 });
 
@@ -210,12 +230,26 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", true, 1);
+  await useItemsStore().getItems(
+    "",
+    sec_name.value,
+    page_name.value,
+    "",
+    true,
+    1
+  );
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems(sec_name.value, page_name.value, "", true, 1);
+  await useItemsStore().getItems(
+    "",
+    sec_name.value,
+    page_name.value,
+    "",
+    true,
+    1
+  );
 };
 
 const edit = async (id) => {
