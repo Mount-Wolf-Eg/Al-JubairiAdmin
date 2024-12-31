@@ -21,12 +21,12 @@ export const useItemsStore = defineStore("itemsStore", {
 
   actions: {
     // get all items
-    async getItems(secName, pageName, num, isParent, paginate) {
+    async getItems(filter, secName, pageName, num, isParent, paginate) {
       let loading = true;
 
       await axiosInstance
         .get(
-          `${mainStore().mainApi}/items?paginate=${
+          `${mainStore().mainApi}/items?keyword=${filter ?? ""}&paginate=${
             paginate == undefined ? 0 : paginate
           }&filters[section.type]=${
             secName ? secName : ""
