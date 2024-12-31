@@ -169,7 +169,6 @@ const page_name = ref("Blogs");
 // pagination data starts
 const currentPage = ref(1);
 const onClickHandler = async (page) => {
-  console.log("\ki");
   router.push({
     path: route.path,
     query: {
