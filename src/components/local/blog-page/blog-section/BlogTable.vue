@@ -129,6 +129,10 @@
         </tr>
       </template>
       <template #foot>
+        <pagination
+          :paginate="pagination"
+          @change="console.log($event)"
+        ></pagination>
         <vue-awesome-paginate
           :total-items="pagination?.total"
           v-model="currentPage"
@@ -148,6 +152,7 @@
 import moment from "moment";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
+import Pagination from "@/reusables/pagination/Pagination.vue";
 import {
   ref,
   computed,
