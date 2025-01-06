@@ -408,6 +408,7 @@ const addPack = async () => {
             })
             .then(async () => {
               await useItemsStore().getItems(
+                "",
                 sec_name.value,
                 "services",
                 "",
@@ -447,6 +448,7 @@ const updatePack = async () => {
             })
             .then(async () => {
               await useItemsStore().getItems(
+                "",
                 sec_name.value,
                 "services",
                 "",

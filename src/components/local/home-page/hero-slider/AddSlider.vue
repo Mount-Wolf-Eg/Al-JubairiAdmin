@@ -410,7 +410,7 @@ const addPack = async () => {
             section_id: 1,
           })
           .then(async () => {
-            await useItemsStore().getItems("slider", "home");
+            await useItemsStore().getItems("", "slider", "home");
             closeModal();
           })
           .finally(() => {
@@ -445,7 +445,7 @@ const updatePack = async () => {
               section_id: 1,
             })
             .then(async () => {
-              await useItemsStore().getItems("slider", "home");
+              await useItemsStore().getItems("", "slider", "home");
               closeModal();
             })
             .finally(() => {
@@ -468,7 +468,7 @@ const updatePack = async () => {
           section_id: 1,
         })
         .then(async () => {
-          await useItemsStore().getItems("slider", "home");
+          await useItemsStore().getItems("", "slider", "home");
           closeModal();
         })
         .finally(() => {

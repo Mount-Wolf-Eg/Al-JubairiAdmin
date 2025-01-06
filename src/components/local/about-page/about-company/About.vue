@@ -232,7 +232,7 @@ watch(
 );
 
 onMounted(async () => {
-  await useItemsStore().getItems("more_about", "about");
+  await useItemsStore().getItems("", "more_about", "about");
   formData.value.desc.ar = allItems.value.find((el) => el.id == 138)?.ar?.desc;
   formData.value.desc.en = allItems.value.find((el) => el.id == 138)?.en?.desc;
   formData.value.img = allItems.value.find((el) => el.id == 138)?.image?.media;

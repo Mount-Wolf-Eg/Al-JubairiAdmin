@@ -144,7 +144,7 @@ const router = useRouter();
 const emit = defineEmits(["editItem"]);
 
 onMounted(async () => {
-  await useItemsStore().getItems("excellence", "home");
+  await useItemsStore().getItems("", "excellence", "home");
 });
 
 const toggleStatus = async (id, e) => {
@@ -159,12 +159,12 @@ const toggleStatus = async (id, e) => {
       e.target.checked = !e.target.checked;
     }
   }
-  await useItemsStore().getItems("excellence", "home");
+  await useItemsStore().getItems("", "excellence", "home");
 };
 
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
-  await useItemsStore().getItems("excellence", "home");
+  await useItemsStore().getItems("", "excellence", "home");
 };
 
 const edit = async (id) => {

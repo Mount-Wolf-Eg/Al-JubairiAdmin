@@ -250,6 +250,7 @@ const toggleStatus = async (id, e) => {
     }
   }
   await useItemsStore().getItems(
+    "",
     sec_name.value,
     page_name.value,
     route.query.page ? route.query.page : 1,
@@ -260,6 +261,7 @@ const toggleStatus = async (id, e) => {
 const remove = async (id) => {
   await useItemsStore().deleteItem(id);
   await useItemsStore().getItems(
+    "",
     sec_name.value,
     page_name.value,
     route.query.page ? route.query.page : 1,

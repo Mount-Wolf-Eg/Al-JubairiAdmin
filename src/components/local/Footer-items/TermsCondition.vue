@@ -85,7 +85,7 @@ const formData = ref({
 });
 
 onMounted(async () => {
-  await useItemsStore().getItems("terms", "terms");
+  await useItemsStore().getItems("", "terms", "terms");
   formData.value.desc.ar = allItems.value.find((el) => el.id == 148)?.ar?.desc;
   formData.value.desc.en = allItems.value.find((el) => el.id == 148)?.en?.desc;
   pageLoad.value = false;
