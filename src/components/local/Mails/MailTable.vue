@@ -109,11 +109,7 @@
           </td>
         </tr>
       </template>
-      <!-- <template #foot>
-        <pagination
-          :paginate="pagination"
-          @change="console.log($event)"
-        ></pagination>
+      <template #foot>
         <vue-awesome-paginate
           :total-items="pagination?.total"
           v-model="currentPage"
@@ -123,7 +119,7 @@
           :show-breakpoint-buttons="false"
           @click="onClickHandler"
         />
-      </template> -->
+      </template>
     </ReusTable>
   </main>
   <main class="text-center" v-else>
@@ -149,40 +145,26 @@ import ReusTable from "@/reusables/components/ReusTable.vue";
 import FilterInputs from "@/reusables/content_buttons/FilterInputs.vue";
 import { useContactStore } from "@/stores/alJubairiStore/contactStore";
 
-const { allMails, mail } = storeToRefs(useContactStore());
+const { allMails, mail, pagination } = storeToRefs(useContactStore());
 const router = useRouter();
 const route = useRoute();
 const pageLoad = ref(true);
 
-// pagination data starts
-// const currentPage = ref(1);
-// const onClickHandler = async (page) => {
-//   router.push({
-//     path: route.path,
-//     query: {
-//       page: page,
-//     },
-//   });
-//   await useItemsStore().getItems(
-//     sec_name.value,
-//     page_name.value,
-//     page,
-//     true,
-//     1
-//   );
-// };
-
 const filter = ref("");
+const currentPage = ref(1);
+const onClickHandler = async (page) => {
+  router.push({
+    path: route.path,
+    query: {
+      page: page,
+    },
+  });
+  await useContactStore().getAllMails(filter.value, page);
+};
 
-// const filteredData = async (search) => {
-//   await useItemsStore().getItems(
-//     search,
-//     sec_name.value,
-//     page_name.value,
-//     "",
-//     true
-//   );
-// };
+const filteredData = async (search) => {
+  await useContactStore().getAllMails(search, "");
+};
 
 const emit = defineEmits(["msgId"]);
 

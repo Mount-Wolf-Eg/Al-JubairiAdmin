@@ -16,24 +16,30 @@ export const useContactStore = defineStore("contactStore", {
       )["Admin"],
     allMails: [],
     mail: [],
+    pagination: [],
   }),
 
   actions: {
     // get all items
-    async getAllMails() {
+    async getAllMails(filter, num) {
       let loading = true;
 
       await axiosInstance
-        .get(`${mainStore().mainApi}/contacts`, {
-          headers: {
-            Authorization: `Bearer ${
-              this.checkToken ? JSON.parse(this.checkToken)["token"] : ""
-            }`,
-          },
-        })
+        .get(
+          `${mainStore().mainApi}/contacts?keyword=${filter ?? ""}&page=${
+            num ?? ""
+          }`,
+          {
+            headers: {
+              Authorization: `Bearer ${
+                this.checkToken ? JSON.parse(this.checkToken)["token"] : ""
+              }`,
+            },
+          }
+        )
         .then((res) => {
-          console.log(res);
           this.allMails = res.data.data || [];
+          this.pagination = res.data.meta;
         })
         .catch((err) => {
           console.log(err);
