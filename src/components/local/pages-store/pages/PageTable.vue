@@ -12,37 +12,9 @@
     >
       <template #table>
         <tr v-for="item in alllPages" :key="item.id">
-          <!-- <td>
-            <div class="form-check form-switch">
-              <input
-                :checked="item.is_active"
-                @change="toggleStatus(item.id, $event)"
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="flexSwitchCheckDefault"
-              />
-            </div>
-          </td> -->
           <td>
             {{ item.name }}
           </td>
-          <!-- <td
-            @click="
-              router.push({
-                name: 'itemInfo',
-                params: { id: item.id },
-              })
-            "
-          >
-            <img
-              class="mx-2"
-              style="background-color: #ccc; padding: 0.5rem; height: 5rem"
-              v-if="item.image"
-              :src="item.image.media"
-              :alt="item.image.alt"
-            />
-          </td> -->
 
           <td>
             {{ item.title }}
@@ -67,31 +39,6 @@
 
           <td style="width: 7%">
             <div class="center-row justify-content-between align-items-center">
-              <!-- <button
-                type="button"
-                class="btn border-0"
-                @click="
-                  router.push({
-                    name: 'itemInfo',
-                    params: { id: item.id },
-                  })
-                "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  style="width: 2rem; height: 2rem"
-                  fill="currentColor"
-                  class="bi bi-eye qr-btn"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"
-                  />
-                  <path
-                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
-                  />
-                </svg>
-              </button> -->
               <button
                 type="button"
                 class="btn border-0"
@@ -170,24 +117,6 @@
                   />
                 </svg>
               </button>
-              <!-- <button
-                type="button"
-                class="btn border-0"
-                @click="remove(item.id)"
-              >
-                <svg
-                  class="delete-btn"
-                  style="width: 1.6rem; height: 1.8rem"
-                  viewBox="0 0 16 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3 18C2.45 18 1.97917 17.8042 1.5875 17.4125C1.19583 17.0208 1 16.55 1 16V3H0V1H5V0H11V1H16V3H15V16C15 16.55 14.8042 17.0208 14.4125 17.4125C14.0208 17.8042 13.55 18 13 18H3ZM13 3H3V16H13V3ZM5 14H7V5H5V14ZM9 14H11V5H9V14Z"
-                    fill="#464A61"
-                  />
-                </svg>
-              </button> -->
             </div>
           </td>
         </tr>
@@ -219,26 +148,6 @@ onMounted(async () => {
   pageLoading.value = false;
 });
 
-// const toggleStatus = async (id, e) => {
-//   if (e.target.checked) {
-//     const res = await useItemsStore().toggle(id);
-//     if (!res) {
-//       e.target.checked = !e.target.checked;
-//     }
-//   } else {
-//     const res = await useItemsStore().toggle(id);
-//     if (!res) {
-//       e.target.checked = !e.target.checked;
-//     }
-//   }
-//   await useItemsStore().getItems("slider", "home");
-// };
-
-// const remove = async (id) => {
-//   await useItemsStore().deleteItem(id);
-//   await useItemsStore().getItems("slider", "home");
-// };
-
 const edit = async (id) => {
   let res = await usePageStore().getSinglePage(id);
 
@@ -266,10 +175,3 @@ button[type="button"] {
   border-radius: 3px !important;
 }
 </style>
-
-<!-- 
-1- click on seo icon 
-2- get page data 
-3-a- if have metadata >updata<
-4-b- if not add
--->

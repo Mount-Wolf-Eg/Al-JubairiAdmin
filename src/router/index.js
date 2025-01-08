@@ -470,6 +470,25 @@ const router = createRouter({
       },
     },
     {
+      path: "/mails",
+      name: "Mails",
+      component: () => import("@/components/local/Mails/mails.vue"),
+      meta: {
+        title: "Mails",
+        requiresAuth: true,
+      },
+    },
+
+    {
+      path: "/mail/:id",
+      name: "MainInfo",
+      component: () => import("@/components/local/Mails/MailInfo.vue"),
+      meta: {
+        title: "Main Info",
+        requiresAuth: true,
+      },
+    },
+    {
       path: "/settings",
       name: "Settings",
       component: () => import("@/components/local/web-settings/Settings.vue"),
