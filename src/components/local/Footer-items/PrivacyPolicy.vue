@@ -108,8 +108,8 @@ const handleSetting = async () => {
     isLoading.value = true;
     await useItemsStore().editItem("143", {
       _method: "PUT",
-      "en[desc]": formData.value.desc.ar,
-      "ar[desc]": formData.value.desc.en,
+      "en[desc]": formData.value.desc.en,
+      "ar[desc]": formData.value.desc.ar,
       section_id: 23,
     });
 
