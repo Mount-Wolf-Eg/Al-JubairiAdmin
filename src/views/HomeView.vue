@@ -131,7 +131,6 @@ const categoryData = ref({
     if (val) setCateg(val);
   },
   clear: async () => {
-    console.log("clear");
     searchCountry.value = "";
   },
 });
@@ -145,7 +144,6 @@ onMounted(async () => {
     usestatisticsStore().getAllCountries(),
     usestatisticsStore().getAllStatisticals(),
   ]);
-  console.log(allstatistics.value);
 
   categoryData.value.options = allCountries.value;
 });

@@ -88,8 +88,6 @@ watch(
   () => props.allData,
   (newData) => {
     if (newData && newData.months && newData.counts) {
-      console.log("chart", newData);
-
       series.value = [
         {
           name: "visit",

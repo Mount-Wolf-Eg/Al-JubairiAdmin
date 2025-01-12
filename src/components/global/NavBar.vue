@@ -296,15 +296,6 @@ const toggleTheme = () => {
   htmlElement.classList.toggle("light-theme");
   htmlElement.classList.toggle("dark-theme");
 };
-
-watch(
-  () => route.name,
-  async () => {
-    if (route.name == "Home") {
-      await useSettingStore().getSettings();
-    }
-  }
-);
 </script>
 
 <style lang="scss" scoped></style>
