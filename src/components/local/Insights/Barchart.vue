@@ -14,6 +14,7 @@
 
 <script setup>
 import { ref, watch } from "vue";
+
 const props = defineProps({
   chartTitle: {
     type: String,
@@ -21,15 +22,15 @@ const props = defineProps({
     default: "",
   },
   countryData: {
-    type: Object,
+    type: Array,
     required: false,
-    default: () => ({}),
+    default: () => [],
   },
 });
 
 const series = ref([
   {
-    name: "VisitsList",
+    name: "Visits",
     data: [],
   },
 ]);
@@ -39,6 +40,14 @@ const chartOptions = ref({
     type: "bar",
     height: 350,
     width: "100%",
+    events: {
+      dataPointSelection(event, chartContext, { dataPointIndex }) {
+        const originalData = props.countryData[dataPointIndex];
+        if (originalData && originalData.endpoint) {
+          window.open(originalData.endpoint, "_blank");
+        }
+      },
+    },
   },
   plotOptions: {
     bar: {

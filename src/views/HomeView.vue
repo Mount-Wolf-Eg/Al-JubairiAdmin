@@ -78,12 +78,12 @@
     <div class="row">
       <Barchart
         class="col-12 col-md-6"
-        :chartTitle="'Most Region Visited'"
+        :chartTitle="'Most Watched pages'"
         :countryData="allstatistics?.most_visited_api"
       ></Barchart>
       <pageChart
         class="col-12 col-md-6"
-        :chartTitle="'Most Watched'"
+        :chartTitle="'Most Region Visited'"
         :PagesData="allstatistics?.most_visited_region"
       ></pageChart>
     </div>

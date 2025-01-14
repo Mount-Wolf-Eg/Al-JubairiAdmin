@@ -24,7 +24,7 @@ export const attachmentsStore = defineStore("attachmentStore", {
     async sendAttachment(attach, typ, mode) {
       await axiosInstance
         .post(
-          `https://aljubairi.diaamagdi.com/api/general/attachments`,
+          `${mainStore().secondApi}/general/attachments`,
           {
             file: attach,
             attachment_type: typ ? typ : "image",

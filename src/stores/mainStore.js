@@ -3,10 +3,11 @@ import { useToast } from "vue-toastification";
 
 // testing
 const mainDomain = "https://aljubairi.diaamagdi.com/api/dashboard/admin";
+const secondDomain = "https://aljubairi.diaamagdi.com/api";
+
 // production
 // const mainDomain = "https://api.aljubairi.com/api/dashboard/admin";
-//
-const secondDomain = "https://aljubairi.diaamagdi.com/api";
+// const secondDomain = "https://api.aljubairi.com/api";
 
 export const mainStore = defineStore("mainStore", {
   state: () => ({

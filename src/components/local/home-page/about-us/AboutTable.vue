@@ -155,12 +155,13 @@ const emit = defineEmits(["editItem"]);
 const sec_name = ref("more_about");
 const page_name = ref("home");
 const filter = ref("");
-
+const pageLoading = ref(true);
 const filteredData = async (search) => {
   await useItemsStore().getItems(search, sec_name.value, page_name.value);
 };
 onMounted(async () => {
   await useItemsStore().getItems("", sec_name.value, page_name.value);
+  pageLoading.value = false;
 });
 
 const toggleStatus = async (id, e) => {
