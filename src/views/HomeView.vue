@@ -83,7 +83,7 @@
       ></Barchart>
       <pageChart
         class="col-12 col-md-6"
-        :chartTitle="'Most Region Visited'"
+        :chartTitle="'Most Country Visitors'"
         :PagesData="allstatistics?.most_visited_region"
       ></pageChart>
     </div>
