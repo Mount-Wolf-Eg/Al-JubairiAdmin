@@ -194,7 +194,6 @@ export const useAuthStore = defineStore("authStore", {
         try {
           const parseToken = JSON.parse(checkToken);
           token = parseToken.token || null;
-          console.log(token);
         } catch (e) {
           console.error("Failed to parse JSON from cookie:", e);
         }

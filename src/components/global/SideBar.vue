@@ -56,56 +56,72 @@
       </div>
       <div class="w-100" v-for="(box, i) in sliderItems" :key="box">
         <div
-          class="side-dv text-center text-md-start w-100 p-3"
-          style="background-color: #ccc; border-radius: 0.8rem"
+          v-if="
+            box?.items?.some((el) =>
+              allPermissions?.includes(
+                router.getRoutes().find((route) => route.name === el.rout)?.meta
+                  ?.permission
+              )
+            ) || allRoles?.includes('admin')
+          "
         >
-          {{ box.title }}
-        </div>
+          <div
+            class="side-dv text-center text-md-start w-100 p-3"
+            style="background-color: #ccc; border-radius: 0.8rem"
+          >
+            {{ box.title }}
+          </div>
 
-        <ul
-          class="w-100 nav nav-pills flex-column mb-auto mb-0 align-items-center align-items-sm-start"
-          id="menu"
-        >
-          <li
+          <ul
+            class="w-100 nav nav-pills flex-column mb-auto mb-0 align-items-center align-items-sm-start"
+            id="menu"
             v-for="(el, j) in box.items"
             :key="j"
-            class="nav-link align-middle px-0"
-            @click="router.push({ name: el.rout })"
-            style="border-radius: 0.9rem"
-            :style="{
-              borderRadius: '0.9rem',
-              backgroundColor:
-                route?.name === el.rout ? '#828485' : 'transparent',
-            }"
           >
-            <span
-              class="icon d-inline nav-item-btn d-flex align-item-center justify-content-center justify-content-sm-start gap-2"
+            <li
+              v-if="
+                allPermissions?.includes(
+                  router.getRoutes().find((route) => route.name === el.rout)
+                    ?.meta?.permission
+                ) || allRoles?.includes('admin')
+              "
+              class="nav-link align-middle px-0"
+              @click="router.push({ name: el.rout })"
+              style="border-radius: 0.9rem"
               :style="{
                 borderRadius: '0.9rem',
-                color: route?.name === el.rout ? '#fff' : '',
+                backgroundColor:
+                  route?.name === el.rout ? '#828485' : 'transparent',
               }"
             >
-              <div v-html="el.iconSm"></div>
-              {{ el.name }}
-            </span>
-            <span
-              class="res d-none nav-item-btn d-flex align-item-center justify-content-center"
-            >
-              <div v-html="el.iconLg"></div>
-            </span>
-          </li>
-        </ul>
+              <span
+                class="icon d-inline nav-item-btn d-flex align-item-center justify-content-center justify-content-sm-start gap-2"
+                :style="{
+                  borderRadius: '0.9rem',
+                  color: route?.name === el.rout ? '#fff' : '',
+                }"
+              >
+                <div v-html="el.iconSm"></div>
+                {{ el.name }}
+              </span>
+              <span
+                class="res d-none nav-item-btn d-flex align-item-center justify-content-center"
+              >
+                <div v-html="el.iconLg"></div>
+              </span>
+            </li>
+          </ul>
 
-        <div
-          style="
-            height: 1px;
-            background-color: #464a61;
-            width: 100%;
-            margin: 0.7rem 0;
-          "
-        ></div>
+          <div
+            style="
+              height: 1px;
+              background-color: #464a61;
+              width: 100%;
+              margin: 0.7rem 0;
+            "
+          ></div>
+        </div>
       </div>
-
       <div
         @click="useAuthStore().logOut()"
         class="nav-link px-0 align-middle w-100"
@@ -168,7 +184,15 @@ const route = useRoute();
 const fullEL = ref([]);
 const resEl = ref([]);
 const userInfo = ref();
-const roles = ref({});
+const allRoles = ref([]);
+const allPermissions = ref([
+  "freq_questions",
+  "slider",
+  "excellence",
+  "more_about",
+  "freq_questions",
+  "clients",
+]);
 const sliderItems = ref([
   {
     title: "Analytic",
@@ -796,7 +820,6 @@ const sliderItems = ref([
               />
             </svg>`,
       },
-
       {
         name: "About Us",
         rout: "AboutUs",
@@ -1183,7 +1206,6 @@ const sliderItems = ref([
               />
             </svg>`,
       },
-
       {
         name: "Certificates",
         rout: "CertificatesAbout",
@@ -1330,7 +1352,6 @@ const sliderItems = ref([
       },
     ],
   },
-
   {
     title: "Achievement Page",
     children: [],
@@ -1404,7 +1425,6 @@ const sliderItems = ref([
               />
             </svg>`,
       },
-
       {
         name: "Sectors ",
         rout: "Sectors",
@@ -1708,14 +1728,13 @@ const handleResponse = () => {
 const handleUserRoles = async () => {
   if (localStorage.getItem("userInfo") != null) {
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
-    roles.value = userInfo.value?.static_role.map((e) => e.type);
-
-    console.log(roles.value, "roleeeeeeeeeeeeeeeee");
+    allRoles.value = userInfo.value?.static_role?.map((el) => el.type);
+    allPermissions.value = userInfo.value?.permissions;
   } else {
     await useAuthStore().getUserData();
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
-    roles.value = userInfo.value?.static_role.map((e) => e.type);
-    console.log(roles.value, "roleeeeeeeeeeeeeeeee");
+    allRoles.value = userInfo.value?.static_role?.map((el) => el.type);
+    allPermissions.value = userInfo.value?.permissions;
   }
 };
 onMounted(async () => {
