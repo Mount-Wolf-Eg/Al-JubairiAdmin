@@ -46,6 +46,7 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+
     {
       path: "/excellence",
       name: "Excellence",
@@ -69,6 +70,27 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+
+    {
+      path: "/admins",
+      name: "Admins",
+      component: () => import("@/components/local/admin-Settings/Admins.vue"),
+      meta: {
+        title: "Admins",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/admin-data/:id",
+      name: "AdminInfo",
+      component: () =>
+        import("@/components/local/admin-Settings/AdminInfo.vue"),
+      meta: {
+        title: "Admin Data",
+        requiresAuth: true,
+      },
+    },
+
     {
       path: "/about-us",
       name: "AboutUs",
