@@ -55,58 +55,55 @@
         </svg>
       </div>
       <div class="w-100" v-for="(box, i) in sliderItems" :key="box">
-        <div v-if="box?.items.some((item) => roles.includes(item.role))">
-          <div
-            class="side-dv text-center text-md-start w-100 p-3"
-            style="background-color: #ccc; border-radius: 0.8rem"
-          >
-            {{ box.title }}
-          </div>
+        <div
+          class="side-dv text-center text-md-start w-100 p-3"
+          style="background-color: #ccc; border-radius: 0.8rem"
+        >
+          {{ box.title }}
+        </div>
 
-          <ul
-            class="w-100 nav nav-pills flex-column mb-auto mb-0 align-items-center align-items-sm-start"
-            id="menu"
+        <ul
+          class="w-100 nav nav-pills flex-column mb-auto mb-0 align-items-center align-items-sm-start"
+          id="menu"
+        >
+          <li
             v-for="(el, j) in box.items"
             :key="j"
+            class="nav-link align-middle px-0"
+            @click="router.push({ name: el.rout })"
+            style="border-radius: 0.9rem"
+            :style="{
+              borderRadius: '0.9rem',
+              backgroundColor:
+                route?.name === el.rout ? '#828485' : 'transparent',
+            }"
           >
-            <li
-              v-if="roles.includes(el.role)"
-              class="nav-link align-middle px-0"
-              @click="router.push({ name: el.rout })"
-              style="border-radius: 0.9rem"
+            <span
+              class="icon d-inline nav-item-btn d-flex align-item-center justify-content-center justify-content-sm-start gap-2"
               :style="{
                 borderRadius: '0.9rem',
-                backgroundColor:
-                  route?.name === el.rout ? '#828485' : 'transparent',
+                color: route?.name === el.rout ? '#fff' : '',
               }"
             >
-              <span
-                class="icon d-inline nav-item-btn d-flex align-item-center justify-content-center justify-content-sm-start gap-2"
-                :style="{
-                  borderRadius: '0.9rem',
-                  color: route?.name === el.rout ? '#fff' : '',
-                }"
-              >
-                <div v-html="el.iconSm"></div>
-                {{ el.name }}
-              </span>
-              <span
-                class="res d-none nav-item-btn d-flex align-item-center justify-content-center"
-              >
-                <div v-html="el.iconLg"></div>
-              </span>
-            </li>
-          </ul>
+              <div v-html="el.iconSm"></div>
+              {{ el.name }}
+            </span>
+            <span
+              class="res d-none nav-item-btn d-flex align-item-center justify-content-center"
+            >
+              <div v-html="el.iconLg"></div>
+            </span>
+          </li>
+        </ul>
 
-          <div
-            style="
-              height: 1px;
-              background-color: #464a61;
-              width: 100%;
-              margin: 0.7rem 0;
-            "
-          ></div>
-        </div>
+        <div
+          style="
+            height: 1px;
+            background-color: #464a61;
+            width: 100%;
+            margin: 0.7rem 0;
+          "
+        ></div>
       </div>
 
       <div
@@ -176,15 +173,9 @@ const sliderItems = ref([
   {
     title: "Analytic",
     childrens: [],
-    items: [],
-  },
-  {
-    title: "Analytic",
-    childrens: [],
     items: [
       {
         name: "Insights",
-        role: "admin",
         rout: "Home",
         iconSm: `<svg
               style="
@@ -344,7 +335,6 @@ const sliderItems = ref([
       },
       {
         name: "Pages",
-        role: "admins",
         rout: "Pages",
         iconSm: `<svg
               style="
@@ -504,7 +494,6 @@ const sliderItems = ref([
       },
       {
         name: "Sections",
-        role: "admins",
         rout: "Sections",
         iconSm: `<svg
               style="
@@ -670,7 +659,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Hero Slider",
-        role: "admin",
         rout: "HeroSlider",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -741,7 +729,6 @@ const sliderItems = ref([
 
       {
         name: "Excellence",
-        role: "admin",
         rout: "ExcellenceAbout",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -812,7 +799,6 @@ const sliderItems = ref([
 
       {
         name: "About Us",
-        role: "admin",
         rout: "AboutUs",
         iconSm: ` <svg
               style="width: 2rem; height: 2rem"
@@ -909,7 +895,6 @@ const sliderItems = ref([
 
       {
         name: "FAQ",
-        role: "admin",
         rout: "AskedQuestions",
         iconSm: ` <svg
               style="width: 2rem; height: 2rem"
@@ -973,7 +958,6 @@ const sliderItems = ref([
       },
       {
         name: "Clients",
-        role: "admin",
         rout: "Clients",
         iconSm: `     <svg
               style="width: 2rem; height: 2rem"
@@ -1057,7 +1041,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Our Services",
-        role: "admin",
         rout: "OurServicePage",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1133,7 +1116,6 @@ const sliderItems = ref([
     items: [
       {
         name: "About Us",
-        role: "admin",
         rout: "AboutUsAbout",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1204,7 +1186,6 @@ const sliderItems = ref([
 
       {
         name: "Certificates",
-        role: "admin",
         rout: "CertificatesAbout",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1280,7 +1261,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Our Team",
-        role: "admin",
         rout: "Teams",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1357,7 +1337,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Achievements",
-        role: "admin",
         rout: "AchievementSec",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1428,7 +1407,6 @@ const sliderItems = ref([
 
       {
         name: "Sectors ",
-        role: "admin",
         rout: "Sectors",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1504,7 +1482,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Blogs",
-        role: ["admin", "content_creator"],
         rout: "Blogs",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1580,7 +1557,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Mails",
-        role: "admin",
         rout: "Mails",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -1613,7 +1589,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Settings",
-        role: "admin",
         rout: "Settings",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -1646,7 +1621,6 @@ const sliderItems = ref([
     items: [
       {
         name: "Terms",
-        role: "admin",
         rout: "Terms",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -1673,7 +1647,6 @@ const sliderItems = ref([
       },
       {
         name: "Privacy",
-        role: "admin",
         rout: "Privacy",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -1747,8 +1720,8 @@ const handleUserRoles = async () => {
 };
 onMounted(async () => {
   handleUserRoles();
-  sideLoading.value = false;
 
+  sideLoading.value = false;
   fullEL.value = document.querySelectorAll(".icon");
   resEl.value = document.querySelectorAll(".res");
 
