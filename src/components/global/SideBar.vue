@@ -1,5 +1,5 @@
 <template>
-  <div class="side-bar">
+  <div class="side-bar" v-if="!sideLoading">
     <div
       class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-5 text-white min-vh-100 p-5"
       style="justify-content: flex-start !important"
@@ -55,55 +55,58 @@
         </svg>
       </div>
       <div class="w-100" v-for="(box, i) in sliderItems" :key="box">
-        <div
-          class="side-dv text-center text-md-start w-100 p-3"
-          style="background-color: #ccc; border-radius: 0.8rem"
-        >
-          {{ box.title }}
-        </div>
+        <div v-if="box?.items.some((item) => roles.includes(item.role))">
+          <div
+            class="side-dv text-center text-md-start w-100 p-3"
+            style="background-color: #ccc; border-radius: 0.8rem"
+          >
+            {{ box.title }}
+          </div>
 
-        <ul
-          class="w-100 nav nav-pills flex-column mb-auto mb-0 align-items-center align-items-sm-start"
-          id="menu"
-        >
-          <li
+          <ul
+            class="w-100 nav nav-pills flex-column mb-auto mb-0 align-items-center align-items-sm-start"
+            id="menu"
             v-for="(el, j) in box.items"
             :key="j"
-            class="nav-link align-middle px-0"
-            @click="router.push({ name: el.rout })"
-            style="border-radius: 0.9rem"
-            :style="{
-              borderRadius: '0.9rem',
-              backgroundColor:
-                route?.name === el.rout ? '#828485' : 'transparent',
-            }"
           >
-            <span
-              class="icon d-inline nav-item-btn d-flex align-item-center justify-content-center justify-content-sm-start gap-2"
+            <li
+              v-if="roles.includes(el.role)"
+              class="nav-link align-middle px-0"
+              @click="router.push({ name: el.rout })"
+              style="border-radius: 0.9rem"
               :style="{
                 borderRadius: '0.9rem',
-                color: route?.name === el.rout ? '#fff' : '',
+                backgroundColor:
+                  route?.name === el.rout ? '#828485' : 'transparent',
               }"
             >
-              <div v-html="el.iconSm"></div>
-              {{ el.name }}
-            </span>
-            <span
-              class="res d-none nav-item-btn d-flex align-item-center justify-content-center"
-            >
-              <div v-html="el.iconLg"></div>
-            </span>
-          </li>
-        </ul>
+              <span
+                class="icon d-inline nav-item-btn d-flex align-item-center justify-content-center justify-content-sm-start gap-2"
+                :style="{
+                  borderRadius: '0.9rem',
+                  color: route?.name === el.rout ? '#fff' : '',
+                }"
+              >
+                <div v-html="el.iconSm"></div>
+                {{ el.name }}
+              </span>
+              <span
+                class="res d-none nav-item-btn d-flex align-item-center justify-content-center"
+              >
+                <div v-html="el.iconLg"></div>
+              </span>
+            </li>
+          </ul>
 
-        <div
-          style="
-            height: 1px;
-            background-color: #464a61;
-            width: 100%;
-            margin: 0.7rem 0;
-          "
-        ></div>
+          <div
+            style="
+              height: 1px;
+              background-color: #464a61;
+              width: 100%;
+              margin: 0.7rem 0;
+            "
+          ></div>
+        </div>
       </div>
 
       <div
@@ -154,31 +157,34 @@
       </div>
     </div>
   </div>
+  <div v-else>loading</div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/auth/auth";
+import { storeToRefs } from "pinia";
+const sideLoading = ref(true);
 const router = useRouter();
 const route = useRoute();
 const fullEL = ref([]);
 const resEl = ref([]);
-/*       
-          "services",
-        "achievement_statistics",
-        "certificates",
-        "last_news",
-        "freq_questions",
-        "clients",
-*/
+const userInfo = ref();
+const roles = ref({});
 const sliderItems = ref([
+  {
+    title: "Analytic",
+    childrens: [],
+    items: [],
+  },
   {
     title: "Analytic",
     childrens: [],
     items: [
       {
         name: "Insights",
+        role: "admin",
         rout: "Home",
         iconSm: `<svg
               style="
@@ -338,6 +344,7 @@ const sliderItems = ref([
       },
       {
         name: "Pages",
+        role: "admins",
         rout: "Pages",
         iconSm: `<svg
               style="
@@ -497,6 +504,7 @@ const sliderItems = ref([
       },
       {
         name: "Sections",
+        role: "admins",
         rout: "Sections",
         iconSm: `<svg
               style="
@@ -662,6 +670,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Hero Slider",
+        role: "admin",
         rout: "HeroSlider",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -732,6 +741,7 @@ const sliderItems = ref([
 
       {
         name: "Excellence",
+        role: "admin",
         rout: "ExcellenceAbout",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -800,77 +810,9 @@ const sliderItems = ref([
             </svg>`,
       },
 
-      // {
-      //   name: "Excellence",
-      //   rout: "Excellence",
-      //   iconSm: `       <svg
-      //         style="width: 2rem; height: 2rem"
-      //         viewBox="0 0 18 12"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M16.5 1.86208V10.1379C16.5 10.5558 16.0839 10.8502 15.6873 10.7187C14.2536 10.2436 11.2174 9.33333 9 9.33333C6.78263 9.33333 3.74644 10.2436 2.31273 10.7187C1.91605 10.8502 1.5 10.5558 1.5 10.1379V1.86208C1.5 1.44418 1.91605 1.14983 2.31273 1.28129C3.74644 1.7564 6.78263 2.66667 9 2.66667C11.2174 2.66667 14.2536 1.7564 15.6873 1.28129C16.0839 1.14983 16.5 1.44418 16.5 1.86208Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M16.5 1.86208V10.1379C16.5 10.5558 16.0839 10.8502 15.6873 10.7187C14.2536 10.2436 11.2174 9.33333 9 9.33333C6.78263 9.33333 3.74644 10.2436 2.31273 10.7187C1.91605 10.8502 1.5 10.5558 1.5 10.1379V1.86208C1.5 1.44418 1.91605 1.14983 2.31273 1.28129C3.74644 1.7564 6.78263 2.66667 9 2.66667C11.2174 2.66667 14.2536 1.7564 15.6873 1.28129C16.0839 1.14983 16.5 1.44418 16.5 1.86208Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M16.5 1.86208V10.1379C16.5 10.5558 16.0839 10.8502 15.6873 10.7187C14.2536 10.2436 11.2174 9.33333 9 9.33333C6.78263 9.33333 3.74644 10.2436 2.31273 10.7187C1.91605 10.8502 1.5 10.5558 1.5 10.1379V1.86208C1.5 1.44418 1.91605 1.14983 2.31273 1.28129C3.74644 1.7564 6.78263 2.66667 9 2.66667C11.2174 2.66667 14.2536 1.7564 15.6873 1.28129C16.0839 1.14983 16.5 1.44418 16.5 1.86208Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      //   iconLg: `       <svg
-      //         style="
-      //           width: 3.6rem;
-      //           height: 3.6rem;
-      //           min-width: 9px;
-      //           min-height: 9px;
-      //         "
-      //         viewBox="0 0 18 12"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M16.5 1.86208V10.1379C16.5 10.5558 16.0839 10.8502 15.6873 10.7187C14.2536 10.2436 11.2174 9.33333 9 9.33333C6.78263 9.33333 3.74644 10.2436 2.31273 10.7187C1.91605 10.8502 1.5 10.5558 1.5 10.1379V1.86208C1.5 1.44418 1.91605 1.14983 2.31273 1.28129C3.74644 1.7564 6.78263 2.66667 9 2.66667C11.2174 2.66667 14.2536 1.7564 15.6873 1.28129C16.0839 1.14983 16.5 1.44418 16.5 1.86208Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M16.5 1.86208V10.1379C16.5 10.5558 16.0839 10.8502 15.6873 10.7187C14.2536 10.2436 11.2174 9.33333 9 9.33333C6.78263 9.33333 3.74644 10.2436 2.31273 10.7187C1.91605 10.8502 1.5 10.5558 1.5 10.1379V1.86208C1.5 1.44418 1.91605 1.14983 2.31273 1.28129C3.74644 1.7564 6.78263 2.66667 9 2.66667C11.2174 2.66667 14.2536 1.7564 15.6873 1.28129C16.0839 1.14983 16.5 1.44418 16.5 1.86208Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M16.5 1.86208V10.1379C16.5 10.5558 16.0839 10.8502 15.6873 10.7187C14.2536 10.2436 11.2174 9.33333 9 9.33333C6.78263 9.33333 3.74644 10.2436 2.31273 10.7187C1.91605 10.8502 1.5 10.5558 1.5 10.1379V1.86208C1.5 1.44418 1.91605 1.14983 2.31273 1.28129C3.74644 1.7564 6.78263 2.66667 9 2.66667C11.2174 2.66667 14.2536 1.7564 15.6873 1.28129C16.0839 1.14983 16.5 1.44418 16.5 1.86208Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      // },
       {
         name: "About Us",
+        role: "admin",
         rout: "AboutUs",
         iconSm: ` <svg
               style="width: 2rem; height: 2rem"
@@ -964,173 +906,10 @@ const sliderItems = ref([
               </defs>
             </svg>`,
       },
-      // {
-      //   name: "Services",
-      //   rout: "Services",
-      //   iconSm: `    <svg
-      //         style="width: 1.6rem; height: 1.7rem"
-      //         viewBox="0 0 16 17"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M13.466 3.1297C13.478 3.27949 13.407 3.44459 13.3599 3.61501C13.0274 4.81864 13.7089 5.94438 14.9279 6.20933C15.5245 6.33915 15.7953 6.60078 15.8935 7.19593C16.0335 8.04407 16.0434 8.89553 15.8756 9.74232C15.7588 10.3308 15.498 10.5845 14.9213 10.697C14.0089 10.8761 13.4382 11.4432 13.2378 12.3546C13.1555 12.7281 13.2278 13.0809 13.3406 13.4324C13.5284 14.0163 13.4328 14.3664 12.957 14.7519C12.3691 15.2285 11.7281 15.6187 11.0253 15.9023C10.4944 16.116 10.1261 16.0301 9.74523 15.6067C8.71731 14.4643 7.41334 14.4909 6.42458 15.6739C6.09809 16.0647 5.71054 16.1859 5.24005 16.0154C4.40126 15.7105 3.6368 15.2692 2.95263 14.694C2.56044 14.3644 2.48943 13.9717 2.69316 13.4005C3.10791 12.2375 2.55181 11.0445 1.42502 10.6903C1.26775 10.6411 1.10251 10.6158 0.93993 10.5845C0.471429 10.4939 0.188072 10.1997 0.109767 9.74499C-0.050824 8.80832 -0.0382156 7.86765 0.1675 6.93697C0.253768 6.54752 0.51589 6.30187 0.900777 6.19935C1.0607 6.15674 1.22727 6.1421 1.38653 6.09816C2.50868 5.78926 3.13379 4.6329 2.78938 3.51049C2.56442 2.7762 2.66197 2.47929 3.27182 2.0226C3.84251 1.59521 4.46165 1.25635 5.12525 1.00005C5.6621 0.793011 6.02244 0.877558 6.40865 1.29497C7.36025 2.32484 8.64166 2.32417 9.59393 1.29363C9.97218 0.884215 10.3332 0.795008 10.8468 0.988734C11.6504 1.2923 12.3804 1.72436 13.046 2.26825C13.3094 2.48328 13.4667 2.74824 13.4647 3.1297H13.466ZM7.98669 11.1217C9.39219 11.139 10.6106 9.93073 10.6305 8.49942C10.6504 7.08809 9.44196 5.86249 8.01788 5.84785C6.60508 5.83387 5.39202 7.03616 5.37344 8.4688C5.35552 9.87813 6.56327 11.1044 7.98669 11.1217Z"
-      //           fill="#464A61"
-      //         />
-      //       </svg>`,
-      //   iconLg: `       <svg
-      //         style="width: 3rem; height: 3rem"
-      //         viewBox="0 0 16 17"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M13.466 3.1297C13.478 3.27949 13.407 3.44459 13.3599 3.61501C13.0274 4.81864 13.7089 5.94438 14.9279 6.20933C15.5245 6.33915 15.7953 6.60078 15.8935 7.19593C16.0335 8.04407 16.0434 8.89553 15.8756 9.74232C15.7588 10.3308 15.498 10.5845 14.9213 10.697C14.0089 10.8761 13.4382 11.4432 13.2378 12.3546C13.1555 12.7281 13.2278 13.0809 13.3406 13.4324C13.5284 14.0163 13.4328 14.3664 12.957 14.7519C12.3691 15.2285 11.7281 15.6187 11.0253 15.9023C10.4944 16.116 10.1261 16.0301 9.74523 15.6067C8.71731 14.4643 7.41334 14.4909 6.42458 15.6739C6.09809 16.0647 5.71054 16.1859 5.24005 16.0154C4.40126 15.7105 3.6368 15.2692 2.95263 14.694C2.56044 14.3644 2.48943 13.9717 2.69316 13.4005C3.10791 12.2375 2.55181 11.0445 1.42502 10.6903C1.26775 10.6411 1.10251 10.6158 0.93993 10.5845C0.471429 10.4939 0.188072 10.1997 0.109767 9.74499C-0.050824 8.80832 -0.0382156 7.86765 0.1675 6.93697C0.253768 6.54752 0.51589 6.30187 0.900777 6.19935C1.0607 6.15674 1.22727 6.1421 1.38653 6.09816C2.50868 5.78926 3.13379 4.6329 2.78938 3.51049C2.56442 2.7762 2.66197 2.47929 3.27182 2.0226C3.84251 1.59521 4.46165 1.25635 5.12525 1.00005C5.6621 0.793011 6.02244 0.877558 6.40865 1.29497C7.36025 2.32484 8.64166 2.32417 9.59393 1.29363C9.97218 0.884215 10.3332 0.795008 10.8468 0.988734C11.6504 1.2923 12.3804 1.72436 13.046 2.26825C13.3094 2.48328 13.4667 2.74824 13.4647 3.1297H13.466ZM7.98669 11.1217C9.39219 11.139 10.6106 9.93073 10.6305 8.49942C10.6504 7.08809 9.44196 5.86249 8.01788 5.84785C6.60508 5.83387 5.39202 7.03616 5.37344 8.4688C5.35552 9.87813 6.56327 11.1044 7.98669 11.1217Z"
-      //           fill="#464A61"
-      //         />
-      //       </svg>`,
-      // },
 
-      // {
-      //   name: "Certificates",
-      //   rout: "Certificates",
-      //   iconSm: `  <svg
-      //         style="width: 2rem; height: 2rem"
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      //   iconLg: `   <svg
-      //         style="
-      //           width: 3.6rem;
-      //           height: 3.6rem;
-      //           min-width: 9px;
-      //           min-height: 9px;
-      //         "
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      // },
-      // {
-      //   name: "Last News",
-      //   rout: "LastNews",
-      //   iconSm: `  <svg
-      //         style="width: 2rem; height: 2rem"
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      //   iconLg: `  <svg
-      //         style="
-      //           width: 3.6rem;
-      //           height: 3.6rem;
-      //           min-width: 9px;
-      //           min-height: 9px;
-      //         "
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      // },
       {
         name: "FAQ",
+        role: "admin",
         rout: "AskedQuestions",
         iconSm: ` <svg
               style="width: 2rem; height: 2rem"
@@ -1194,6 +973,7 @@ const sliderItems = ref([
       },
       {
         name: "Clients",
+        role: "admin",
         rout: "Clients",
         iconSm: `     <svg
               style="width: 2rem; height: 2rem"
@@ -1277,6 +1057,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Our Services",
+        role: "admin",
         rout: "OurServicePage",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1352,6 +1133,7 @@ const sliderItems = ref([
     items: [
       {
         name: "About Us",
+        role: "admin",
         rout: "AboutUsAbout",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1419,146 +1201,10 @@ const sliderItems = ref([
               />
             </svg>`,
       },
-      // {
-      //   name: "Achievements",
-      //   rout: "AchievementsAbout",
-      //   iconSm: `<svg
-      //         style="width: 2rem; height: 2rem"
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      //   iconLg: ` <svg
-      //         style="
-      //           width: 3.6rem;
-      //           height: 3.6rem;
-      //           min-width: 9px;
-      //           min-height: 9px;
-      //         "
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      // },
-      // {
-      //   name: "Excellence",
-      //   rout: "ExcellenceAbout",
-      //   iconSm: `<svg
-      //         style="width: 2rem; height: 2rem"
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      //   iconLg: ` <svg
-      //         style="
-      //           width: 3.6rem;
-      //           height: 3.6rem;
-      //           min-width: 9px;
-      //           min-height: 9px;
-      //         "
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="#464A61"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //         <path
-      //           d="M6.66675 17.5H13.3334M10.0001 14.1667V17.5M3.33341 2.5H16.6667C17.5872 2.5 18.3334 3.24619 18.3334 4.16667V12.5C18.3334 13.4205 17.5872 14.1667 16.6667 14.1667H3.33341C2.41294 14.1667 1.66675 13.4205 1.66675 12.5V4.16667C1.66675 3.24619 2.41294 2.5 3.33341 2.5Z"
-      //           stroke="black"
-      //           stroke-opacity="0.2"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      // },
+
       {
         name: "Certificates",
+        role: "admin",
         rout: "CertificatesAbout",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1634,6 +1280,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Our Team",
+        role: "admin",
         rout: "Teams",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1710,6 +1357,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Achievements",
+        role: "admin",
         rout: "AchievementSec",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1777,45 +1425,10 @@ const sliderItems = ref([
               />
             </svg>`,
       },
-      // {
-      //   name: "Achievement Statistics",
-      //   rout: "Achievement",
-      //   iconSm: `    <svg
-      //         style="width: 2rem; height: 2rem"
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M15 8.33333H5M17.5 5H2.5M17.5 11.6667H2.5M15 15H5"
-      //           stroke="#1E1E1E"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      //   iconLg: `    <svg
-      //         style="
-      //           width: 3.6rem;
-      //           height: 3.6rem;
-      //           min-width: 9px;
-      //           min-height: 9px;
-      //         "
-      //         viewBox="0 0 20 20"
-      //         fill="none"
-      //         xmlns="http://www.w3.org/2000/svg"
-      //       >
-      //         <path
-      //           d="M15 8.33333H5M17.5 5H2.5M17.5 11.6667H2.5M15 15H5"
-      //           stroke="#1E1E1E"
-      //           stroke-width="1.5"
-      //           stroke-linecap="round"
-      //           stroke-linejoin="round"
-      //         />
-      //       </svg>`,
-      // },
+
       {
         name: "Sectors ",
+        role: "admin",
         rout: "Sectors",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1891,6 +1504,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Blogs",
+        role: ["admin", "content_creator"],
         rout: "Blogs",
         iconSm: `<svg
               style="width: 2rem; height: 2rem"
@@ -1966,6 +1580,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Mails",
+        role: "admin",
         rout: "Mails",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -1998,6 +1613,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Settings",
+        role: "admin",
         rout: "Settings",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -2030,6 +1646,7 @@ const sliderItems = ref([
     items: [
       {
         name: "Terms",
+        role: "admin",
         rout: "Terms",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -2056,6 +1673,7 @@ const sliderItems = ref([
       },
       {
         name: "Privacy",
+        role: "admin",
         rout: "Privacy",
         iconSm: `<svg
               style="width: 1.6rem; height: 1.7rem"
@@ -2114,9 +1732,26 @@ const handleResponse = () => {
   }
 };
 
-onMounted(() => {
+const handleUserRoles = async () => {
+  if (localStorage.getItem("userInfo") != null) {
+    userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
+    roles.value = userInfo.value?.static_role.map((e) => e.type);
+
+    console.log(roles.value, "roleeeeeeeeeeeeeeeee");
+  } else {
+    await useAuthStore().getUserData();
+    userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
+    roles.value = userInfo.value?.static_role.map((e) => e.type);
+    console.log(roles.value, "roleeeeeeeeeeeeeeeee");
+  }
+};
+onMounted(async () => {
+  handleUserRoles();
+  sideLoading.value = false;
+
   fullEL.value = document.querySelectorAll(".icon");
   resEl.value = document.querySelectorAll(".res");
+
   handleResponse();
   window.onresize = () => {
     handleResponse();

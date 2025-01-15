@@ -32,13 +32,9 @@ export const useAuthStore = defineStore("authStore", {
         } else {
           localStorage.removeItem("userInfo");
           state.removeData();
-          // state.getUserData();
+          state.getUserData();
         }
       }
-      // else {
-      //   state.removeData();
-      //   this.logOut();
-      // }
     },
   },
 
@@ -181,60 +177,59 @@ export const useAuthStore = defineStore("authStore", {
     //     });
     //   return result;
     // },
-    // async getUserData() {
-    //   let token = null;
-    //   let uId = null;
-    //   let checkToken = document.cookie
-    //     .split(";")
-    //     .map((coki) => coki.split("="))
-    //     .reduce(
-    //       (acc, [key, val]) => ({
-    //         ...acc,
-    //         [key.trim()]: decodeURIComponent(val),
-    //       }),
-    //       {}
-    //     )["Admin"];
+    async getUserData() {
+      let token = null;
+      let checkToken = document.cookie
+        .split(";")
+        .map((cooki) => cooki.split("="))
+        .reduce(
+          (acc, [key, val]) => ({
+            ...acc,
+            [key.trim()]: decodeURIComponent(val),
+          }),
+          {}
+        )["Admin"];
 
-    //   if (checkToken) {
-    //     try {
-    //       const parseToken = JSON.parse(checkToken);
-    //       token = parseToken.token || null;
-    //       uId = parseToken.logger || null;
-    //     } catch (e) {
-    //       console.error("Failed to parse JSON from cookie:", e);
-    //     }
-    //   }
+      if (checkToken) {
+        try {
+          const parseToken = JSON.parse(checkToken);
+          token = parseToken.token || null;
+          console.log(token);
+        } catch (e) {
+          console.error("Failed to parse JSON from cookie:", e);
+        }
+      }
 
-    //   await axiosInstance
-    //     .get(`${mainStore().mainApi}/me`, {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       this.authUser = res.data.data;
-    //       this.setUserStorage(this.authUser);
-    //       this.isLoggedin = true;
-    //       this.setStauts(true);
-    //     })
-    //     .catch((err) => {
-    //       let errorMessage = "Something went wrong, please try again";
+      await axiosInstance
+        .get(`${mainStore().mainApi}/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          this.authUser = res.data.data;
+          this.setUserStorage(this.authUser);
+          this.isLoggedin = true;
+          this.setStauts(true);
+        })
+        .catch((err) => {
+          let errorMessage = "Something went wrong, please try again";
 
-    //       if (err.response && err.response.data && err.response.data.message) {
-    //         const errorArray = Object.values(err.response.data.message);
-    //         if (errorArray.length > 0 && errorArray[0][0]) {
-    //           errorMessage = errorArray[0][0];
-    //         }
-    //       }
-    //       if (!checkToken) {
-    //         mainStore().showAlert(errorMessage, 2);
-    //       }
-    //       this.authUser = [];
-    //       this.isLoggedin = false;
-    //       this.setStauts(false);
-    //       this.logOut;
-    //     });
-    // },
+          if (err.response && err.response.data && err.response.data.message) {
+            const errorArray = Object.values(err.response.data.message);
+            if (errorArray.length > 0 && errorArray[0][0]) {
+              errorMessage = errorArray[0][0];
+            }
+          }
+          if (!checkToken) {
+            mainStore().showAlert(errorMessage, 2);
+          }
+          this.authUser = [];
+          this.isLoggedin = false;
+          this.setStauts(false);
+          this.logOut;
+        });
+    },
 
     async logOut() {
       let result;
