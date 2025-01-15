@@ -255,22 +255,22 @@ watch(
 );
 
 const validationRules = ref({
-  // img: {
-  //   required,
-  // },
-  // name: {
-  //   required,
-  //   minLength: minLength(3),
-  //   maxLength: maxLength(500),
-  // },
-  // email: {
-  //   required,
-  //   email,
-  // },
-  // pass: { required, minLength: minLength(8) },
-  // code: { required, minLength: minLength(3) },
-  // phone: { required },
-  // role_id: { required },
+  img: {
+    required,
+  },
+  name: {
+    required,
+    minLength: minLength(3),
+    maxLength: maxLength(500),
+  },
+  email: {
+    required,
+    email,
+  },
+  pass: { required, minLength: minLength(8) },
+  code: { required, minLength: minLength(3) },
+  phone: { required },
+  role_id: { required },
 });
 
 const checkErrName = (key) => {
