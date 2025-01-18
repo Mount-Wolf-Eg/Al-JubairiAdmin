@@ -32,6 +32,7 @@ const router = createRouter({
       meta: {
         title: "Main Slider",
         requiresAuth: true,
+        permission: "slider",
       },
     },
     {
@@ -170,7 +171,7 @@ const router = createRouter({
       component: () =>
         import("@/components/local/home-page/last-news/NewsInfo.vue"),
       meta: {
-        title: "Asked Questions",
+        title: "Last News",
         requiresAuth: true,
       },
     },
@@ -183,6 +184,7 @@ const router = createRouter({
       meta: {
         title: "Questions",
         requiresAuth: true,
+        permission: "freq_questions",
       },
     },
     {
@@ -554,8 +556,11 @@ router.afterEach((to, from) => {
   window.scrollTo(0, 0);
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   document.title = to.meta.title || "Al Jubairi Admin Panel";
+  let userInfo;
+  let userRole;
+  let allPermissions = [];
   // Retrieve the cookie
   let checkToken = document.cookie
     .split(";")
@@ -573,12 +578,23 @@ router.beforeEach((to, from, next) => {
       // Try parsing the token, if it fails, the user is not authenticated
       const parsedToken = JSON.parse(checkToken);
       isAuthenticated = parsedToken?.token ? true : false;
+      if (isAuthenticated) {
+        if (localStorage.getItem("userInfo") != null) {
+          userInfo = JSON.parse(localStorage.getItem("userInfo"));
+          allPermissions = userInfo.value?.permission;
+          userRole = userInfo.value?.user_type;
+        } else {
+          await useAuthStore().getUserData();
+          userInfo = JSON.parse(localStorage.getItem("userInfo"));
+          allPermissions = userInfo.value?.permission;
+          userRole = userInfo.value?.user_type;
+        }
+      }
     } catch (e) {
       console.error("Error parsing token:", e);
     }
   }
 
-  // Route guard logic
   if (to.meta.requiresAuth && !isAuthenticated) {
     next("/login");
   } else if (!to.meta.requiresAuth && isAuthenticated && to.path === "/login") {
@@ -587,4 +603,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
 export default router;

@@ -55,6 +55,7 @@
         </svg>
       </div>
       <div class="w-100" v-for="(box, i) in sliderItems" :key="box">
+        <!-- || userRole == 'super_admin' -->
         <div
           v-if="
             box?.items?.some((el) =>
@@ -62,7 +63,7 @@
                 router.getRoutes().find((route) => route.name === el.rout)?.meta
                   ?.permission
               )
-            ) || userRole == 'super_admin'
+            )
           "
         >
           <div
@@ -78,12 +79,13 @@
             v-for="(el, j) in box.items"
             :key="j"
           >
+            <!-- || userRole == 'super_admin' -->
             <li
               v-if="
                 allPermissions?.includes(
                   router.getRoutes().find((route) => route.name === el.rout)
                     ?.meta?.permission
-                ) || userRole == 'super_admin'
+                )
               "
               class="nav-link align-middle px-0"
               @click="router.push({ name: el.rout })"
@@ -190,7 +192,6 @@ const allPermissions = ref([
   "slider",
   "excellence",
   "more_about",
-  "freq_questions",
   "clients",
 ]);
 const sliderItems = ref([
@@ -1729,12 +1730,12 @@ const handleUserRoles = async () => {
   if (localStorage.getItem("userInfo") != null) {
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
     userRole.value = userInfo.value?.user_type;
-    allPermissions.value = userInfo.value?.permission;
+    // allPermissions.value = userInfo.value?.permission;
   } else {
-    await useAuthStore().getUserData();
+    // await useAuthStore().getUserData();
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
     userRole.value = userInfo.value?.user_type;
-    allPermissions.value = userInfo.value?.permission;
+    // allPermissions.value = userInfo.value?.permission;
   }
 };
 onMounted(async () => {
