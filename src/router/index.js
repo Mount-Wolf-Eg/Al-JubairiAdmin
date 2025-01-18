@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth/auth";
-import { mainStore } from "@/stores/mainStore";
 import { storeToRefs } from "pinia";
 
 const router = createRouter({
@@ -33,7 +32,6 @@ const router = createRouter({
       meta: {
         title: "Main Slider",
         requiresAuth: true,
-        permission: "slider",
       },
     },
     {
@@ -54,7 +52,6 @@ const router = createRouter({
       meta: {
         title: "Excellence",
         requiresAuth: true,
-        permission: "excellence",
       },
     },
     {
@@ -77,7 +74,6 @@ const router = createRouter({
       meta: {
         title: "About us",
         requiresAuth: true,
-        permission: "more_about",
       },
     },
     {
@@ -187,7 +183,6 @@ const router = createRouter({
       meta: {
         title: "Questions",
         requiresAuth: true,
-        permission: "freq_questions",
       },
     },
     {
@@ -209,7 +204,6 @@ const router = createRouter({
       meta: {
         title: "Clients",
         requiresAuth: true,
-        permission: "clients",
       },
     },
     {
@@ -562,24 +556,6 @@ router.afterEach((to, from) => {
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || "Al Jubairi Admin Panel";
-  next();
-});
-
-router.beforeEach(async (to, from, next) => {
-  let userInfo;
-  let allPermissions = [];
-
-  let allRoles = [];
-  if (localStorage.getItem("userInfo") != null) {
-    userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    // allPermissions = userInfo?.permissions;
-    allRoles = userInfo?.static_role?.map((el) => el.type);
-  } else {
-    await useAuthStore().getUserData();
-    userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    // allPermissions = userInfo?.permissions;
-    allRoles = userInfo?.static_role?.map((el) => el.type);
-  }
   // Retrieve the cookie
   let checkToken = document.cookie
     .split(";")
@@ -601,24 +577,14 @@ router.beforeEach(async (to, from, next) => {
       console.error("Error parsing token:", e);
     }
   }
+
   // Route guard logic
   if (to.meta.requiresAuth && !isAuthenticated) {
     next("/login");
   } else if (!to.meta.requiresAuth && isAuthenticated && to.path === "/login") {
     next("/");
   } else {
-    if (
-      (allPermissions.length &&
-        allPermissions.includes(to?.meta?.permission)) ||
-      (allRoles.length && allRoles.includes("admin"))
-    ) {
-      next();
-    } else {
-      mainStore().showAlert("Sorry, You Are Not Allowed To Show This Page", 3);
-      next(false);
-    }
-
-    // next();
+    next();
   }
 });
 export default router;

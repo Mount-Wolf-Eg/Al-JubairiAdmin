@@ -62,7 +62,7 @@
                 router.getRoutes().find((route) => route.name === el.rout)?.meta
                   ?.permission
               )
-            ) || allRoles?.includes('admin')
+            ) || userRole == 'super_admin'
           "
         >
           <div
@@ -83,7 +83,7 @@
                 allPermissions?.includes(
                   router.getRoutes().find((route) => route.name === el.rout)
                     ?.meta?.permission
-                ) || allRoles?.includes('admin')
+                ) || userRole == 'super_admin'
               "
               class="nav-link align-middle px-0"
               @click="router.push({ name: el.rout })"
@@ -184,7 +184,7 @@ const route = useRoute();
 const fullEL = ref([]);
 const resEl = ref([]);
 const userInfo = ref();
-const allRoles = ref([]);
+const userRole = ref("");
 const allPermissions = ref([
   "freq_questions",
   "slider",
@@ -1728,13 +1728,13 @@ const handleResponse = () => {
 const handleUserRoles = async () => {
   if (localStorage.getItem("userInfo") != null) {
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
-    allRoles.value = userInfo.value?.static_role?.map((el) => el.type);
-    allPermissions.value = userInfo.value?.permissions;
+    userRole.value = userInfo.value?.user_type;
+    allPermissions.value = userInfo.value?.permission;
   } else {
     await useAuthStore().getUserData();
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
-    allRoles.value = userInfo.value?.static_role?.map((el) => el.type);
-    allPermissions.value = userInfo.value?.permissions;
+    userRole.value = userInfo.value?.user_type;
+    allPermissions.value = userInfo.value?.permission;
   }
 };
 onMounted(async () => {
