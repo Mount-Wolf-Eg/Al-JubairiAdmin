@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth/auth";
+import { mainStore } from "@/stores/mainStore";
 import { storeToRefs } from "pinia";
 
 const router = createRouter({
@@ -21,6 +22,7 @@ const router = createRouter({
       meta: {
         title: "Insights",
         requiresAuth: true,
+        permission: "sdfkj",
       },
     },
 
@@ -510,6 +512,16 @@ const router = createRouter({
       },
     },
     {
+      path: "/complaintsuggestions",
+      name: "Suggestions",
+      component: () =>
+        import("@/components/local/Footer-items/ComplaintSuggestions.vue"),
+      meta: {
+        title: "Complaints and Suggestions",
+        requiresAuth: true,
+      },
+    },
+    {
       path: "/privacy-policy",
       name: "Privacy",
       component: () =>
@@ -536,6 +548,15 @@ const router = createRouter({
         import("@/components/local/pages-store/sections/sections.vue"),
       meta: {
         title: "Sections",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/unauthorized",
+      name: "Unauthorized",
+      component: () => import("@/components/local/unAuth.vue"),
+      meta: {
+        title: "Un Authorized",
         requiresAuth: true,
       },
     },
@@ -603,5 +624,122 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
+
+// router.beforeEach(async (to, from, next) => {
+//   document.title = to.meta.title || "Al Jubairi Admin Panel";
+
+//   const authStore = useAuthStore();
+//   let isAuthenticated = false;
+//   let userInfo = null;
+//   let allPermissions = [];
+//   let userRole = null;
+
+//   // Parse the "Admin" cookie
+//   const adminCookie = document.cookie
+//     .split("; ")
+//     .find((row) => row.startsWith("Admin="))
+//     ?.split("=")[1];
+
+//   if (adminCookie) {
+//     try {
+//       const parsedToken = JSON.parse(decodeURIComponent(adminCookie));
+//       isAuthenticated = !!parsedToken?.token;
+
+//       if (isAuthenticated) {
+//         if (localStorage.getItem("userInfo")) {
+//           userInfo = JSON.parse(localStorage.getItem("userInfo"));
+//         } else {
+//           await authStore.getUserData();
+//           userInfo = JSON.parse(localStorage.getItem("userInfo"));
+//         }
+
+//         if (userInfo?.value) {
+//           allPermissions = userInfo.value.permission || [];
+//           userRole = userInfo.value.user_type || null;
+//         }
+//       }
+//     } catch (error) {
+//       console.error("Error parsing token:", error);
+//     }
+//   }
+
+//   if (to.meta.requiresAuth && !isAuthenticated) {
+//     return next("/login");
+//   }
+
+//   if (isAuthenticated && to.path === "/login") {
+//     return next("/");
+//   }
+
+//   next();
+// });
+
+// router.beforeEach(async (to, from, next) => {
+//   document.title = to.meta.title || "Al Jubairi Admin Panel";
+
+//   const authStore = useAuthStore();
+//   let isAuthenticated = false;
+//   let userInfo = null;
+//   let allPermissions = [
+//     "freq_questions",
+//     "slider",
+//     "excellence",
+//     "more_about",
+//     "clients",
+//   ];
+//   let userRole = null;
+
+//   const adminCookie = document.cookie
+//     .split("; ")
+//     .find((row) => row.startsWith("Admin="))
+//     ?.split("=")[1];
+
+//   if (adminCookie) {
+//     try {
+//       const parsedToken = JSON.parse(decodeURIComponent(adminCookie));
+//       isAuthenticated = !!parsedToken?.token;
+
+//       if (isAuthenticated) {
+//         if (localStorage.getItem("userInfo")) {
+//           userInfo = JSON.parse(localStorage.getItem("userInfo"));
+//         } else {
+//           await authStore.getUserData();
+//           userInfo = JSON.parse(localStorage.getItem("userInfo"));
+//         }
+
+//         if (userInfo?.value) {
+//           // allPermissions = userInfo.value.permission || [];
+//           userRole = userInfo.value.user_type || null;
+//         }
+//       }
+//     } catch (error) {
+//       console.error("Error parsing token:", error);
+//     }
+//   }
+
+//   if (to.meta.requiresAuth && !isAuthenticated) {
+//     return next("/login");
+//   }
+
+//   if (isAuthenticated && to.path === "/login") {
+//     return next("/");
+//   }
+
+//   if (to.meta.permission) {
+//     const requiredPermission = to?.meta?.permission;
+
+//     // userRole !== "super admin" &&
+//     if (!allPermissions.includes(requiredPermission)) {
+//       mainStore().showAlert("You Are Not Authorized To Show This Page", 3);
+
+//       // setTimeout(() => {
+//       //   router.go(-1);
+//       // }, 3000);
+//       return next("/unauthorized");
+//     }
+//   }
+
+//   next();
+// });
 
 export default router;
