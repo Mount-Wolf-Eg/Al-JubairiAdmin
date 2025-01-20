@@ -55,7 +55,6 @@
         </svg>
       </div>
       <div class="w-100" v-for="(box, i) in sliderItems" :key="box">
-        <!-- || userRole == 'super_admin' -->
         <div
           v-if="
             box?.items?.some((el) =>
@@ -79,7 +78,6 @@
             v-for="(el, j) in box.items"
             :key="j"
           >
-            <!-- || userRole == 'super_admin' -->
             <li
               v-if="
                 allPermissions?.includes(
@@ -187,13 +185,7 @@ const fullEL = ref([]);
 const resEl = ref([]);
 const userInfo = ref();
 const userRole = ref("");
-const allPermissions = ref([
-  "freq_questions",
-  "slider",
-  "excellence",
-  "more_about",
-  "clients",
-]);
+const allPermissions = ref([]);
 const sliderItems = ref([
   {
     title: "Analytic",
@@ -1756,12 +1748,12 @@ const handleUserRoles = async () => {
   if (localStorage.getItem("userInfo") != null) {
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
     userRole.value = userInfo.value?.user_type;
-    // allPermissions.value = userInfo.value?.permission;
+    allPermissions.value = userInfo.value?.permission;
   } else {
     // await useAuthStore().getUserData();
     userInfo.value = JSON.parse(localStorage.getItem("userInfo"));
     userRole.value = userInfo.value?.user_type;
-    // allPermissions.value = userInfo.value?.permission;
+    allPermissions.value = userInfo.value?.permission;
   }
 };
 onMounted(async () => {
