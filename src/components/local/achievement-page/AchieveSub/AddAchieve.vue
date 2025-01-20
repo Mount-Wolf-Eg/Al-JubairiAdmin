@@ -452,6 +452,7 @@ const updatePack = async () => {
             })
             .then(async () => {
               await useItemsStore().getItems(
+                "",
                 sec_name.value,
                 page_name.value,
                 "",
@@ -480,6 +481,7 @@ const updatePack = async () => {
         })
         .then(async () => {
           await useItemsStore().getItems(
+            "",
             sec_name.value,
             page_name.value,
             "",
