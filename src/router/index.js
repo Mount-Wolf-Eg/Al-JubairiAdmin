@@ -267,9 +267,7 @@ const router = createRouter({
       path: "/about-excellence",
       name: "ExcellenceAbout",
       component: () =>
-        import(
-          "@/components/local//about-page/excellence-items/Excellence.vue"
-        ),
+        import("@/components/local/about-page/excellence-items/Excellence.vue"),
       meta: {
         title: "Excellence About",
         requiresAuth: true,
