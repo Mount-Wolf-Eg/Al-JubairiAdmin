@@ -70,7 +70,6 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
-
     {
       path: "/admins",
       name: "Admins",
@@ -80,6 +79,16 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
+    {
+      path: "/roles",
+      name: "Roles",
+      component: () => import("@/components/local/Roles-settings/Roles.vue"),
+      meta: {
+        title: "Admins",
+        requiresAuth: true,
+      },
+    },
+
     {
       path: "/admin-data/:id",
       name: "AdminInfo",
@@ -592,12 +601,12 @@ router.beforeEach(async (to, from, next) => {
   let allRoles = [];
   if (localStorage.getItem("userInfo") != null) {
     userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    // allPermissions = userInfo?.permissions;
+    allPermissions = userInfo?.permissions;
     allRoles = userInfo?.static_role?.map((el) => el.type);
   } else {
     await useAuthStore().getUserData();
     userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    // allPermissions = userInfo?.permissions;
+    allPermissions = userInfo?.permissions;
     allRoles = userInfo?.static_role?.map((el) => el.type);
   }
   // Retrieve the cookie

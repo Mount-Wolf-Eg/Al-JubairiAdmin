@@ -42,7 +42,6 @@ function initializeMap(lat, lng) {
       }
       emits("lat", lat);
       emits("lng", lng);
-      console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     });
   }
 }

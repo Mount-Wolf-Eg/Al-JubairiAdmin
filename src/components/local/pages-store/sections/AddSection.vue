@@ -280,7 +280,6 @@ watch(
     if (!props.itemData.id) {
       return;
     }
-    console.log(props.itemData);
 
     formData.value.name.ar = props.itemData.ar?.name;
     formData.value.title.tar = props.itemData.ar?.title;

@@ -133,7 +133,6 @@ const emit = defineEmits(["editItem"]);
 
 onMounted(async () => {
   await useAdminStore().getAllAdmins();
-  console.log(allAdmins.value);
   pageLoading.value = false;
 });
 

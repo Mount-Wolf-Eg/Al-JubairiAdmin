@@ -425,7 +425,6 @@ const updatePack = async () => {
   isLoading.value = true;
   const result = await validationObj.value.$validate();
   if (result) {
-    console.log(typeof formData.value.img);
     if (typeof formData.value.img == "object") {
       const res = await useItemsStore()
         .sendAttachment(formData.value.img)

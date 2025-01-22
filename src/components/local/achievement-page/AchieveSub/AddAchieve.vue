@@ -365,7 +365,6 @@ const resetFormData = () => {
 
 const addPack = async () => {
   isLoading.value = true;
-  console.log(route.query.id);
   const result = await validationObj.value.$validate();
   if (result) {
     if (!formData.value.img) {

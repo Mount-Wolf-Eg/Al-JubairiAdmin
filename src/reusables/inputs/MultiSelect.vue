@@ -2,9 +2,9 @@
   <div class="inpt-box">
     <Multiselect
       :searchable="true"
-      :placeholder="props.placeholder"
+      :placeholder="props.select.placeholder"
       v-model="formData"
-      :label="props.label"
+      :label="props.select.label"
       :valueProp="props.select.valueProp"
       :options="props.select.options"
       style="width: 50%"
@@ -23,15 +23,10 @@ import { ref, defineProps } from "vue";
 import Multiselect from "@vueform/multiselect";
 
 const props = defineProps({
-  placeholder: {
-    type: String,
-    required: false,
-    defalut: () => "",
-  },
   select: {
     type: Object,
-    required: false,
-    defalut: () => {},
+    required: true,
+    defalut: () => ({}),
   },
   appear: {
     type: String,
@@ -63,3 +58,12 @@ const formData = ref("");
   }
 }
 </style>
+<!-- mode => 'single'|'multiple'|'tags'.
+      groups =>true , false 
+      change: (val) => {
+    if (val) action;
+  },
+  clear: async () => {
+    await action();
+  },
+      -->
