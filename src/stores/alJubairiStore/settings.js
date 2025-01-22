@@ -61,6 +61,7 @@ export const useSettingStore = defineStore("settingStore", {
         })
         .then((res) => {
           this.settings = res.data.data;
+          mainStore().showAlert("Settings Updated successfully", 1);
         })
         .catch((err) => {
           console.log(err);
