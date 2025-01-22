@@ -11,7 +11,7 @@
           line-height: var(--line-h-20) !important;
         "
         class="inpt-label w-100"
-        >Select Role</label
+        >Select a Role To Edit</label
       >
       <MultiSelect class="w-100 mt-3" id="inpt-field" :select="categoryData" />
       <span class="row">
@@ -41,7 +41,7 @@
             @click.prevent="handleRoles"
             v-if="!isLoading"
           >
-            Add
+            {{ !selectedItem ? "Add" : "Edit" }}
           </button>
           <button type="submit" class="search-btn w-100" v-else disabled>
             <div class="spinner-grow me-3" role="status"></div>
@@ -68,7 +68,7 @@
           style="cursor: pointer; text-transform: capitalize"
           :for="`item_${item.id}`"
         >
-          {{ item?.type.replace(/_/g, " ") }}</label
+          {{ item?.type?.replace(/_/g, " ") }}</label
         >
       </div>
     </div>

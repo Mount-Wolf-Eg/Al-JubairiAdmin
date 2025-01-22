@@ -26,7 +26,7 @@
           aria-controls="profile"
           aria-selected="false"
         >
-          Create Role
+          Create / Add Role
         </button>
       </li>
     </ul>
@@ -61,7 +61,7 @@ import RolesTable from "./RolesTable.vue";
   margin-bottom: 3rem;
   .nav-item {
     .nav-link {
-      width: 15rem;
+      width: 25rem;
       font-size: 1.6rem;
       font-weight: bold;
       color: #686868 !important;

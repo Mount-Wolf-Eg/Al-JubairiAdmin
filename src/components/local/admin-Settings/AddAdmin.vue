@@ -242,9 +242,10 @@ watch(
     formData.value.code = props.itemData?.phone_code;
     formData.value.phone = props.itemData?.phone;
     formData.value.roleId = props.itemData?.role;
-    categoryData.value.value = props.itemData?.role;
+    categoryData.value.value = props.itemData?.role?.id;
+
     if (props.itemData?.role) {
-      categoryData.value.placeholder = props.itemData?.role;
+      categoryData.value.placeholder = props.itemData?.role?.name;
     } else {
       categoryData.value.placeholder = "Select Role";
     }
