@@ -58,12 +58,3 @@ const formData = ref("");
   }
 }
 </style>
-<!-- mode => 'single'|'multiple'|'tags'.
-      groups =>true , false 
-      change: (val) => {
-    if (val) action;
-  },
-  clear: async () => {
-    await action();
-  },
-      -->

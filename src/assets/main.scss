@@ -94,6 +94,23 @@ a:visited {
   color: var(--col-text) !important;
 }
 
+.grd {
+  display: grid;
+  gap: 0rem;
+}
+
+.grd-2-col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grd-3-col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grd-4-col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 button {
   background-color: transparent;
   border: none;

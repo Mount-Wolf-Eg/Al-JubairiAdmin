@@ -123,6 +123,26 @@
               >
             </span>
           </span>
+          <span class="row w-50">
+            <span class="col my-5">
+              <label
+                for="inpt-field"
+                style="
+                  background-color: transparent !important;
+                  color: var(--col-text) !important;
+                  font-size: var(--fs-16) !important;
+                  font-weight: var(--fw-bold) !important;
+                  line-height: var(--line-h-20) !important;
+                "
+                class="inpt-label w-100"
+                >Select Role</label
+              >
+              <MultiSelect
+                class="w-100 mt-3"
+                id="inpt-field"
+                :select="categoryData"
+            /></span>
+          </span>
 
           <!-- image  -->
           <span class="row w-100">
@@ -152,41 +172,6 @@
               >
             </span>
           </span>
-
-          <!-- <span class="row w-100">
-            <label
-              for="attachments"
-              style="
-                background-color: transparent !important;
-                color: var(--col-text) !important;
-                font-size: var(--fs-16) !important;
-                font-weight: var(--fw-bold) !important;
-                line-height: var(--line-h-20) !important;
-              "
-              class="inpt-label w-100 mt-5"
-              >attachments</label
-            >
-            <UploadeFile
-              :for="'attachments'"
-              :reset="resetImg"
-              @fileData="formData.imgs = $event"
-            ></UploadeFile>
-            <div
-              v-for="(img, i) in formData?.imgs"
-              :key="i"
-              style="width: fit-content"
-              class="d-flex flex-column align-item-center justify-content-start flex-wrap"
-            >
-              <img
-                v-if="formData.imgs"
-                class="mt-3"
-                :src="img"
-                alt=""
-                style="max-width: 10rem; border-radius: 7px"
-              />
-            </div>
-            <span v-for="(img, i) in formData?.imgs" :key="i"> </span>
-          </span> -->
         </div>
 
         <div class="modal-footer mx-auto gap-4" style="border: none">
@@ -207,14 +192,19 @@
 import InptField from "@/reusables/inputs/InptField.vue";
 import TextArea from "@/reusables/inputs/TextArea.vue";
 import UploadeFile from "@/reusables/inputs/UploadeFile.vue";
+import MultiSelect from "@/reusables/inputs/MultiSelect.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
 import { useAdminStore } from "@/stores/alJubairiStore/adminStore";
+import { useRolesStore } from "@/stores/alJubairiStore/rolesStore";
+import { storeToRefs } from "pinia";
+const { allRoles } = storeToRefs(useRolesStore());
+
 // validation
 import useVuelidator from "@vuelidate/core";
 import { required, minLength, maxLength, email } from "@vuelidate/validators";
 required.$message = "Field is required";
 
-import { ref, watch, defineProps } from "vue";
+import { ref, watch, defineProps, onMounted } from "vue";
 const emit = defineEmits(["resetItem"]);
 const isLoading = ref(false);
 const selector = ref("addAdmin");
@@ -237,7 +227,7 @@ const formData = ref({
 
   img: "",
   phone: "",
-  role_id: [],
+  roleId: "",
 });
 
 watch(
@@ -251,9 +241,45 @@ watch(
     formData.value.email = props.itemData?.email;
     formData.value.code = props.itemData?.phone_code;
     formData.value.phone = props.itemData?.phone;
+    formData.value.roleId = props.itemData?.role;
+    categoryData.value.value = props.itemData?.role;
+    if (props.itemData?.role) {
+      categoryData.value.placeholder = props.itemData?.role;
+    } else {
+      categoryData.value.placeholder = "Select Role";
+    }
   }
 );
+const categoryData = ref({
+  value: null,
+  label: "name",
+  placeholder: "Select Role",
+  key: "id",
+  options: [],
+  groups: true,
+  searchable: true,
+  mode: "single",
+  valueProp: "id",
+  labelProp: "name",
+  closeOnSelect: true,
+  disabled: false,
+  change: (val) => {
+    if (val) selectRole(val);
+  },
+  clear: async () => {
+    formData.value.roleName = "";
+  },
+});
 
+onMounted(async () => {
+  const rolesStore = useRolesStore();
+  await rolesStore.getAllRoles();
+  categoryData.value.options = allRoles.value;
+});
+const selectRole = (v) => {
+  if (!v) return;
+  formData.value.roleId = v;
+};
 const validationRules = ref({
   img: {
     required,
@@ -270,7 +296,6 @@ const validationRules = ref({
   pass: { required, minLength: minLength(8) },
   code: { required, minLength: minLength(3) },
   phone: { required },
-  role_id: { required },
 });
 
 const checkErrName = (key) => {
@@ -298,7 +323,7 @@ const resetFormData = () => {
     pass: "",
     code: "",
     phone: "",
-    role_id: [],
+    roleId: "",
   };
   validationObj.value.$reset();
   document.getElementById(selector.value).reset();
@@ -319,11 +344,11 @@ const addPack = async () => {
             password: formData.value.pass,
             phone_code: formData.value.code,
             phone: formData.value.phone,
-            "static_role_id[]": formData.value.role_id,
+            role_id: formData.value.roleId,
           })
           .then(async () => {
-            await useAdminStore().getAllAdmins();
-            closeModal();
+            let res = await useAdminStore().getAllAdmins();
+            if (res) closeModal;
           });
       })
       .finally(() => (isLoading.value = false));
@@ -348,7 +373,7 @@ const updatePack = async () => {
               password: formData.value.pass,
               phone_code: formData.value.code,
               phone: formData.value.phone,
-              "static_role_id[]": formData.value.role_id,
+              role_id: formData.value.roleId,
             })
             .then(async () => {
               await useAdminStore().getAllAdmins();
@@ -367,7 +392,7 @@ const updatePack = async () => {
           password: formData.value.pass,
           phone_code: formData.value.code,
           phone: formData.value.phone,
-          "static_role_id[]": formData.value.role_id,
+          role_id: formData.value.roleId,
         })
         .then(async () => {
           await useAdminStore().getAllAdmins();
