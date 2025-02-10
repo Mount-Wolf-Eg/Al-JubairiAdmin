@@ -465,7 +465,7 @@ const handleSetting = async () => {
               >
             </span>
           </span>
-          <span class="col-12">
+          <span class="col-12 mb-5">
             <span class="col">
               <label
                 for="attachments"
@@ -762,6 +762,7 @@ onMounted(async () => {
   formData.value.footerpreview = settings.value.find(
     (e) => e.key == "footer_logo"
   )?.value;
+
   formData.value.facebook = settings.value.find(
     (e) => e.key == "facebook"
   )?.value;
