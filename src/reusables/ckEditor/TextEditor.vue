@@ -23,7 +23,15 @@ export default {
         theme: "snow",
         modules: {
           toolbar: [
-            [{ header: "1" }, { header: "2" }, { font: [] }],
+            [
+              { header: "1" },
+              { header: "2" },
+              { header: "3" },
+              { header: "4" },
+              { header: "5" },
+              { header: "6" },
+              { font: [] },
+            ],
             [{ list: "ordered" }, { list: "bullet" }],
             ["bold", "italic", "underline"],
             ["link"],
