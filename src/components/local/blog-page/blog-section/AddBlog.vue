@@ -106,6 +106,45 @@
           </span>
           <span class="row w-50">
             <span class="col">
+              <InptField
+                v-model="formData.slug.sen"
+                :holder="'hyperlink'"
+                :label="'Hyper link'"
+                :appear="checkErrName(['sen']) ? 'err-border' : ''"
+              ></InptField>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'sen'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
+              <InptField
+                style="direction: rtl"
+                v-model="formData.slug.sar"
+                :holder="'الرابط'"
+                :label="'الرابط'"
+                :appear="checkErrName(['sar']) ? 'err-border' : ''"
+              ></InptField>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'sar'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
               <label for="" class="inpt-label">Description (En)</label>
 
               <span>
@@ -302,6 +341,10 @@ const formData = ref({
     dar: "",
     den: "",
   },
+  slug: {
+    sar: "",
+    sen: "",
+  },
   img: "",
   alt: {
     aar: "",
@@ -315,10 +358,12 @@ watch(
     if (!props.itemData.id) {
       return;
     }
+    formData.value.slug.sar = props.itemData.ar?.slug;
     formData.value.name.ar = props.itemData.ar?.name;
     formData.value.title.tar = props.itemData.ar?.title;
     formData.value.desc.dar = props.itemData.ar?.desc;
     formData.value.name.en = props.itemData.en?.name;
+    formData.value.slug.sen = props.itemData.en?.slug;
     formData.value.title.ten = props.itemData.en?.title;
     formData.value.desc.den = props.itemData.en?.desc;
     formData.value.alt.aar = props.itemData?.image?.ar?.alt;
@@ -332,6 +377,10 @@ const validationRules = ref({
   name: {
     en: { required, minLength: minLength(1), maxLength: maxLength(500) },
     ar: { required, minLength: minLength(1), maxLength: maxLength(500) },
+  },
+  slug: {
+    sen: { required, minLength: minLength(1), maxLength: maxLength(500) },
+    sar: { required, minLength: minLength(1), maxLength: maxLength(500) },
   },
   title: {
     tar: { required, minLength: minLength(1), maxLength: maxLength(500) },
@@ -379,6 +428,10 @@ const resetFormData = () => {
       dar: "",
       den: "",
     },
+    slug: {
+      sar: "",
+      sen: "",
+    },
     img: "",
     alt: {
       aar: "",
@@ -404,6 +457,8 @@ const addPack = async () => {
           "ar[title]": formData.value.title.tar,
           "en[desc]": formData.value.desc.den,
           "ar[desc]": formData.value.desc.dar,
+          "en[slug]": formData.value.slug.sen,
+          "ar[slug]": formData.value.slug.sar,
           "image[media]": formData.value.img,
           "image[ar][alt]": formData.value.alt.aar,
           "image[en][alt]": formData.value.alt.aen,
@@ -426,6 +481,8 @@ const addPack = async () => {
               "ar[title]": formData.value.title.tar,
               "en[desc]": formData.value.desc.den,
               "ar[desc]": formData.value.desc.dar,
+              "en[slug]": formData.value.slug.sen,
+              "ar[slug]": formData.value.slug.sar,
               "image[media]": res.data.data,
               "image[ar][alt]": formData.value.alt.aar,
               "image[en][alt]": formData.value.alt.aen,
@@ -463,6 +520,8 @@ const updatePack = async () => {
               "ar[title]": formData.value.title.tar,
               "en[desc]": formData.value.desc.den,
               "ar[desc]": formData.value.desc.dar,
+              "en[slug]": formData.value.slug.sen,
+              "ar[slug]": formData.value.slug.sar,
               "image[media]": res.data.data,
               "image[ar][alt]": formData.value.alt.aar,
               "image[en][alt]": formData.value.alt.aen,
@@ -490,6 +549,8 @@ const updatePack = async () => {
           "ar[title]": formData.value.title.tar,
           "en[desc]": formData.value.desc.den,
           "ar[desc]": formData.value.desc.dar,
+          "en[slug]": formData.value.slug.sen,
+          "ar[slug]": formData.value.slug.sar,
           "image[ar][alt]": formData.value.alt.aar,
           "image[en][alt]": formData.value.alt.aen,
           section_id: sec_id.value,
