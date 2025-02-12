@@ -140,7 +140,7 @@ export default {
         theme: "snow",
         modules: {
           toolbar: [
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ header: [2, 3, 4, 5, 6, false] }],
             [{ font: [] }],
             [{ size: ["small", false, "large", "huge"] }],
             ["bold", "italic", "underline", "strike"],
