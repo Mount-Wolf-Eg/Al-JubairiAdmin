@@ -20,12 +20,20 @@ export const useSettingStore = defineStore("settingStore", {
   actions: {
     async getSettings() {
       let loading = true;
+      let token = document.cookie
+        .split(";")
+        .map((coki) => coki.split("="))
+        .reduce(
+          (acc, [key, val]) => ({
+            ...acc,
+            [key.trim()]: decodeURIComponent(val),
+          }),
+          {}
+        )["Admin"];
       await axiosInstance
         .get(`${mainStore().mainApi}/settings`, {
           headers: {
-            Authorization: `Bearer ${
-              this.checkToken ? JSON.parse(this.checkToken)["token"] : ""
-            }`,
+            Authorization: `Bearer ${token ? JSON.parse(token)["token"] : ""}`,
           },
         })
         .then((res) => {

@@ -183,7 +183,23 @@
               </span></span
             >
           </span>
-
+          <span class="col-6">
+            <InptField
+              v-model="formData.linkedIn"
+              :holder="'linkedIn'"
+              :label="'linkedIn'"
+              :appear="checkErrName(['linkedIn']) ? 'err-border' : ''"
+            ></InptField>
+            <span
+              class="center-row justify-content-start"
+              style="margin-top: -1rem; margin-bottom: 1rem"
+              v-for="(err, i) in validationObj.$errors"
+              :key="i"
+              ><span v-if="err.$property == 'linkedIn'" class="err-msg">
+                {{ err.$message }}
+              </span></span
+            >
+          </span>
           <span class="col-6">
             <InptField
               v-model="formData.instagram"
@@ -345,7 +361,9 @@ onMounted(async () => {
   formData.value.facebook = settings.value.find(
     (e) => e.key == "facebook"
   )?.value;
-
+  formData.value.linkedIn = settings.value.find(
+    (e) => e.key == "linkedin"
+  )?.value;
   formData.value.instagram = settings.value.find(
     (e) => e.key == "instagram"
   )?.value;
@@ -373,6 +391,7 @@ const validationRules = ref({
   youtube: { url },
   tikTok: { url },
   x: { url },
+  linkedIn: { url },
 });
 
 // validation testing
@@ -395,6 +414,7 @@ const handleSetting = async () => {
       youtube: formData.value.youtube,
       tiktok: formData.value.tikTok,
       facebook: formData.value.facebook,
+      linkedin: formData.value.linkedIn,
       instagram: formData.value.instagram,
       whatsapp: formData.value.whatsApp,
       header_logo: formData.value.headerLogo,
