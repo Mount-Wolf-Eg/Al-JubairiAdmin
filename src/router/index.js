@@ -527,6 +527,28 @@ const router = createRouter({
       },
     },
     {
+      path: "/category-page",
+      name: "Category",
+      component: () =>
+        import("@/components/local/blog-page/blog-category/Catgory.vue"),
+      meta: {
+        title: "Category",
+        requiresAuth: true,
+        permission: "blogs",
+      },
+    },
+    {
+      path: "/Category-data/:id",
+      name: "CategoryInfo",
+      component: () =>
+        import("@/components/local/blog-page/blog-category/CatgoryInfo.vue"),
+      meta: {
+        title: "Category Data",
+        requiresAuth: true,
+        permission: "blogs",
+      },
+    },
+    {
       path: "/mails",
       name: "Mails",
       component: () => import("@/components/local/Mails/mails.vue"),

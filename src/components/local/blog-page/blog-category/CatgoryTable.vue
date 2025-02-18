@@ -4,19 +4,12 @@
       v-model="filter"
       @search="filteredData(filter)"
     ></FilterInputs>
-    <ReusTable
-      :header="[
-        '',
-        'Image',
-        'Title',
-        'Description',
-        'Created',
-        'Status',
-        'Action',
-      ]"
-    >
+    <ReusTable :header="['', 'Title', 'Created', 'Status', 'Action']">
       <template #table>
-        <tr v-for="item in allItems" :key="item.id">
+        <tr
+          v-for="item in allItems.filter((e) => e.parent == null)"
+          :key="item.id"
+        >
           <td>
             <div class="form-check form-switch">
               <input
@@ -32,7 +25,7 @@
           <td
             @click="
               router.push({
-                name: 'BlogsInfo',
+                name: 'CategoryInfo',
                 params: { id: item.id },
               })
             "
@@ -48,9 +41,6 @@
 
           <td>
             {{ item.title }}
-          </td>
-          <td>
-            <div class="html-content" v-html="item.desc?.slice(0, 500)"></div>
           </td>
 
           <td>
@@ -74,7 +64,7 @@
                 class="btn border-0"
                 @click="
                   router.push({
-                    name: 'BlogsInfo',
+                    name: 'CategoryInfo',
                     params: { id: item.id },
                   })
                 "
@@ -192,7 +182,7 @@ const onClickHandler = async (page) => {
     sec_name.value,
     page_name.value,
     page,
-    false,
+    true,
     1
   );
 };
@@ -205,18 +195,12 @@ const filteredData = async (search) => {
     sec_name.value,
     page_name.value,
     "",
-    false
+    true
   );
 };
 
 onMounted(async () => {
-  await useItemsStore().getItems(
-    "",
-    sec_name.value,
-    page_name.value,
-    "",
-    false
-  );
+  await useItemsStore().getItems("", sec_name.value, page_name.value, "", true);
   pageLoad.value = false;
 });
 
@@ -241,7 +225,7 @@ const toggleStatus = async (id, e) => {
     sec_name.value,
     page_name.value,
     "",
-    false,
+    true,
     1
   );
 };
@@ -253,7 +237,7 @@ const remove = async (id) => {
     sec_name.value,
     page_name.value,
     "",
-    false,
+    true,
     1
   );
 };

@@ -15,6 +15,7 @@ export const useItemsStore = defineStore("itemsStore", {
         {}
       )["Admin"],
     allItems: [],
+    allCateg: [],
     singleItem: [],
     pagination: [],
   }),
@@ -266,6 +267,48 @@ export const useItemsStore = defineStore("itemsStore", {
           result = false;
         });
       return result;
+    },
+    // get category
+    async getCategories(filter, secName, pageName, num, isParent, paginate) {
+      let loading = true;
+
+      await axiosInstance
+        .get(
+          `${mainStore().mainApi}/items?keyword=${filter ?? ""}&paginate=${
+            paginate == undefined ? 0 : paginate
+          }&filters[section.type]=${
+            secName ? secName : ""
+          }&filters[section.pages.type]=${pageName ? pageName : ""}&page=${
+            num ? num : ""
+          }&isParent=${isParent ?? true}`,
+          {
+            headers: {
+              Authorization: `Bearer ${
+                this.checkToken ? JSON.parse(this.checkToken)["token"] : ""
+              }`,
+            },
+          }
+        )
+        .then((res) => {
+          this.allCateg = res.data.data || [];
+        })
+        .catch((err) => {
+          console.log(err);
+          let errorMessage = "Something went wrong, please try again";
+          if (err.response && err.response.data && err.response.data.message) {
+            const errorArray = err.response.data.message;
+            if (errorArray) {
+              errorMessage = err.response.data.message;
+            }
+          } else {
+            errorMessage = err.message;
+          }
+          mainStore().showAlert(errorMessage, 2);
+        })
+        .finally(() => {
+          loading = false;
+          return loading;
+        });
     },
   },
 });

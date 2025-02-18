@@ -104,6 +104,36 @@
               >
             </span>
           </span>
+          <span class="row w-100">
+            <span class="col my-5">
+              <label
+                for="inpt-field"
+                style="
+                  background-color: transparent !important;
+                  color: var(--col-text) !important;
+                  font-size: var(--fs-16) !important;
+                  font-weight: var(--fw-bold) !important;
+                  line-height: var(--line-h-20) !important;
+                "
+                class="inpt-label w-100"
+                >Select Category</label
+              >
+              <MultiSelect
+                class="w-100 mt-3"
+                id="inpt-field"
+                :select="categoryData"
+              />
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'categId'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
           <span class="row w-50">
             <span class="col">
               <InptField
@@ -161,12 +191,7 @@
                   ></TextEditor>
                 </span>
               </span>
-              <!-- <TextArea
-                v-model="formData.desc.den"
-                :holder="'description'"
-                :label="'Description'"
-                :appear="checkErrName(['den']) ? 'err-border' : ''"
-              ></TextArea> -->
+
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -194,13 +219,7 @@
                   v-model="formData.desc.dar"
                 ></TextEditor>
               </span>
-              <!-- <TextArea
-                style="direction: rtl"
-                v-model="formData.desc.dar"
-                :holder="'الوصف'"
-                :label="'الوصف'"
-                :appear="checkErrName(['dar']) ? 'err-border' : ''"
-              ></TextArea> -->
+
               <span
                 class="center-row justify-content-start"
                 style="margin-top: -1rem; margin-bottom: 1rem"
@@ -298,16 +317,19 @@
 
 <script setup>
 import TextEditor from "@/reusables/ckEditor/TextEditor.vue";
+import MultiSelect from "@/reusables/inputs/MultiSelect.vue";
 import InptField from "@/reusables/inputs/InptField.vue";
 import TextArea from "@/reusables/inputs/TextArea.vue";
 import UploadeFile from "@/reusables/inputs/UploadeFile.vue";
 import { useItemsStore } from "@/stores/alJubairiStore/itemsStore";
+const { allCateg } = storeToRefs(useItemsStore());
+
 // validation
 import useVuelidator from "@vuelidate/core";
 import { required, minLength, maxLength } from "@vuelidate/validators";
 required.$message = "Field is required";
 
-import { ref, watch, defineProps } from "vue";
+import { ref, watch, defineProps, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
 const emit = defineEmits(["resetItem"]);
@@ -350,6 +372,7 @@ const formData = ref({
     aar: "",
     aen: "",
   },
+  categId: "",
 });
 
 watch(
@@ -369,6 +392,14 @@ watch(
     formData.value.alt.aar = props.itemData?.image?.ar?.alt;
     formData.value.alt.aen = props.itemData?.image?.en?.alt;
     formData.value.img = props.itemData?.image?.media;
+    categoryData.value.value = props.itemData?.parent?.id;
+
+    if (props.itemData?.id) {
+      categoryData.value.placeholder = props.itemData?.parent?.title;
+    } else {
+      categoryData.value.placeholder = "Select Category";
+    }
+
     pageLoads.value = false;
   }
 );
@@ -390,6 +421,7 @@ const validationRules = ref({
     dar: { required, minLength: minLength(1) },
     den: { required, minLength: minLength(1) },
   },
+  categId: { required },
   img: {},
   alt: {
     aar: { minLength: minLength(1), maxLength: maxLength(500) },
@@ -437,6 +469,7 @@ const resetFormData = () => {
       aar: "",
       aen: "",
     },
+    categId: "",
   };
 
   validationObj.value.$reset();
@@ -462,6 +495,7 @@ const addPack = async () => {
           "image[media]": formData.value.img,
           "image[ar][alt]": formData.value.alt.aar,
           "image[en][alt]": formData.value.alt.aen,
+          parent_id: formData.value.categId,
           section_id: sec_id.value,
         })
         .then(async () => {
@@ -486,6 +520,7 @@ const addPack = async () => {
               "image[media]": res.data.data,
               "image[ar][alt]": formData.value.alt.aar,
               "image[en][alt]": formData.value.alt.aen,
+              parent_id: formData.value.categId,
               section_id: sec_id.value,
             })
             .then(async () => {
@@ -525,6 +560,7 @@ const updatePack = async () => {
               "image[media]": res.data.data,
               "image[ar][alt]": formData.value.alt.aar,
               "image[en][alt]": formData.value.alt.aen,
+              parent_id: formData.value.categId,
               section_id: sec_id.value,
             })
             .then(async () => {
@@ -553,6 +589,7 @@ const updatePack = async () => {
           "ar[slug]": formData.value.slug.sar,
           "image[ar][alt]": formData.value.alt.aar,
           "image[en][alt]": formData.value.alt.aen,
+          parent_id: formData.value.categId,
           section_id: sec_id.value,
         })
         .then(async () => {
@@ -566,7 +603,41 @@ const updatePack = async () => {
   }
   isLoading.value = false;
 };
-
+const categoryData = ref({
+  value: null,
+  label: "name",
+  placeholder: "Select Category",
+  key: "id",
+  options: [],
+  groups: true,
+  searchable: true,
+  mode: "single",
+  valueProp: "id",
+  labelProp: "name",
+  closeOnSelect: true,
+  disabled: false,
+  change: (val) => {
+    if (val) selectRole(val);
+  },
+  clear: async () => {
+    formData.value.categId = "";
+  },
+});
+const selectRole = (v) => {
+  if (!v) return;
+  formData.value.categId = v;
+};
+onMounted(async () => {
+  await useItemsStore().getCategories(
+    "",
+    sec_name.value,
+    page_name.value,
+    "",
+    true
+  );
+  categoryData.value.options = allCateg.value;
+  console.log(allCateg.value);
+});
 const handleAction = () => {
   if (props.itemData.id) {
     updatePack();
