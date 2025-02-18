@@ -396,6 +396,7 @@ watch(
 
     if (props.itemData?.id) {
       categoryData.value.placeholder = props.itemData?.parent?.title;
+      formData.value.categId = props.itemData?.parent?.id;
     } else {
       categoryData.value.placeholder = "Select Category";
     }
@@ -617,13 +618,13 @@ const categoryData = ref({
   closeOnSelect: true,
   disabled: false,
   change: (val) => {
-    if (val) selectRole(val);
+    if (val) selectCateg(val);
   },
   clear: async () => {
     formData.value.categId = "";
   },
 });
-const selectRole = (v) => {
+const selectCateg = (v) => {
   if (!v) return;
   formData.value.categId = v;
 };
