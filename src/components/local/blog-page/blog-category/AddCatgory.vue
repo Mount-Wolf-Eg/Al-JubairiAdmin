@@ -195,7 +195,6 @@ const updatePack = async () => {
     const res = await useItemsStore()
       .editItem(props.itemData.id, {
         _method: "PUT",
-        parent_id: "286",
         "en[title]": formData.value.title.ten,
         "ar[title]": formData.value.title.tar,
 

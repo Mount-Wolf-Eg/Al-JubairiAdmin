@@ -22,22 +22,6 @@
               />
             </div>
           </td>
-          <td
-            @click="
-              router.push({
-                name: 'CategoryInfo',
-                params: { id: item.id },
-              })
-            "
-          >
-            <img
-              class="mx-2"
-              style="background-color: #ccc; padding: 0.5rem; height: 5rem"
-              v-if="item.image"
-              :src="item.image.media"
-              :alt="item.image.alt"
-            />
-          </td>
 
           <td>
             {{ item.title }}
