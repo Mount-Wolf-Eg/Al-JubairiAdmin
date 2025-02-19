@@ -637,7 +637,6 @@ onMounted(async () => {
     true
   );
   categoryData.value.options = allCateg.value;
-  console.log(allCateg.value);
 });
 const handleAction = () => {
   if (props.itemData.id) {
