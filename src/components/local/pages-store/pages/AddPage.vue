@@ -143,6 +143,45 @@
               >
             </span>
           </span>
+          <span class="row w-50">
+            <span class="col">
+              <InptField
+                v-model="formData.slug.sen"
+                :holder="'hyperlink'"
+                :label="'Hyper link'"
+                :appear="checkErrName(['sen']) ? 'err-border' : ''"
+              ></InptField>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'sen'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
+          <span class="row w-50">
+            <span class="col">
+              <InptField
+                style="direction: rtl"
+                v-model="formData.slug.sar"
+                :holder="'الرابط'"
+                :label="'الرابط'"
+                :appear="checkErrName(['sar']) ? 'err-border' : ''"
+              ></InptField>
+              <span
+                class="center-row justify-content-start"
+                style="margin-top: -1rem; margin-bottom: 1rem"
+                v-for="(err, i) in validationObj.$errors"
+                :key="i"
+                ><span v-if="err.$property == 'sar'" class="err-msg">
+                  {{ err.$message }}
+                </span></span
+              >
+            </span>
+          </span>
         </div>
 
         <div class="modal-footer mx-auto gap-4" style="border: none">
@@ -199,6 +238,10 @@ const formData = ref({
     dar: "",
     den: "",
   },
+  slug: {
+    sar: "",
+    sen: "",
+  },
 });
 
 watch(
@@ -214,6 +257,8 @@ watch(
     formData.value.name.en = props.itemData.en?.name;
     formData.value.title.ten = props.itemData.en?.title;
     formData.value.desc.den = props.itemData.en?.desc;
+    formData.value.slug.sar = props.itemData.ar?.slug;
+    formData.value.slug.sen = props.itemData.en?.slug;
   }
 );
 
@@ -221,6 +266,10 @@ const validationRules = ref({
   name: {
     en: { required, minLength: minLength(1) },
     ar: { required, minLength: minLength(1) },
+  },
+  slug: {
+    sen: { required, minLength: minLength(1), maxLength: maxLength(500) },
+    sar: { required, minLength: minLength(1), maxLength: maxLength(500) },
   },
   title: {
     tar: { required, minLength: minLength(1) },
@@ -260,42 +309,14 @@ const resetFormData = () => {
       dar: "",
       den: "",
     },
+    slug: {
+      sar: "",
+      sen: "",
+    },
   };
   validationObj.value.$reset();
   document.getElementById(selector.value).reset();
 };
-
-// const addPack = async () => {
-//   isLoading.value = true;
-//   const result = await validationObj.value.$validate();
-//   if (result) {
-//     const res = await useItemsStore()
-//       .sendAttachment(formData.value.img)
-//       .then(async (res) => {
-//         await useItemsStore()
-//           .addItem({
-//             "en[name]": formData.value.name.en,
-//             "ar[name]": formData.value.name.ar,
-//             "en[title]": formData.value.title.ten,
-//             "ar[title]": formData.value.title.tar,
-//             "en[desc]": formData.value.desc.den,
-//             "ar[desc]": formData.value.desc.dar,
-//             "image[media]": res.data.data,
-//             "image[ar][alt]": formData.value.alt.aar,
-//             "image[en][alt]": formData.value.alt.aen,
-//             section_id: 1,
-//           })
-//           .then(async () => {
-//             await useItemsStore().getItems("slider", "home");
-//             closeModal();
-//           })
-//           .finally(() => {
-//             isLoading.value = false;
-//           });
-//       });
-//   }
-//   isLoading.value = false;
-// };
 
 const updatePack = async () => {
   isLoading.value = true;
@@ -310,6 +331,8 @@ const updatePack = async () => {
         "ar[title]": formData.value.title.tar,
         "en[desc]": formData.value.desc.den,
         "ar[desc]": formData.value.desc.dar,
+        "en[slug]": formData.value.slug.sen,
+        "ar[slug]": formData.value.slug.sar,
         type: props.itemData.type,
       })
       .then(async () => {
